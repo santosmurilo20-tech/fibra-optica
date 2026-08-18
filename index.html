@@ -1161,9 +1161,11 @@
 
         <p>
 
-            Conecte os pontos na sequência correta.
-            Cada conexão cria um novo trecho de fibra
-            e envia um pulso luminoso pelo caminho.
+            Escolha livremente dois pontos do mapa.
+            A primeira cidade será a origem e a segunda
+            será o destino. Não existe sequência obrigatória.
+            Cada conexão cria um trecho de fibra e envia
+            um pulso luminoso pelo caminho.
 
         </p>
 
@@ -1245,9 +1247,14 @@
             ></div>
 
 
+            <!-- =================================================
+                 PONTO 01 — CURITIBA
+            ================================================== -->
+
             <button
                 class="network-node node-sp"
                 data-node="1"
+                type="button"
             >
 
                 <span class="node-pulse"></span>
@@ -1257,15 +1264,20 @@
                 </span>
 
                 <span class="node-name">
-                    SÃO PAULO
+                    CURITIBA
                 </span>
 
             </button>
 
 
+            <!-- =================================================
+                 PONTO 02 — NOVA YORK
+            ================================================== -->
+
             <button
                 class="network-node node-rj"
                 data-node="2"
+                type="button"
             >
 
                 <span class="node-pulse"></span>
@@ -1275,15 +1287,20 @@
                 </span>
 
                 <span class="node-name">
-                    RIO DE JANEIRO
+                    NOVA YORK
                 </span>
 
             </button>
 
 
+            <!-- =================================================
+                 PONTO 03 — PARIS
+            ================================================== -->
+
             <button
                 class="network-node node-bh"
                 data-node="3"
+                type="button"
             >
 
                 <span class="node-pulse"></span>
@@ -1293,15 +1310,20 @@
                 </span>
 
                 <span class="node-name">
-                    BELO HORIZONTE
+                    PARIS
                 </span>
 
             </button>
 
 
+            <!-- =================================================
+                 PONTO 04 — TÓQUIO
+            ================================================== -->
+
             <button
                 class="network-node node-brasilia"
                 data-node="4"
+                type="button"
             >
 
                 <span class="node-pulse"></span>
@@ -1311,15 +1333,20 @@
                 </span>
 
                 <span class="node-name">
-                    BRASÍLIA
+                    TÓQUIO
                 </span>
 
             </button>
 
 
+            <!-- =================================================
+                 PONTO 05 — MOSCOU
+            ================================================== -->
+
             <button
                 class="network-node node-salvador"
                 data-node="5"
+                type="button"
             >
 
                 <span class="node-pulse"></span>
@@ -1329,15 +1356,20 @@
                 </span>
 
                 <span class="node-name">
-                    SALVADOR
+                    MOSCOU
                 </span>
 
             </button>
 
 
+            <!-- =================================================
+                 PONTO 06 — LONDRES
+            ================================================== -->
+
             <button
                 class="network-node node-recife"
                 data-node="6"
+                type="button"
             >
 
                 <span class="node-pulse"></span>
@@ -1347,7 +1379,7 @@
                 </span>
 
                 <span class="node-name">
-                    RECIFE
+                    LONDRES
                 </span>
 
             </button>
@@ -1358,7 +1390,7 @@
                 id="networkMessage"
             >
 
-                CLIQUE NO PONTO 01 PARA INICIAR
+                ESCOLHA O PRIMEIRO PONTO PARA INICIAR
 
             </div>
 
@@ -1456,11 +1488,11 @@
             <div>
 
                 <span class="network-step-label">
-                    PRÓXIMA CONEXÃO
+                    MODO DE CONEXÃO
                 </span>
 
                 <strong id="nextConnection">
-                    01 → 02
+                    LIVRE
                 </strong>
 
             </div>
@@ -1469,6 +1501,7 @@
             <button
                 class="network-reset"
                 id="resetNetwork"
+                type="button"
             >
 
                 RESETAR REDE
@@ -1508,7 +1541,12 @@
             <strong>200.000 km/s</strong> para representar
             uma velocidade típica de propagação em fibra.
 
+            O tempo calculado representa o tempo teórico
+            necessário para um pulso luminoso percorrer
+            a distância direta entre os dois pontos.
+
         </p>
+
 
     </div>
 
@@ -1589,6 +1627,7 @@
         <button
             class="button button-primary quiz-next"
             id="quizNext"
+            type="button"
         >
 
             PRÓXIMA
@@ -1808,6 +1847,7 @@
 
     <div class="footer-info">
 
+
         <div>
 
             <span>
@@ -1846,6 +1886,7 @@
 
         </div>
 
+
     </div>
 
 
@@ -1866,6 +1907,7 @@
 
 
 <script src="script.js"></script>
+
 
 </body>
 
