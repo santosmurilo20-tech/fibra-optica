@@ -1,1911 +1,1910 @@
 /* =========================================================
-   O FUTURO DA COMUNICAÇÃO
-   C.E. Padre Claudio Morelli
-   Script principal
-   ========================================================= */
+   CURSOR FUTURISTA
+========================================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
-
-    /* =====================================================
-       CONFIGURAÇÕES
-       ===================================================== */
-
-    const CONFIG = {
-        velocidadeLuzVacio: 299792458, // m/s
-        indiceRefracaoFibra: 1.468,
-        velocidadeFibra: 299792458 / 1.468
-    };
-
-
-    /* =====================================================
-       MENU / NAVEGAÇÃO
-       ===================================================== */
-
-    const menuLinks = document.querySelectorAll(
-        'a[href^="#"]'
+const cursor =
+    document.getElementById(
+        "cursor"
     );
 
-    menuLinks.forEach(link => {
-
-        link.addEventListener("click", event => {
-
-            const destino = link.getAttribute("href");
-
-            if (!destino || destino === "#") return;
-
-            const elemento = document.querySelector(destino);
-
-            if (!elemento) return;
-
-            event.preventDefault();
-
-            elemento.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
-        });
-
-    });
+const cursorRing =
+    document.getElementById(
+        "cursorRing"
+    );
 
 
-    /* =====================================================
-       HEADER AO ROLAR
-       ===================================================== */
+let mouseX = 0;
+let mouseY = 0;
 
-    const header = document.querySelector("header");
-
-    window.addEventListener("scroll", () => {
-
-        if (!header) return;
-
-        if (window.scrollY > 50) {
-            header.classList.add("scrolled");
-        } else {
-            header.classList.remove("scrolled");
-        }
-
-    });
+let ringX = 0;
+let ringY = 0;
 
 
-    /* =====================================================
-       EFEITO DE CURSOR
-       ===================================================== */
+document.addEventListener(
+    "mousemove",
+    event => {
 
-    const cursor = document.querySelector(".cursor");
+        mouseX =
+            event.clientX;
 
-    if (cursor) {
+        mouseY =
+            event.clientY;
 
-        document.addEventListener("mousemove", event => {
 
-            cursor.style.left = `${event.clientX}px`;
-            cursor.style.top = `${event.clientY}px`;
+        cursor.style.left =
+            `${mouseX}px`;
 
-        });
+        cursor.style.top =
+            `${mouseY}px`;
 
-        const elementosInterativos = document.querySelectorAll(
-            "a, button, .card, .flashcard, .quiz-option, .interactive, input"
+    }
+);
+
+
+function animateCursor() {
+
+    ringX +=
+        (
+            mouseX -
+            ringX
+        ) * .15;
+
+    ringY +=
+        (
+            mouseY -
+            ringY
+        ) * .15;
+
+
+    cursorRing.style.left =
+        `${ringX}px`;
+
+    cursorRing.style.top =
+        `${ringY}px`;
+
+
+    requestAnimationFrame(
+        animateCursor
+    );
+
+}
+
+
+animateCursor();
+
+
+/* =========================================================
+   HOVER DO CURSOR
+========================================================= */
+
+const hoverElements =
+    document.querySelectorAll(
+        "a, button, .concept-card, .subtheme, .flashcard, .gallery-item"
+    );
+
+
+hoverElements.forEach(
+    element => {
+
+        element.addEventListener(
+            "mouseenter",
+            () => {
+
+                document.body.classList.add(
+                    "cursor-hover"
+                );
+
+            }
         );
 
-        elementosInterativos.forEach(elemento => {
 
-            elemento.addEventListener("mouseenter", () => {
-                cursor.classList.add("active");
-            });
+        element.addEventListener(
+            "mouseleave",
+            () => {
 
-            elemento.addEventListener("mouseleave", () => {
-                cursor.classList.remove("active");
-            });
+                document.body.classList.remove(
+                    "cursor-hover"
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   MENU MOBILE
+========================================================= */
+
+const menuButton =
+    document.getElementById(
+        "menuButton"
+    );
+
+const mobileMenu =
+    document.getElementById(
+        "mobileMenu"
+    );
+
+
+menuButton.addEventListener(
+    "click",
+    () => {
+
+        mobileMenu.classList.toggle(
+            "active"
+        );
+
+    }
+);
+
+
+mobileMenu
+    .querySelectorAll("a")
+    .forEach(
+        link => {
+
+            link.addEventListener(
+                "click",
+                () => {
+
+                    mobileMenu.classList.remove(
+                        "active"
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   PARTÍCULAS
+========================================================= */
+
+const canvas =
+    document.getElementById(
+        "particles"
+    );
+
+const ctx =
+    canvas.getContext(
+        "2d"
+    );
+
+
+let particles = [];
+
+
+function resizeCanvas() {
+
+    canvas.width =
+        window.innerWidth;
+
+    canvas.height =
+        window.innerHeight;
+
+}
+
+
+resizeCanvas();
+
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+function createParticles() {
+
+    particles = [];
+
+
+    const amount =
+        Math.min(
+            120,
+            Math.floor(
+                window.innerWidth / 10
+            )
+        );
+
+
+    for (
+        let i = 0;
+        i < amount;
+        i++
+    ) {
+
+        particles.push({
+
+            x:
+                Math.random() *
+                canvas.width,
+
+            y:
+                Math.random() *
+                canvas.height,
+
+            size:
+                Math.random() *
+                1.5 +
+                .3,
+
+            speed:
+                Math.random() *
+                .25 +
+                .05,
+
+            alpha:
+                Math.random() *
+                .5 +
+                .1
 
         });
 
     }
 
+}
 
-    /* =====================================================
-       EFEITO PARALLAX COM O MOUSE
-       ===================================================== */
 
-    const elementosParallax = document.querySelectorAll(
-        "[data-parallax]"
+createParticles();
+
+
+function animateParticles() {
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
     );
 
-    document.addEventListener("mousemove", event => {
 
-        const x = (event.clientX / window.innerWidth) - 0.5;
-        const y = (event.clientY / window.innerHeight) - 0.5;
+    particles.forEach(
+        particle => {
 
-        elementosParallax.forEach(elemento => {
-
-            const intensidade =
-                Number(elemento.dataset.parallax) || 10;
-
-            elemento.style.transform =
-                `translate(${x * intensidade}px, ${y * intensidade}px)`;
-
-        });
-
-    });
+            particle.y -=
+                particle.speed;
 
 
-    /* =====================================================
-       REVEAL AO ENTRAR NA TELA
-       ===================================================== */
+            if (
+                particle.y < 0
+            ) {
 
-    const elementosReveal = document.querySelectorAll(
-        ".reveal, .fade-in, .section-reveal"
+                particle.y =
+                    canvas.height;
+
+            }
+
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+                particle.x,
+                particle.y,
+                particle.size,
+                0,
+                Math.PI * 2
+            );
+
+
+            ctx.fillStyle =
+                `rgba(0,246,255,${particle.alpha})`;
+
+
+            ctx.fill();
+
+        }
     );
 
-    if ("IntersectionObserver" in window) {
 
-        const observer = new IntersectionObserver(
-            entries => {
+    requestAnimationFrame(
+        animateParticles
+    );
 
-                entries.forEach(entry => {
+}
 
-                    if (entry.isIntersecting) {
 
-                        entry.target.classList.add("visible");
+animateParticles();
 
-                    }
 
-                });
+/* =========================================================
+   FLASHCARDS
+========================================================= */
 
-            },
-            {
-                threshold: 0.15
+const flashcards =
+    document.querySelectorAll(
+        ".flashcard"
+    );
+
+
+flashcards.forEach(
+    card => {
+
+        card.addEventListener(
+            "click",
+            () => {
+
+                card.classList.toggle(
+                    "flipped"
+                );
+
             }
         );
 
-        elementosReveal.forEach(elemento => {
-            observer.observe(elemento);
-        });
+
+        card.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key ===
+                    "Enter" ||
+
+                    event.key ===
+                    " "
+                ) {
+
+                    event.preventDefault();
+
+                    card.classList.toggle(
+                        "flipped"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   NETWORK LAB
+========================================================= */
+
+const networkMap =
+    document.getElementById(
+        "fiberMap"
+    );
+
+const fiberLines =
+    document.getElementById(
+        "fiberLines"
+    );
+
+const networkNodes =
+    document.querySelectorAll(
+        ".network-node"
+    );
+
+const networkMessage =
+    document.getElementById(
+        "networkMessage"
+    );
+
+const nextConnection =
+    document.getElementById(
+        "nextConnection"
+    );
+
+const resetNetwork =
+    document.getElementById(
+        "resetNetwork"
+    );
+
+const dataOrigin =
+    document.getElementById(
+        "dataOrigin"
+    );
+
+const dataDestination =
+    document.getElementById(
+        "dataDestination"
+    );
+
+const dataDistance =
+    document.getElementById(
+        "dataDistance"
+    );
+
+const dataTravelTime =
+    document.getElementById(
+        "dataTravelTime"
+    );
+
+const networkLatency =
+    document.getElementById(
+        "networkLatency"
+    );
+
+const travelingLight =
+    document.getElementById(
+        "travelingLight"
+    );
+
+
+/* =========================================================
+   DADOS DAS CIDADES
+========================================================= */
+
+const networkData = {
+
+    1: {
+
+        name:
+            "São Paulo",
+
+        x:
+            46,
+
+        y:
+            64
+
+    },
+
+
+    2: {
+
+        name:
+            "Rio de Janeiro",
+
+        x:
+            55,
+
+        y:
+            60
+
+    },
+
+
+    3: {
+
+        name:
+            "Belo Horizonte",
+
+        x:
+            52,
+
+        y:
+            49
+
+    },
+
+
+    4: {
+
+        name:
+            "Brasília",
+
+        x:
+            44,
+
+        y:
+            38
+
+    },
+
+
+    5: {
+
+        name:
+            "Salvador",
+
+        x:
+            67,
+
+        y:
+            38
+
+    },
+
+
+    6: {
+
+        name:
+            "Recife",
+
+        x:
+            70,
+
+        y:
+            25
+
+    }
+
+};
+
+
+/* =========================================================
+   COORDENADAS
+========================================================= */
+
+const cityCoordinates = {
+
+    1: {
+
+        lat:
+            -23.5505,
+
+        lon:
+            -46.6333
+
+    },
+
+
+    2: {
+
+        lat:
+            -22.9068,
+
+        lon:
+            -43.1729
+
+    },
+
+
+    3: {
+
+        lat:
+            -19.9167,
+
+        lon:
+            -43.9345
+
+    },
+
+
+    4: {
+
+        lat:
+            -15.7975,
+
+        lon:
+            -47.8919
+
+    },
+
+
+    5: {
+
+        lat:
+            -12.9777,
+
+        lon:
+            -38.5016
+
+    },
+
+
+    6: {
+
+        lat:
+            -8.0476,
+
+        lon:
+            -34.8770
+
+    }
+
+};
+
+
+/* =========================================================
+   ESTADO
+========================================================= */
+
+let selectedNode =
+    null;
+
+let connections =
+    [];
+
+
+/* =========================================================
+   DISTÂNCIA
+========================================================= */
+
+function calculateDistance(
+    pointA,
+    pointB
+) {
+
+    const earthRadius =
+        6371;
+
+
+    const lat1 =
+        cityCoordinates[pointA].lat *
+        Math.PI /
+        180;
+
+
+    const lat2 =
+        cityCoordinates[pointB].lat *
+        Math.PI /
+        180;
+
+
+    const deltaLat =
+        (
+            cityCoordinates[pointB].lat -
+            cityCoordinates[pointA].lat
+        ) *
+        Math.PI /
+        180;
+
+
+    const deltaLon =
+        (
+            cityCoordinates[pointB].lon -
+            cityCoordinates[pointA].lon
+        ) *
+        Math.PI /
+        180;
+
+
+    const a =
+        Math.sin(
+            deltaLat / 2
+        ) ** 2 +
+
+        Math.cos(lat1) *
+        Math.cos(lat2) *
+
+        Math.sin(
+            deltaLon / 2
+        ) ** 2;
+
+
+    const c =
+        2 *
+        Math.atan2(
+            Math.sqrt(a),
+            Math.sqrt(1 - a)
+        );
+
+
+    return (
+        earthRadius *
+        c
+    );
+
+}
+
+
+/* =========================================================
+   TEMPO DE PROPAGAÇÃO
+========================================================= */
+
+function calculateTravelTime(
+    distanceKm
+) {
+
+    const fiberSpeed =
+        200000;
+
+
+    const seconds =
+        distanceKm /
+        fiberSpeed;
+
+
+    return {
+
+        seconds,
+
+        milliseconds:
+            seconds * 1000,
+
+        microseconds:
+            seconds * 1000000,
+
+        nanoseconds:
+            seconds * 1000000000
+
+    };
+
+}
+
+
+/* =========================================================
+   FORMATA TEMPO
+========================================================= */
+
+function formatTravelTime(
+    time
+) {
+
+    if (
+        time.nanoseconds < 1000
+    ) {
+
+        return (
+            time.nanoseconds
+                .toFixed(2) +
+            " ns"
+        );
+
+    }
+
+
+    if (
+        time.microseconds < 1000
+    ) {
+
+        return (
+            time.microseconds
+                .toFixed(2) +
+            " μs"
+        );
+
+    }
+
+
+    return (
+        time.milliseconds
+            .toFixed(4) +
+        " ms"
+    );
+
+}
+
+
+/* =========================================================
+   CRIAR FIBRA
+========================================================= */
+
+function createFiberConnection(
+    from,
+    to
+) {
+
+    const fromData =
+        networkData[from];
+
+    const toData =
+        networkData[to];
+
+
+    const width =
+        networkMap.clientWidth;
+
+    const height =
+        networkMap.clientHeight;
+
+
+    /*
+       Como o SVG utiliza viewBox
+       1000 x 650, usamos o mesmo
+       sistema de coordenadas.
+    */
+
+    const x1 =
+        fromData.x *
+        10;
+
+    const y1 =
+        fromData.y *
+        6.5;
+
+
+    const x2 =
+        toData.x *
+        10;
+
+    const y2 =
+        toData.y *
+        6.5;
+
+
+    const middleX =
+        (x1 + x2) / 2;
+
+
+    const middleY =
+        Math.min(
+            y1,
+            y2
+        ) - 60;
+
+
+    const pathData = `
+        M ${x1} ${y1}
+        Q ${middleX} ${middleY}
+        ${x2} ${y2}
+    `;
+
+
+    /* ================================================
+       CAMADA EXTERNA DA FIBRA
+    ================================================ */
+
+    const backgroundPath =
+        document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "path"
+        );
+
+
+    backgroundPath.setAttribute(
+        "d",
+        pathData
+    );
+
+
+    backgroundPath.classList.add(
+        "fiber-path-bg"
+    );
+
+
+    fiberLines.appendChild(
+        backgroundPath
+    );
+
+
+    /* ================================================
+       FIO LUMINOSO
+    ================================================ */
+
+    const fiber =
+        document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "path"
+        );
+
+
+    fiber.setAttribute(
+        "d",
+        pathData
+    );
+
+
+    fiber.classList.add(
+        "fiber-path"
+    );
+
+
+    fiberLines.appendChild(
+        fiber
+    );
+
+
+    /*
+       Animação de entrada do fio.
+    */
+
+    const length =
+        fiber.getTotalLength();
+
+
+    fiber.style.strokeDasharray =
+        `${length} ${length}`;
+
+    fiber.style.strokeDashoffset =
+        length;
+
+
+    requestAnimationFrame(
+        () => {
+
+            fiber.style.transition =
+                "stroke-dashoffset 1.2s ease";
+
+            fiber.style.strokeDashoffset =
+                "0";
+
+        }
+    );
+
+
+    return {
+
+        path:
+            fiber,
+
+        from,
+        to
+
+    };
+
+}
+
+
+/* =========================================================
+   ANIMAR LUZ
+========================================================= */
+
+function animateLight(
+    connection
+) {
+
+    const path =
+        connection.path;
+
+
+    const totalLength =
+        path.getTotalLength();
+
+
+    const startTime =
+        performance.now();
+
+
+    const duration =
+        1800;
+
+
+    travelingLight.style.opacity =
+        "1";
+
+
+    function animate(
+        currentTime
+    ) {
+
+        const elapsed =
+            currentTime -
+            startTime;
+
+
+        const progress =
+            Math.min(
+                elapsed /
+                duration,
+                1
+            );
+
+
+        /*
+           Ease in/out.
+        */
+
+        const eased =
+            progress *
+            progress *
+            (
+                3 -
+                2 *
+                progress
+            );
+
+
+        const point =
+            path.getPointAtLength(
+                totalLength *
+                eased
+            );
+
+
+        /*
+           O SVG usa viewBox 1000x650.
+           Convertendo para pixels reais.
+        */
+
+        const x =
+            point.x *
+            networkMap.clientWidth /
+            1000;
+
+
+        const y =
+            point.y *
+            networkMap.clientHeight /
+            650;
+
+
+        travelingLight.style.left =
+            `${x}px`;
+
+
+        travelingLight.style.top =
+            `${y}px`;
+
+
+        if (
+            progress < 1
+        ) {
+
+            requestAnimationFrame(
+                animate
+            );
+
+        } else {
+
+            travelingLight.style.opacity =
+                "0";
+
+        }
+
+    }
+
+
+    requestAnimationFrame(
+        animate
+    );
+
+}
+
+
+/* =========================================================
+   PAINEL TÉCNICO
+========================================================= */
+
+function updateTechnicalPanel(
+    from,
+    to
+) {
+
+    const distance =
+        calculateDistance(
+            from,
+            to
+        );
+
+
+    const time =
+        calculateTravelTime(
+            distance
+        );
+
+
+    dataOrigin.textContent =
+        networkData[from].name;
+
+
+    dataDestination.textContent =
+        networkData[to].name;
+
+
+    dataDistance.textContent =
+        `${distance.toFixed(1)} km`;
+
+
+    dataTravelTime.textContent =
+        formatTravelTime(
+            time
+        );
+
+
+    networkLatency.textContent =
+        `${time.nanoseconds.toFixed(2)} ns`;
+
+}
+
+
+/* =========================================================
+   CONECTAR
+========================================================= */
+
+function connectNodes(
+    from,
+    to
+) {
+
+    const connection =
+        createFiberConnection(
+            from,
+            to
+        );
+
+
+    connections.push(
+        connection
+    );
+
+
+    document
+        .querySelector(
+            `[data-node="${from}"]`
+        )
+        .classList.add(
+            "connected"
+        );
+
+
+    document
+        .querySelector(
+            `[data-node="${to}"]`
+        )
+        .classList.add(
+            "connected"
+        );
+
+
+    updateTechnicalPanel(
+        from,
+        to
+    );
+
+
+    animateLight(
+        connection
+    );
+
+
+    networkMessage.textContent =
+        `${networkData[from].name}
+        → ${networkData[to].name}
+        | PULSO ÓPTICO TRANSMITIDO`;
+
+
+    if (
+        to < 6
+    ) {
+
+        nextConnection.textContent =
+            `${String(to)
+                .padStart(2,"0")}
+            →
+            ${String(to + 1)
+                .padStart(2,"0")}`;
 
     } else {
 
-        elementosReveal.forEach(elemento => {
-            elemento.classList.add("visible");
-        });
+        nextConnection.textContent =
+            "REDE COMPLETA";
+
+
+        networkMessage.textContent =
+            "✓ REDE ÓPTICA COMPLETAMENTE CONECTADA";
 
     }
 
-
-    /* =====================================================
-       ANIMAÇÃO DOS NÚMEROS / ESTATÍSTICAS
-       ===================================================== */
-
-    function animarNumero(elemento) {
-
-        if (!elemento) return;
-
-        const valorFinal =
-            parseFloat(elemento.dataset.value || elemento.textContent);
-
-        if (Number.isNaN(valorFinal)) return;
-
-        const duracao = 1800;
-
-        const inicio = performance.now();
-
-        function atualizar(tempo) {
-
-            const progresso =
-                Math.min((tempo - inicio) / duracao, 1);
-
-            const valor =
-                Math.floor(progresso * valorFinal);
-
-            elemento.textContent = valor.toLocaleString("pt-BR");
-
-            if (progresso < 1) {
-                requestAnimationFrame(atualizar);
-            }
-
-        }
-
-        requestAnimationFrame(atualizar);
-
-    }
+}
 
 
-    const estatisticas =
-        document.querySelectorAll("[data-value]");
+/* =========================================================
+   CLIQUES DOS NÓS
+========================================================= */
 
-    if ("IntersectionObserver" in window) {
+networkNodes.forEach(
+    node => {
 
-        const statsObserver = new IntersectionObserver(
-            entries => {
+        node.addEventListener(
+            "click",
+            () => {
 
-                entries.forEach(entry => {
+                const number =
+                    Number(
+                        node.dataset.node
+                    );
+
+
+                /*
+                   Primeiro ponto precisa ser 01.
+                */
+
+                if (
+                    selectedNode ===
+                    null
+                ) {
 
                     if (
-                        entry.isIntersecting &&
-                        !entry.target.dataset.animated
+                        number !== 1
                     ) {
 
-                        entry.target.dataset.animated = "true";
+                        networkMessage.textContent =
+                            "ERRO: INICIE PELO PONTO 01";
 
-                        animarNumero(entry.target);
+                        return;
 
                     }
 
-                });
 
-            },
-            {
-                threshold: 0.7
-            }
-        );
+                    selectedNode =
+                        1;
 
-        estatisticas.forEach(elemento => {
-            statsObserver.observe(elemento);
-        });
 
-    }
-
-
-    /* =====================================================
-       FLASHCARDS
-       ===================================================== */
-
-    const flashcards =
-        document.querySelectorAll(".flashcard");
-
-    flashcards.forEach(card => {
-
-        card.addEventListener("click", () => {
-
-            card.classList.toggle("flipped");
-
-        });
-
-        card.addEventListener("keydown", event => {
-
-            if (
-                event.key === "Enter" ||
-                event.key === " "
-            ) {
-
-                event.preventDefault();
-
-                card.classList.toggle("flipped");
-
-            }
-
-        });
-
-    });
-
-
-    /* =====================================================
-       GERAÇÃO DE PARTÍCULAS
-       ===================================================== */
-
-    const particleContainer =
-        document.querySelector(".particles");
-
-    if (particleContainer) {
-
-        const quantidade = 45;
-
-        for (let i = 0; i < quantidade; i++) {
-
-            const particle =
-                document.createElement("span");
-
-            particle.className = "particle";
-
-            particle.style.left =
-                `${Math.random() * 100}%`;
-
-            particle.style.top =
-                `${Math.random() * 100}%`;
-
-            particle.style.animationDelay =
-                `${Math.random() * 5}s`;
-
-            particle.style.animationDuration =
-                `${3 + Math.random() * 5}s`;
-
-            particleContainer.appendChild(particle);
-
-        }
-
-    }
-
-
-    /* =====================================================
-       FIO ÓPTICO — ESTAÇÃO 01 → 02
-       ===================================================== */
-
-    const botaoFibra =
-        document.querySelector("#connectFiber");
-
-    const fiberCanvas =
-        document.querySelector("#fiberCanvas");
-
-    const fiberStatus =
-        document.querySelector("#fiberStatus");
-
-    const fiberProgress =
-        document.querySelector("#fiberProgress");
-
-    const fiberMessage =
-        document.querySelector("#fiberMessage");
-
-    let fiberAnimation = null;
-
-
-    function desenharFibra() {
-
-        if (!fiberCanvas) return;
-
-        const ctx = fiberCanvas.getContext("2d");
-
-        if (!ctx) return;
-
-        const largura = fiberCanvas.width =
-            fiberCanvas.clientWidth * window.devicePixelRatio;
-
-        const altura = fiberCanvas.height =
-            fiberCanvas.clientHeight * window.devicePixelRatio;
-
-        ctx.scale(
-            window.devicePixelRatio,
-            window.devicePixelRatio
-        );
-
-        const w = fiberCanvas.clientWidth;
-        const h = fiberCanvas.clientHeight;
-
-        ctx.clearRect(0, 0, w, h);
-
-        /*
-         * Caminho curvo da fibra
-         */
-
-        const inicioX = 40;
-        const inicioY = h / 2;
-
-        const fimX = w - 40;
-        const fimY = h / 2;
-
-        const controle1X = w * 0.30;
-        const controle1Y = h * 0.10;
-
-        const controle2X = w * 0.70;
-        const controle2Y = h * 0.90;
-
-        /*
-         * brilho externo
-         */
-
-        ctx.beginPath();
-
-        ctx.moveTo(inicioX, inicioY);
-
-        ctx.bezierCurveTo(
-            controle1X,
-            controle1Y,
-            controle2X,
-            controle2Y,
-            fimX,
-            fimY
-        );
-
-        ctx.lineWidth = 8;
-        ctx.strokeStyle = "rgba(0, 220, 255, 0.12)";
-        ctx.shadowBlur = 20;
-        ctx.shadowColor = "#00d9ff";
-
-        ctx.stroke();
-
-        /*
-         * núcleo da fibra
-         */
-
-        ctx.beginPath();
-
-        ctx.moveTo(inicioX, inicioY);
-
-        ctx.bezierCurveTo(
-            controle1X,
-            controle1Y,
-            controle2X,
-            controle2Y,
-            fimX,
-            fimY
-        );
-
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = "#00eaff";
-        ctx.shadowBlur = 12;
-        ctx.shadowColor = "#00eaff";
-
-        ctx.stroke();
-
-        ctx.shadowBlur = 0;
-
-        /*
-         * pontos 01 e 02
-         */
-
-        ctx.beginPath();
-        ctx.arc(
-            inicioX,
-            inicioY,
-            7,
-            0,
-            Math.PI * 2
-        );
-
-        ctx.fillStyle = "#00eaff";
-        ctx.fill();
-
-        ctx.beginPath();
-        ctx.arc(
-            fimX,
-            fimY,
-            7,
-            0,
-            Math.PI * 2
-        );
-
-        ctx.fillStyle = "#00eaff";
-        ctx.fill();
-
-    }
-
-
-    function iniciarFibra() {
-
-        if (!fiberCanvas) return;
-
-        const ctx = fiberCanvas.getContext("2d");
-
-        if (!ctx) return;
-
-        if (fiberAnimation) {
-            cancelAnimationFrame(fiberAnimation);
-        }
-
-        const w = fiberCanvas.clientWidth;
-        const h = fiberCanvas.clientHeight;
-
-        const inicioX = 40;
-        const inicioY = h / 2;
-
-        const fimX = w - 40;
-        const fimY = h / 2;
-
-        const controle1X = w * 0.30;
-        const controle1Y = h * 0.10;
-
-        const controle2X = w * 0.70;
-        const controle2Y = h * 0.90;
-
-        let progresso = 0;
-
-        function curva(t) {
-
-            const x =
-                Math.pow(1 - t, 3) * inicioX +
-                3 * Math.pow(1 - t, 2) * t * controle1X +
-                3 * (1 - t) * Math.pow(t, 2) * controle2X +
-                Math.pow(t, 3) * fimX;
-
-            const y =
-                Math.pow(1 - t, 3) * inicioY +
-                3 * Math.pow(1 - t, 2) * t * controle1Y +
-                3 * (1 - t) * Math.pow(t, 2) * controle2Y +
-                Math.pow(t, 3) * fimY;
-
-            return { x, y };
-
-        }
-
-
-        function animar() {
-
-            progresso += 0.006;
-
-            if (progresso > 1) {
-                progresso = 0;
-            }
-
-            desenharFibra();
-
-            const ponto = curva(progresso);
-
-            /*
-             * Pacote de luz
-             */
-
-            ctx.beginPath();
-
-            ctx.arc(
-                ponto.x,
-                ponto.y,
-                9,
-                0,
-                Math.PI * 2
-            );
-
-            ctx.fillStyle = "#ffffff";
-
-            ctx.shadowBlur = 25;
-            ctx.shadowColor = "#00eaff";
-
-            ctx.fill();
-
-            ctx.shadowBlur = 0;
-
-            /*
-             * segundo ponto menor
-             */
-
-            const ponto2 =
-                curva(Math.max(0, progresso - 0.04));
-
-            ctx.beginPath();
-
-            ctx.arc(
-                ponto2.x,
-                ponto2.y,
-                4,
-                0,
-                Math.PI * 2
-            );
-
-            ctx.fillStyle = "#00aaff";
-
-            ctx.fill();
-
-            fiberAnimation =
-                requestAnimationFrame(animar);
-
-        }
-
-        animar();
-
-    }
-
-
-    if (fiberCanvas) {
-
-        desenharFibra();
-
-        iniciarFibra();
-
-        window.addEventListener(
-            "resize",
-            desenharFibra
-        );
-
-    }
-
-
-    if (botaoFibra) {
-
-        botaoFibra.addEventListener("click", () => {
-
-            botaoFibra.classList.add("active");
-
-            if (fiberStatus) {
-                fiberStatus.textContent =
-                    "CONEXÃO ESTABELECIDA";
-            }
-
-            if (fiberMessage) {
-                fiberMessage.textContent =
-                    "Pulso óptico transmitindo dados através da fibra...";
-            }
-
-            if (fiberProgress) {
-
-                fiberProgress.style.width = "100%";
-
-            }
-
-            iniciarFibra();
-
-        });
-
-    }
-
-
-    /* =====================================================
-       SIMULADOR DE VELOCIDADE
-       ===================================================== */
-
-    const distanceInput =
-        document.querySelector("#distanceInput");
-
-    const distanceValue =
-        document.querySelector("#distanceValue");
-
-    const calculateButton =
-        document.querySelector("#calculateSpeed");
-
-    const speedResult =
-        document.querySelector("#speedResult");
-
-    const timeResult =
-        document.querySelector("#timeResult");
-
-    const fiberResult =
-        document.querySelector("#fiberResult");
-
-
-    function calcularVelocidadeFibra() {
-
-        /*
-         * velocidade = c / n
-         */
-
-        return CONFIG.velocidadeFibra;
-
-    }
-
-
-    function calcularTempo(distanciaKm) {
-
-        const distanciaMetros =
-            distanciaKm * 1000;
-
-        const velocidade =
-            calcularVelocidadeFibra();
-
-        return distanciaMetros / velocidade;
-
-    }
-
-
-    function formatarTempo(segundos) {
-
-        if (segundos < 0.001) {
-
-            return `${(segundos * 1000000).toFixed(2)} μs`;
-
-        }
-
-        if (segundos < 1) {
-
-            return `${(segundos * 1000).toFixed(3)} ms`;
-
-        }
-
-        return `${segundos.toFixed(6)} s`;
-
-    }
-
-
-    function atualizarSimulador() {
-
-        if (!distanceInput) return;
-
-        const distancia =
-            parseFloat(distanceInput.value);
-
-        if (Number.isNaN(distancia)) return;
-
-        if (distanceValue) {
-
-            distanceValue.textContent =
-                `${distancia.toLocaleString("pt-BR")} km`;
-
-        }
-
-        const velocidade =
-            calcularVelocidadeFibra();
-
-        const tempo =
-            calcularTempo(distancia);
-
-        if (speedResult) {
-
-            speedResult.textContent =
-                `${(velocidade / 1000000).toFixed(2)} milhões de m/s`;
-
-        }
-
-        if (timeResult) {
-
-            timeResult.textContent =
-                formatarTempo(tempo);
-
-        }
-
-        if (fiberResult) {
-
-            fiberResult.textContent =
-                `Índice de refração: ${CONFIG.indiceRefracaoFibra}`;
-
-        }
-
-    }
-
-
-    if (distanceInput) {
-
-        distanceInput.addEventListener(
-            "input",
-            atualizarSimulador
-        );
-
-        atualizarSimulador();
-
-    }
-
-
-    if (calculateButton) {
-
-        calculateButton.addEventListener(
-            "click",
-            atualizarSimulador
-        );
-
-    }
-
-
-    /* =====================================================
-       MAPA / ROTAS
-       ===================================================== */
-
-    const routeButtons =
-        document.querySelectorAll("[data-distance]");
-
-    routeButtons.forEach(button => {
-
-        button.addEventListener("click", () => {
-
-            const distancia =
-                parseFloat(button.dataset.distance);
-
-            if (
-                Number.isNaN(distancia) ||
-                !distanceInput
-            ) return;
-
-            distanceInput.value = distancia;
-
-            atualizarSimulador();
-
-            /*
-             * anima o botão selecionado
-             */
-
-            routeButtons.forEach(item => {
-                item.classList.remove("selected");
-            });
-
-            button.classList.add("selected");
-
-        });
-
-    });
-
-
-    /* =====================================================
-       MAPA INTERATIVO — PONTO DE LUZ
-       ===================================================== */
-
-    const map =
-        document.querySelector(".fiber-map");
-
-    if (map) {
-
-        map.addEventListener("mousemove", event => {
-
-            const rect =
-                map.getBoundingClientRect();
-
-            const x =
-                event.clientX - rect.left;
-
-            const y =
-                event.clientY - rect.top;
-
-            const luz =
-                map.querySelector(".map-light");
-
-            if (luz) {
-
-                luz.style.left = `${x}px`;
-                luz.style.top = `${y}px`;
-
-            }
-
-        });
-
-    }
-
-
-    /* =====================================================
-       TERMINAL / CONSOLE FUTURISTA
-       ===================================================== */
-
-    const terminal =
-        document.querySelector("#terminal");
-
-    if (terminal) {
-
-        const mensagens = [
-            "Inicializando sistema óptico...",
-            "Verificando núcleo da fibra...",
-            "Comprimento de onda: 1550 nm",
-            "Índice de refração: 1.468",
-            "Calculando velocidade de propagação...",
-            "Sistema operacional óptico: ONLINE",
-            "Transmissão de dados estabelecida."
-        ];
-
-        let index = 0;
-
-        function escreverTerminal() {
-
-            if (index >= mensagens.length) {
-                index = 0;
-            }
-
-            const linha =
-                document.createElement("div");
-
-            linha.className = "terminal-line";
-
-            linha.textContent =
-                `> ${mensagens[index]}`;
-
-            terminal.appendChild(linha);
-
-            /*
-             * limita quantidade de linhas
-             */
-
-            while (terminal.children.length > 8) {
-                terminal.removeChild(
-                    terminal.firstChild
-                );
-            }
-
-            index++;
-
-        }
-
-        escreverTerminal();
-
-        setInterval(
-            escreverTerminal,
-            2200
-        );
-
-    }
-
-
-    /* =====================================================
-       QUIZ
-       ===================================================== */
-
-    const quiz =
-        document.querySelector("#quiz");
-
-    if (quiz) {
-
-        const perguntas = [
-            {
-                pergunta:
-                    "Qual fenômeno permite que a luz percorra a fibra óptica?",
-                opcoes: [
-                    "Reflexão interna total",
-                    "Combustão",
-                    "Magnetismo",
-                    "Convecção"
-                ],
-                correta: 0
-            },
-
-            {
-                pergunta:
-                    "Qual é o principal material utilizado no núcleo da fibra óptica?",
-                opcoes: [
-                    "Cobre",
-                    "Vidro ou sílica",
-                    "Alumínio",
-                    "Ferro"
-                ],
-                correta: 1
-            },
-
-            {
-                pergunta:
-                    "A fibra óptica transmite informações principalmente através de:",
-                opcoes: [
-                    "Ondas sonoras",
-                    "Pulsos de luz",
-                    "Corrente elétrica",
-                    "Ondas mecânicas"
-                ],
-                correta: 1
-            },
-
-            {
-                pergunta:
-                    "A velocidade da luz na fibra é:",
-                opcoes: [
-                    "Maior que no vácuo",
-                    "Igual à do som",
-                    "Menor que no vácuo",
-                    "Zero"
-                ],
-                correta: 2
-            },
-
-            {
-                pergunta:
-                    "Qual destas é uma vantagem da fibra óptica?",
-                opcoes: [
-                    "Alta capacidade de transmissão",
-                    "Maior interferência eletromagnética",
-                    "Alcance muito pequeno",
-                    "Baixa velocidade"
-                ],
-                correta: 0
-            },
-
-            {
-                pergunta:
-                    "Qual equipamento pode transformar sinais elétricos em sinais ópticos?",
-                opcoes: [
-                    "Transmissor óptico",
-                    "Alto-falante",
-                    "Bateria comum",
-                    "Microfone"
-                ],
-                correta: 0
-            }
-        ];
-
-
-        let perguntaAtual = 0;
-        let pontuacao = 0;
-
-
-        const questionElement =
-            quiz.querySelector(".quiz-question");
-
-        const optionsElement =
-            quiz.querySelector(".quiz-options");
-
-        const nextButton =
-            quiz.querySelector(".quiz-next");
-
-        const scoreElement =
-            quiz.querySelector(".quiz-score");
-
-
-        function carregarPergunta() {
-
-            const pergunta =
-                perguntas[perguntaAtual];
-
-            if (questionElement) {
-
-                questionElement.textContent =
-                    pergunta.pergunta;
-
-            }
-
-            if (!optionsElement) return;
-
-            optionsElement.innerHTML = "";
-
-            pergunta.opcoes.forEach(
-                (opcao, indice) => {
-
-                    const button =
-                        document.createElement("button");
-
-                    button.className =
-                        "quiz-option";
-
-                    button.textContent =
-                        opcao;
-
-                    button.dataset.index =
-                        indice;
-
-                    button.addEventListener(
-                        "click",
-                        () => {
-
-                            responder(
-                                indice,
-                                button
-                            );
-
-                        }
+                    node.classList.add(
+                        "selected"
                     );
 
-                    optionsElement.appendChild(
+
+                    networkMessage.textContent =
+                        "PONTO 01 ATIVADO — SELECIONE O PONTO 02";
+
+                    return;
+
+                }
+
+
+                /*
+                   Não permite repetir.
+                */
+
+                if (
+                    number ===
+                    selectedNode
+                ) {
+
+                    return;
+
+                }
+
+
+                /*
+                   Apenas sequência.
+                */
+
+                if (
+                    number !==
+                    selectedNode + 1
+                ) {
+
+                    networkMessage.textContent =
+                        `SEQUÊNCIA INCORRETA — PRÓXIMO PONTO: ${String(
+                            selectedNode + 1
+                        ).padStart(2,"0")}`;
+
+                    return;
+
+                }
+
+
+                /*
+                   Cria conexão.
+                */
+
+                connectNodes(
+                    selectedNode,
+                    number
+                );
+
+
+                networkNodes.forEach(
+                    item => {
+
+                        item.classList.remove(
+                            "selected"
+                        );
+
+                    }
+                );
+
+
+                node.classList.add(
+                    "selected"
+                );
+
+
+                selectedNode =
+                    number;
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   RESET DA REDE
+========================================================= */
+
+resetNetwork.addEventListener(
+    "click",
+    () => {
+
+        selectedNode =
+            null;
+
+        connections =
+            [];
+
+
+        fiberLines.innerHTML =
+            "";
+
+
+        networkNodes.forEach(
+            node => {
+
+                node.classList.remove(
+                    "selected",
+                    "connected"
+                );
+
+            }
+        );
+
+
+        dataOrigin.textContent =
+            "—";
+
+
+        dataDestination.textContent =
+            "—";
+
+
+        dataDistance.textContent =
+            "—";
+
+
+        dataTravelTime.textContent =
+            "—";
+
+
+        networkLatency.textContent =
+            "0.00 ns";
+
+
+        nextConnection.textContent =
+            "01 → 02";
+
+
+        networkMessage.textContent =
+            "CLIQUE NO PONTO 01 PARA INICIAR";
+
+    }
+);
+
+
+/* =========================================================
+   QUIZ
+========================================================= */
+
+const quizQuestions = [
+
+    {
+
+        question:
+            "Qual é o principal meio utilizado pela fibra óptica para transportar informações?",
+
+        options: [
+
+            "Corrente elétrica",
+
+            "Pulsos de luz",
+
+            "Ondas sonoras",
+
+            "Campo magnético"
+
+        ],
+
+        answer:
+            1,
+
+        explanation:
+            "A fibra óptica transmite informações através de sinais luminosos."
+
+    },
+
+
+    {
+
+        question:
+            "Qual é aproximadamente a velocidade da luz no vácuo?",
+
+        options: [
+
+            "3.000 km/s",
+
+            "30.000 km/s",
+
+            "299.792 km/s",
+
+            "999.999 km/s"
+
+        ],
+
+        answer:
+            2,
+
+        explanation:
+            "A velocidade da luz no vácuo é aproximadamente 299.792 km/s."
+
+    },
+
+
+    {
+
+        question:
+            "O que mantém a luz confinada dentro do núcleo da fibra?",
+
+        options: [
+
+            "Reflexão interna total",
+
+            "Eletricidade",
+
+            "Magnetismo",
+
+            "Calor"
+
+        ],
+
+        answer:
+            0,
+
+        explanation:
+            "A reflexão interna total mantém o sinal luminoso dentro do núcleo."
+
+    },
+
+
+    {
+
+        question:
+            "Qual material é normalmente utilizado no núcleo de fibras ópticas convencionais?",
+
+        options: [
+
+            "Ferro",
+
+            "Cobre",
+
+            "Vidro",
+
+            "Alumínio"
+
+        ],
+
+        answer:
+            2,
+
+        explanation:
+            "Fibras ópticas convencionais utilizam principalmente vidro de alta pureza."
+
+    },
+
+
+    {
+
+        question:
+            "Por que a fibra é importante para a internet moderna?",
+
+        options: [
+
+            "Porque transmite grandes quantidades de dados rapidamente",
+
+            "Porque utiliza ondas sonoras",
+
+            "Porque funciona apenas em curtas distâncias",
+
+            "Porque não precisa de equipamentos"
+
+        ],
+
+        answer:
+            0,
+
+        explanation:
+            "A fibra oferece alta capacidade e baixa perda, sendo fundamental para redes modernas."
+
+    }
+
+];
+
+
+let currentQuestion =
+    0;
+
+let quizScore =
+    0;
+
+let quizAnswered =
+    false;
+
+
+const quizQuestion =
+    document.getElementById(
+        "quizQuestion"
+    );
+
+const quizOptions =
+    document.getElementById(
+        "quizOptions"
+    );
+
+const quizFeedback =
+    document.getElementById(
+        "quizFeedback"
+    );
+
+const quizNext =
+    document.getElementById(
+        "quizNext"
+    );
+
+const quizProgress =
+    document.getElementById(
+        "quizProgress"
+    );
+
+const quizBar =
+    document.getElementById(
+        "quizBar"
+    );
+
+
+function loadQuizQuestion() {
+
+    const question =
+        quizQuestions[
+            currentQuestion
+        ];
+
+
+    quizAnswered =
+        false;
+
+
+    quizQuestion.textContent =
+        question.question;
+
+
+    quizOptions.innerHTML =
+        "";
+
+
+    quizFeedback.textContent =
+        "";
+
+
+    quizNext.style.display =
+        "none";
+
+
+    quizProgress.textContent =
+        `${String(
+            currentQuestion + 1
+        ).padStart(2,"0")} / ${
+            quizQuestions.length
+        }`;
+
+
+    quizBar.style.width =
+        `${
+            (
+                (
+                    currentQuestion + 1
+                ) /
+                quizQuestions.length
+            ) * 100
+        }%`;
+
+
+    question.options.forEach(
+        (
+            option,
+            index
+        ) => {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.className =
+                "quiz-option";
+
+
+            button.textContent =
+                option;
+
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    answerQuestion(
+                        index,
                         button
                     );
 
                 }
             );
 
-            if (nextButton) {
-                nextButton.disabled = true;
-            }
 
-        }
-
-
-        function responder(indice, button) {
-
-            const pergunta =
-                perguntas[perguntaAtual];
-
-            const botoes =
-                optionsElement.querySelectorAll(
-                    ".quiz-option"
-                );
-
-            botoes.forEach(botao => {
-                botao.disabled = true;
-            });
-
-
-            if (indice === pergunta.correta) {
-
-                pontuacao++;
-
-                button.classList.add("correct");
-
-            } else {
-
-                button.classList.add("wrong");
-
-                botoes[
-                    pergunta.correta
-                ].classList.add("correct");
-
-            }
-
-            if (nextButton) {
-                nextButton.disabled = false;
-            }
-
-            if (scoreElement) {
-
-                scoreElement.textContent =
-                    `${pontuacao}/${perguntas.length}`;
-
-            }
-
-        }
-
-
-        if (nextButton) {
-
-            nextButton.addEventListener(
-                "click",
-                () => {
-
-                    perguntaAtual++;
-
-                    if (
-                        perguntaAtual >=
-                        perguntas.length
-                    ) {
-
-                        mostrarResultado();
-
-                    } else {
-
-                        carregarPergunta();
-
-                    }
-
-                }
+            quizOptions.appendChild(
+                button
             );
 
         }
-
-
-        function mostrarResultado() {
-
-            if (questionElement) {
-
-                questionElement.textContent =
-                    "QUIZ FINALIZADO";
-
-            }
-
-            if (optionsElement) {
-
-                const porcentagem =
-                    Math.round(
-                        (pontuacao /
-                            perguntas.length) *
-                        100
-                    );
-
-                let mensagem;
-
-                if (porcentagem >= 80) {
-
-                    mensagem =
-                        "Excelente! Você domina os conceitos da fibra óptica.";
-
-                } else if (porcentagem >= 50) {
-
-                    mensagem =
-                        "Bom trabalho! Você já conhece os principais conceitos.";
-
-                } else {
-
-                    mensagem =
-                        "Continue estudando. A tecnologia óptica tem muito mais a revelar.";
-
-                }
-
-                optionsElement.innerHTML = `
-                    <div class="quiz-final">
-                        <strong>${pontuacao}/${perguntas.length}</strong>
-                        <span>${porcentagem}% de aproveitamento</span>
-                        <p>${mensagem}</p>
-                        <button class="quiz-restart">
-                            REINICIAR QUIZ
-                        </button>
-                    </div>
-                `;
-
-                const restart =
-                    optionsElement.querySelector(
-                        ".quiz-restart"
-                    );
-
-                if (restart) {
-
-                    restart.addEventListener(
-                        "click",
-                        () => {
-
-                            perguntaAtual = 0;
-                            pontuacao = 0;
-
-                            if (scoreElement) {
-                                scoreElement.textContent =
-                                    "0/6";
-                            }
-
-                            carregarPergunta();
-
-                        }
-                    );
-
-                }
-
-            }
-
-            if (nextButton) {
-                nextButton.style.display = "none";
-            }
-
-        }
-
-
-        carregarPergunta();
-
-    }
-
-
-    /* =====================================================
-       MINI JOGO — CONECTE A FIBRA
-       ===================================================== */
-
-    const game =
-        document.querySelector("#fiberGame");
-
-    if (game) {
-
-        const canvas =
-            game.querySelector("canvas");
-
-        const ctx =
-            canvas ? canvas.getContext("2d") : null;
-
-        const startButton =
-            game.querySelector(".game-start");
-
-        const score =
-            game.querySelector(".game-score");
-
-        if (canvas && ctx) {
-
-            function ajustarCanvas() {
-
-                const dpr =
-                    window.devicePixelRatio || 1;
-
-                const rect =
-                    canvas.getBoundingClientRect();
-
-                canvas.width =
-                    rect.width * dpr;
-
-                canvas.height =
-                    rect.height * dpr;
-
-                ctx.setTransform(
-                    dpr,
-                    0,
-                    0,
-                    dpr,
-                    0,
-                    0
-                );
-
-            }
-
-            ajustarCanvas();
-
-            window.addEventListener(
-                "resize",
-                ajustarCanvas
-            );
-
-
-            let jogoAtivo = false;
-            let pontos = 0;
-            let fio = [];
-            let destino = null;
-
-
-            function gerarDestino() {
-
-                destino = {
-
-                    x:
-                        80 +
-                        Math.random() *
-                        (canvas.clientWidth - 160),
-
-                    y:
-                        60 +
-                        Math.random() *
-                        (canvas.clientHeight - 120)
-
-                };
-
-            }
-
-
-            function desenharJogo() {
-
-                const w =
-                    canvas.clientWidth;
-
-                const h =
-                    canvas.clientHeight;
-
-                ctx.clearRect(
-                    0,
-                    0,
-                    w,
-                    h
-                );
-
-
-                /*
-                 * grade
-                 */
-
-                ctx.strokeStyle =
-                    "rgba(0, 200, 255, 0.08)";
-
-                ctx.lineWidth = 1;
-
-                const grid = 40;
-
-                for (
-                    let x = 0;
-                    x < w;
-                    x += grid
-                ) {
-
-                    ctx.beginPath();
-
-                    ctx.moveTo(x, 0);
-                    ctx.lineTo(x, h);
-
-                    ctx.stroke();
-
-                }
-
-                for (
-                    let y = 0;
-                    y < h;
-                    y += grid
-                ) {
-
-                    ctx.beginPath();
-
-                    ctx.moveTo(0, y);
-                    ctx.lineTo(w, y);
-
-                    ctx.stroke();
-
-                }
-
-
-                /*
-                 * destino
-                 */
-
-                if (destino) {
-
-                    ctx.beginPath();
-
-                    ctx.arc(
-                        destino.x,
-                        destino.y,
-                        15,
-                        0,
-                        Math.PI * 2
-                    );
-
-                    ctx.strokeStyle =
-                        "#00eaff";
-
-                    ctx.lineWidth = 2;
-
-                    ctx.shadowBlur = 15;
-                    ctx.shadowColor =
-                        "#00eaff";
-
-                    ctx.stroke();
-
-                    ctx.shadowBlur = 0;
-
-                }
-
-
-                /*
-                 * fio criado pelo jogador
-                 */
-
-                if (fio.length > 1) {
-
-                    ctx.beginPath();
-
-                    ctx.moveTo(
-                        fio[0].x,
-                        fio[0].y
-                    );
-
-                    for (
-                        let i = 1;
-                        i < fio.length;
-                        i++
-                    ) {
-
-                        ctx.lineTo(
-                            fio[i].x,
-                            fio[i].y
-                        );
-
-                    }
-
-                    ctx.strokeStyle =
-                        "#00eaff";
-
-                    ctx.lineWidth = 3;
-
-                    ctx.shadowBlur = 12;
-
-                    ctx.shadowColor =
-                        "#00eaff";
-
-                    ctx.stroke();
-
-                    ctx.shadowBlur = 0;
-
-                }
-
-
-                if (jogoAtivo) {
-
-                    requestAnimationFrame(
-                        desenharJogo
-                    );
-
-                }
-
-            }
-
-
-            function iniciarJogo() {
-
-                jogoAtivo = true;
-
-                pontos = 0;
-
-                fio = [];
-
-                gerarDestino();
-
-                if (score) {
-                    score.textContent =
-                        "0";
-                }
-
-                desenharJogo();
-
-            }
-
-
-            canvas.addEventListener(
-                "mousedown",
-                event => {
-
-                    if (!jogoAtivo) return;
-
-                    const rect =
-                        canvas.getBoundingClientRect();
-
-                    fio = [
-
-                        {
-                            x:
-                                event.clientX -
-                                rect.left,
-
-                            y:
-                                event.clientY -
-                                rect.top
-                        }
-
-                    ];
-
-                    function mover(e) {
-
-                        fio.push({
-
-                            x:
-                                e.clientX -
-                                rect.left,
-
-                            y:
-                                e.clientY -
-                                rect.top
-
-                        });
-
-                    }
-
-                    function soltar() {
-
-                        document.removeEventListener(
-                            "mousemove",
-                            mover
-                        );
-
-                        document.removeEventListener(
-                            "mouseup",
-                            soltar
-                        );
-
-                        verificarDestino();
-
-                    }
-
-                    document.addEventListener(
-                        "mousemove",
-                        mover
-                    );
-
-                    document.addEventListener(
-                        "mouseup",
-                        soltar
-                    );
-
-                }
-            );
-
-
-            function verificarDestino() {
-
-                if (!destino || fio.length === 0) {
-                    return;
-                }
-
-                const ultimo =
-                    fio[fio.length - 1];
-
-                const distancia =
-                    Math.hypot(
-                        ultimo.x - destino.x,
-                        ultimo.y - destino.y
-                    );
-
-
-                if (distancia < 40) {
-
-                    pontos++;
-
-                    if (score) {
-
-                        score.textContent =
-                            pontos;
-
-                    }
-
-                    fio = [];
-
-                    gerarDestino();
-
-                } else {
-
-                    fio = [];
-
-                }
-
-            }
-
-
-            if (startButton) {
-
-                startButton.addEventListener(
-                    "click",
-                    iniciarJogo
-                );
-
-            }
-
-        }
-
-    }
-
-
-    /* =====================================================
-       EFEITO DE TILT NOS CARDS
-       ===================================================== */
-
-    const tiltCards =
-        document.querySelectorAll(
-            ".tilt-card"
-        );
-
-    tiltCards.forEach(card => {
-
-        card.addEventListener(
-            "mousemove",
-            event => {
-
-                const rect =
-                    card.getBoundingClientRect();
-
-                const x =
-                    event.clientX - rect.left;
-
-                const y =
-                    event.clientY - rect.top;
-
-                const centroX =
-                    rect.width / 2;
-
-                const centroY =
-                    rect.height / 2;
-
-                const rotacaoX =
-                    ((y - centroY) /
-                        centroY) *
-                    -6;
-
-                const rotacaoY =
-                    ((x - centroX) /
-                        centroX) *
-                    6;
-
-                card.style.transform =
-                    `perspective(900px)
-                     rotateX(${rotacaoX}deg)
-                     rotateY(${rotacaoY}deg)
-                     translateY(-5px)`;
-
-            }
-        );
-
-
-        card.addEventListener(
-            "mouseleave",
-            () => {
-
-                card.style.transform =
-                    "";
-
-            }
-        );
-
-    });
-
-
-    /* =====================================================
-       BARRAS DE PROGRESSO
-       ===================================================== */
-
-    const barras =
-        document.querySelectorAll(
-            ".progress-bar[data-progress]"
-        );
-
-    if ("IntersectionObserver" in window) {
-
-        const progressObserver =
-            new IntersectionObserver(
-                entries => {
-
-                    entries.forEach(entry => {
-
-                        if (
-                            entry.isIntersecting
-                        ) {
-
-                            const barra =
-                                entry.target;
-
-                            const progresso =
-                                barra.dataset.progress;
-
-                            barra.style.width =
-                                `${progresso}%`;
-
-                            progressObserver.unobserve(
-                                barra
-                            );
-
-                        }
-
-                    });
-
-                },
-                {
-                    threshold: 0.3
-                }
-            );
-
-        barras.forEach(barra => {
-
-            barra.style.width = "0%";
-
-            progressObserver.observe(
-                barra
-            );
-
-        });
-
-    }
-
-
-    /* =====================================================
-       BOTÕES DE ABRIR / FECHAR INFORMAÇÕES
-       ===================================================== */
-
-    const toggleButtons =
-        document.querySelectorAll(
-            "[data-toggle]"
-        );
-
-    toggleButtons.forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                const alvo =
-                    document.querySelector(
-                        button.dataset.toggle
-                    );
-
-                if (!alvo) return;
-
-                alvo.classList.toggle(
-                    "open"
-                );
-
-                button.classList.toggle(
-                    "active"
-                );
-
-            }
-        );
-
-    });
-
-
-    /* =====================================================
-       EFEITO DE DIGITAÇÃO
-       ===================================================== */
-
-    const typeElements =
-        document.querySelectorAll(
-            "[data-type]"
-        );
-
-    typeElements.forEach(elemento => {
-
-        const texto =
-            elemento.dataset.type ||
-            elemento.textContent;
-
-        elemento.textContent = "";
-
-        let index = 0;
-
-        function digitar() {
-
-            if (index >= texto.length) return;
-
-            elemento.textContent +=
-                texto[index];
-
-            index++;
-
-            setTimeout(
-                digitar,
-                45
-            );
-
-        }
-
-        digitar();
-
-    });
-
-
-    /* =====================================================
-       EFEITO DE GLITCH
-       ===================================================== */
-
-    const glitchElements =
-        document.querySelectorAll(
-            ".glitch"
-        );
-
-    glitchElements.forEach(elemento => {
-
-        setInterval(() => {
-
-            elemento.classList.add(
-                "glitch-active"
-            );
-
-            setTimeout(() => {
-
-                elemento.classList.remove(
-                    "glitch-active"
-                );
-
-            }, 120);
-
-        }, 4000);
-
-    });
-
-
-    /* =====================================================
-       DATA / HORA DO SISTEMA
-       ===================================================== */
-
-    const clock =
-        document.querySelector(
-            "#systemClock"
-        );
-
-    if (clock) {
-
-        function atualizarRelogio() {
-
-            const agora =
-                new Date();
-
-            const horas =
-                String(
-                    agora.getHours()
-                ).padStart(2, "0");
-
-            const minutos =
-                String(
-                    agora.getMinutes()
-                ).padStart(2, "0");
-
-            const segundos =
-                String(
-                    agora.getSeconds()
-                ).padStart(2, "0");
-
-            clock.textContent =
-                `${horas}:${minutos}:${segundos}`;
-
-        }
-
-        atualizarRelogio();
-
-        setInterval(
-            atualizarRelogio,
-            1000
-        );
-
-    }
-
-
-    /* =====================================================
-       BOTÃO VOLTAR AO TOPO
-       ===================================================== */
-
-    const topButton =
-        document.querySelector(
-            "#backToTop"
-        );
-
-    if (topButton) {
-
-        window.addEventListener(
-            "scroll",
-            () => {
-
-                if (window.scrollY > 500) {
-
-                    topButton.classList.add(
-                        "visible"
-                    );
-
-                } else {
-
-                    topButton.classList.remove(
-                        "visible"
-                    );
-
-                }
-
-            }
-        );
-
-
-        topButton.addEventListener(
-            "click",
-            () => {
-
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       CONSOLE DE INICIALIZAÇÃO
-       ===================================================== */
-
-    console.log(
-        "%c O FUTURO DA COMUNICAÇÃO ",
-        "background:#00141c;color:#00eaff;font-size:18px;font-weight:bold;padding:10px;"
     );
 
-    console.log(
-        "%c Sistema de fibra óptica inicializado.",
-        "color:#00eaff;font-size:13px;"
+}
+
+
+function answerQuestion(
+    selected,
+    selectedButton
+) {
+
+    if (
+        quizAnswered
+    ) {
+
+        return;
+
+    }
+
+
+    quizAnswered =
+        true;
+
+
+    const question =
+        quizQuestions[
+            currentQuestion
+        ];
+
+
+    const options =
+        document.querySelectorAll(
+            ".quiz-option"
+        );
+
+
+    options.forEach(
+        button => {
+
+            button.disabled =
+                true;
+
+        }
     );
 
-    console.log(
-        `Velocidade estimada na fibra: ${(
-            CONFIG.velocidadeFibra / 1000000
-        ).toFixed(2)} milhões de m/s`
+
+    if (
+        selected ===
+        question.answer
+    ) {
+
+        selectedButton.classList.add(
+            "correct"
+        );
+
+
+        quizScore++;
+
+
+        quizFeedback.textContent =
+            "✓ CORRETO — " +
+            question.explanation;
+
+    } else {
+
+        selectedButton.classList.add(
+            "wrong"
+        );
+
+
+        options[
+            question.answer
+        ].classList.add(
+            "correct"
+        );
+
+
+        quizFeedback.textContent =
+            "✕ INCORRETO — " +
+            question.explanation;
+
+    }
+
+
+    quizNext.style.display =
+        "inline-flex";
+
+}
+
+
+quizNext.addEventListener(
+    "click",
+    () => {
+
+        currentQuestion++;
+
+
+        if (
+            currentQuestion >=
+            quizQuestions.length
+        ) {
+
+            showQuizResult();
+
+            return;
+
+        }
+
+
+        loadQuizQuestion();
+
+    }
+);
+
+
+function showQuizResult() {
+
+    quizProgress.textContent =
+        "RESULTADO";
+
+
+    quizBar.style.width =
+        "100%";
+
+
+    quizQuestion.textContent =
+        `VOCÊ ACERTOU ${quizScore} DE ${quizQuestions.length} QUESTÕES.`;
+
+
+    quizOptions.innerHTML =
+        "";
+
+
+    quizFeedback.textContent =
+        quizScore >= 4
+            ? "EXCELENTE! Você domina os conceitos básicos de fibra óptica."
+            : quizScore >= 3
+                ? "MUITO BOM! Você já conhece bastante sobre o tema."
+                : "CONTINUE ESTUDANDO! Explore novamente a pesquisa.";
+
+
+    quizNext.style.display =
+        "inline-flex";
+
+
+    quizNext.innerHTML =
+        "REFAZER QUIZ →";
+
+
+    quizNext.onclick =
+        restartQuiz;
+
+}
+
+
+function restartQuiz() {
+
+    currentQuestion =
+        0;
+
+    quizScore =
+        0;
+
+    quizNext.innerHTML =
+        "PRÓXIMA →";
+
+
+    quizNext.onclick =
+        null;
+
+
+    quizNext.addEventListener(
+        "click",
+        () => {
+
+            currentQuestion++;
+
+        },
+        {
+            once:
+                true
+        }
     );
 
-});
+
+    loadQuizQuestion();
+
+}
+
+
+loadQuizQuestion();
+
+
+/* =========================================================
+   PARALLAXE DO HERO
+========================================================= */
+
+const heroVisual =
+    document.querySelector(
+        ".hero-visual"
+    );
+
+
+document.addEventListener(
+    "mousemove",
+    event => {
+
+        if (
+            !heroVisual
+        ) {
+
+            return;
+
+        }
+
+
+        const x =
+            (
+                event.clientX /
+                window.innerWidth -
+                .5
+            ) * 20;
+
+
+        const y =
+            (
+                event.clientY /
+                window.innerHeight -
+                .5
+            ) * 20;
+
+
+        heroVisual.style.transform =
+            `translate(
+                ${x}px,
+                ${y}px
+            )`;
+
+    }
+);
+
+
+/* =========================================================
+   RECONSTRUIR FIBRAS NO RESIZE
+========================================================= */
+
+window.addEventListener(
+    "resize",
+    () => {
+
+        if (
+            connections.length === 0
+        ) {
+
+            return;
+
+        }
+
+
+        const savedConnections =
+            connections.map(
+                connection => ({
+
+                    from:
+                        connection.from,
+
+                    to:
+                        connection.to
+
+                })
+            );
+
+
+        fiberLines.innerHTML =
+            "";
+
+
+        connections =
+            [];
+
+
+        savedConnections.forEach(
+            connection => {
+
+                const newConnection =
+                    createFiberConnection(
+                        connection.from,
+                        connection.to
+                    );
+
+
+                connections.push(
+                    newConnection
+                );
+
+            }
+        );
+
+    }
+);
