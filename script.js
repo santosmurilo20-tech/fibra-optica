@@ -1,39 +1,75 @@
 /* =========================================================
+   FIBER OPTIC
+   SISTEMA INTERATIVO
+========================================================= */
+
+
+/* =========================================================
    CURSOR FUTURISTA
 ========================================================= */
 
-const cursor = document.getElementById("cursor");
-const cursorRing = document.getElementById("cursorRing");
+const cursor =
+    document.getElementById("cursor");
+
+const cursorRing =
+    document.getElementById("cursorRing");
+
 
 let mouseX = 0;
 let mouseY = 0;
+
 let ringX = 0;
 let ringY = 0;
 
-document.addEventListener("mousemove", event => {
 
-    mouseX = event.clientX;
-    mouseY = event.clientY;
+document.addEventListener(
+    "mousemove",
+    event => {
 
-    if (cursor) {
-        cursor.style.left = `${mouseX}px`;
-        cursor.style.top = `${mouseY}px`;
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+
+
+        if (cursor) {
+
+            cursor.style.left =
+                `${mouseX}px`;
+
+            cursor.style.top =
+                `${mouseY}px`;
+
+        }
+
     }
+);
 
-});
 
 function animateCursor() {
 
-    ringX += (mouseX - ringX) * 0.15;
-    ringY += (mouseY - ringY) * 0.15;
+    ringX +=
+        (mouseX - ringX) * .15;
+
+    ringY +=
+        (mouseY - ringY) * .15;
+
 
     if (cursorRing) {
-        cursorRing.style.left = `${ringX}px`;
-        cursorRing.style.top = `${ringY}px`;
+
+        cursorRing.style.left =
+            `${ringX}px`;
+
+        cursorRing.style.top =
+            `${ringY}px`;
+
     }
 
-    requestAnimationFrame(animateCursor);
+
+    requestAnimationFrame(
+        animateCursor
+    );
+
 }
+
 
 animateCursor();
 
@@ -44,23 +80,51 @@ animateCursor();
 
 function activateCursorHover() {
 
-    const hoverElements = document.querySelectorAll(
-        "a, button, .concept-card, .subtheme, .flashcard, .application-card, .reference-card"
+    const hoverElements =
+        document.querySelectorAll(
+            `
+            a,
+            button,
+            .concept-card,
+            .subtheme,
+            .flashcard,
+            .application-card,
+            .reference-card
+            `
+        );
+
+
+    hoverElements.forEach(
+        element => {
+
+            element.addEventListener(
+                "mouseenter",
+                () => {
+
+                    document.body.classList.add(
+                        "cursor-hover"
+                    );
+
+                }
+            );
+
+
+            element.addEventListener(
+                "mouseleave",
+                () => {
+
+                    document.body.classList.remove(
+                        "cursor-hover"
+                    );
+
+                }
+            );
+
+        }
     );
 
-    hoverElements.forEach(element => {
-
-        element.addEventListener("mouseenter", () => {
-            document.body.classList.add("cursor-hover");
-        });
-
-        element.addEventListener("mouseleave", () => {
-            document.body.classList.remove("cursor-hover");
-        });
-
-    });
-
 }
+
 
 activateCursorHover();
 
@@ -69,26 +133,52 @@ activateCursorHover();
    MENU MOBILE
 ========================================================= */
 
-const menuButton = document.getElementById("menuButton");
-const mobileMenu = document.getElementById("mobileMenu");
+const menuButton =
+    document.getElementById(
+        "menuButton"
+    );
 
-if (menuButton && mobileMenu) {
+const mobileMenu =
+    document.getElementById(
+        "mobileMenu"
+    );
 
-    menuButton.addEventListener("click", () => {
 
-        mobileMenu.classList.toggle("active");
+if (
+    menuButton &&
+    mobileMenu
+) {
 
-    });
+    menuButton.addEventListener(
+        "click",
+        () => {
 
-    mobileMenu.querySelectorAll("a").forEach(link => {
+            mobileMenu.classList.toggle(
+                "active"
+            );
 
-        link.addEventListener("click", () => {
+        }
+    );
 
-            mobileMenu.classList.remove("active");
 
-        });
+    mobileMenu
+        .querySelectorAll("a")
+        .forEach(
+            link => {
 
-    });
+                link.addEventListener(
+                    "click",
+                    () => {
+
+                        mobileMenu.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+            }
+        );
 
 }
 
@@ -97,90 +187,169 @@ if (menuButton && mobileMenu) {
    EFEITO CASCATA
 ========================================================= */
 
-const revealElements = document.querySelectorAll(".reveal");
+const revealElements =
+    document.querySelectorAll(
+        ".reveal"
+    );
 
-const revealObserver = new IntersectionObserver(
-    entries => {
 
-        entries.forEach(entry => {
+const revealObserver =
+    new IntersectionObserver(
+        entries => {
 
-            if (entry.isIntersecting) {
+            entries.forEach(
+                entry => {
 
-                entry.target.classList.add("visible");
+                    if (
+                        entry.isIntersecting
+                    ) {
 
-            } else {
+                        entry.target.classList.add(
+                            "visible"
+                        );
 
-                /*
-                    Remove a classe quando o elemento sai
-                    da tela para que a animação aconteça
-                    novamente ao retornar.
-                */
+                    } else {
 
-                entry.target.classList.remove("visible");
+                        entry.target.classList.remove(
+                            "visible"
+                        );
 
-            }
+                    }
 
-        });
+                }
+            );
 
-    },
-    {
-        threshold: 0.12,
-        rootMargin: "0px 0px -50px 0px"
+        },
+        {
+            threshold: .12,
+
+            rootMargin:
+                "0px 0px -50px 0px"
+        }
+    );
+
+
+revealElements.forEach(
+    element => {
+
+        revealObserver.observe(
+            element
+        );
+
     }
 );
-
-revealElements.forEach(element => {
-    revealObserver.observe(element);
-});
 
 
 /* =========================================================
    PARTÍCULAS
 ========================================================= */
 
-const canvas = document.getElementById("particles");
+const canvas =
+    document.getElementById(
+        "particles"
+    );
+
 
 let ctx = null;
+
 let particles = [];
+
 
 if (canvas) {
 
-    ctx = canvas.getContext("2d");
+    ctx =
+        canvas.getContext("2d");
+
 
     function resizeCanvas() {
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        const dpr =
+            Math.min(
+                window.devicePixelRatio || 1,
+                2
+            );
+
+
+        canvas.width =
+            window.innerWidth * dpr;
+
+        canvas.height =
+            window.innerHeight * dpr;
+
+
+        canvas.style.width =
+            `${window.innerWidth}px`;
+
+        canvas.style.height =
+            `${window.innerHeight}px`;
+
+
+        if (ctx) {
+
+            ctx.setTransform(
+                dpr,
+                0,
+                0,
+                dpr,
+                0,
+                0
+            );
+
+        }
 
     }
 
+
     resizeCanvas();
 
-    window.addEventListener("resize", resizeCanvas);
+
+    window.addEventListener(
+        "resize",
+        resizeCanvas
+    );
 
 
     function createParticles() {
 
         particles = [];
 
-        const amount = Math.min(
-            130,
-            Math.floor(window.innerWidth / 9)
-        );
 
-        for (let i = 0; i < amount; i++) {
+        const amount =
+            Math.min(
+                130,
+                Math.floor(
+                    window.innerWidth / 9
+                )
+            );
+
+
+        for (
+            let i = 0;
+            i < amount;
+            i++
+        ) {
 
             particles.push({
 
-                x: Math.random() * canvas.width,
+                x:
+                    Math.random() *
+                    window.innerWidth,
 
-                y: Math.random() * canvas.height,
+                y:
+                    Math.random() *
+                    window.innerHeight,
 
-                size: Math.random() * 1.5 + .3,
+                size:
+                    Math.random() *
+                    1.5 + .3,
 
-                speed: Math.random() * .25 + .05,
+                speed:
+                    Math.random() *
+                    .25 + .05,
 
-                alpha: Math.random() * .5 + .1
+                alpha:
+                    Math.random() *
+                    .5 + .1
 
             });
 
@@ -188,50 +357,83 @@ if (canvas) {
 
     }
 
+
     createParticles();
+
+
+    window.addEventListener(
+        "resize",
+        createParticles
+    );
 
 
     function animateParticles() {
 
         if (!ctx) {
+
             return;
+
         }
+
 
         ctx.clearRect(
             0,
             0,
-            canvas.width,
-            canvas.height
+            window.innerWidth,
+            window.innerHeight
         );
 
-        particles.forEach(particle => {
 
-            particle.y -= particle.speed;
+        particles.forEach(
+            particle => {
 
-            if (particle.y < 0) {
-                particle.y = canvas.height;
+                particle.y -=
+                    particle.speed;
+
+
+                if (
+                    particle.y < 0
+                ) {
+
+                    particle.y =
+                        window.innerHeight;
+
+                }
+
+
+                ctx.beginPath();
+
+
+                ctx.arc(
+                    particle.x,
+                    particle.y,
+                    particle.size,
+                    0,
+                    Math.PI * 2
+                );
+
+
+                ctx.fillStyle =
+                    `rgba(
+                        0,
+                        234,
+                        255,
+                        ${particle.alpha}
+                    )`;
+
+
+                ctx.fill();
+
             }
+        );
 
-            ctx.beginPath();
 
-            ctx.arc(
-                particle.x,
-                particle.y,
-                particle.size,
-                0,
-                Math.PI * 2
-            );
-
-            ctx.fillStyle =
-                `rgba(0,234,255,${particle.alpha})`;
-
-            ctx.fill();
-
-        });
-
-        requestAnimationFrame(animateParticles);
+        requestAnimationFrame(
+            animateParticles
+        );
 
     }
+
 
     animateParticles();
 
@@ -243,32 +445,49 @@ if (canvas) {
 ========================================================= */
 
 const flashcards =
-    document.querySelectorAll(".flashcard");
+    document.querySelectorAll(
+        ".flashcard"
+    );
 
-flashcards.forEach(card => {
 
-    card.addEventListener("click", () => {
+flashcards.forEach(
+    card => {
 
-        card.classList.toggle("flipped");
+        card.addEventListener(
+            "click",
+            () => {
 
-    });
+                card.classList.toggle(
+                    "flipped"
+                );
 
-    card.addEventListener("keydown", event => {
+            }
+        );
 
-        if (
-            event.key === "Enter" ||
-            event.key === " "
-        ) {
 
-            event.preventDefault();
+        card.addEventListener(
+            "keydown",
+            event => {
 
-            card.classList.toggle("flipped");
+                if (
+                    event.key === "Enter" ||
+                    event.key === " "
+                ) {
 
-        }
+                    event.preventDefault();
 
-    });
 
-});
+                    card.classList.toggle(
+                        "flipped"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
 
 
 /* =========================================================
@@ -276,40 +495,75 @@ flashcards.forEach(card => {
 ========================================================= */
 
 const networkMap =
-    document.getElementById("fiberMap");
+    document.getElementById(
+        "fiberMap"
+    );
+
 
 const fiberLines =
-    document.getElementById("fiberLines");
+    document.getElementById(
+        "fiberLines"
+    );
+
 
 const networkNodes =
-    document.querySelectorAll(".network-node");
+    document.querySelectorAll(
+        ".network-node"
+    );
+
 
 const networkMessage =
-    document.getElementById("networkMessage");
+    document.getElementById(
+        "networkMessage"
+    );
+
 
 const nextConnection =
-    document.getElementById("nextConnection");
+    document.getElementById(
+        "nextConnection"
+    );
+
 
 const resetNetwork =
-    document.getElementById("resetNetwork");
+    document.getElementById(
+        "resetNetwork"
+    );
+
 
 const dataOrigin =
-    document.getElementById("dataOrigin");
+    document.getElementById(
+        "dataOrigin"
+    );
+
 
 const dataDestination =
-    document.getElementById("dataDestination");
+    document.getElementById(
+        "dataDestination"
+    );
+
 
 const dataDistance =
-    document.getElementById("dataDistance");
+    document.getElementById(
+        "dataDistance"
+    );
+
 
 const dataTravelTime =
-    document.getElementById("dataTravelTime");
+    document.getElementById(
+        "dataTravelTime"
+    );
+
 
 const networkLatency =
-    document.getElementById("networkLatency");
+    document.getElementById(
+        "networkLatency"
+    );
+
 
 const travelingLight =
-    document.getElementById("travelingLight");
+    document.getElementById(
+        "travelingLight"
+    );
 
 
 /* =========================================================
@@ -319,63 +573,116 @@ const travelingLight =
 const networkData = {
 
     1: {
+
         name: "Curitiba",
+
         country: "Brasil",
+
         flag: "🇧🇷",
+
         x: 25,
+
         y: 68,
+
         lat: -25.4284,
+
         lon: -49.2733
+
     },
+
 
     2: {
+
         name: "Nova York",
+
         country: "Estados Unidos",
+
         flag: "🇺🇸",
+
         x: 44,
+
         y: 32,
+
         lat: 40.7128,
+
         lon: -74.0060
+
     },
+
 
     3: {
+
         name: "Paris",
+
         country: "França",
+
         flag: "🇫🇷",
+
         x: 55,
+
         y: 31,
+
         lat: 48.8566,
+
         lon: 2.3522
+
     },
+
 
     4: {
+
         name: "Tóquio",
+
         country: "Japão",
+
         flag: "🇯🇵",
+
         x: 85,
+
         y: 40,
+
         lat: 35.6762,
+
         lon: 139.6503
+
     },
+
 
     5: {
+
         name: "Moscou",
+
         country: "Rússia",
+
         flag: "🇷🇺",
+
         x: 69,
+
         y: 22,
+
         lat: 55.7558,
+
         lon: 37.6173
+
     },
 
+
     6: {
+
         name: "Londres",
+
         country: "Reino Unido",
+
         flag: "🇬🇧",
+
         x: 53,
+
         y: 26,
+
         lat: 51.5074,
+
         lon: -0.1278
+
     }
 
 };
@@ -386,6 +693,7 @@ const networkData = {
 ========================================================= */
 
 let selectedNode = null;
+
 let connections = [];
 
 
@@ -393,36 +701,70 @@ let connections = [];
    DISTÂNCIA — HAVERSINE
 ========================================================= */
 
-function calculateDistance(pointA, pointB) {
+function calculateDistance(
+    pointA,
+    pointB
+) {
 
-    const earthRadius = 6371;
+    const earthRadius =
+        6371;
 
-    const cityA = networkData[pointA];
-    const cityB = networkData[pointB];
 
-    if (!cityA || !cityB) {
+    const cityA =
+        networkData[pointA];
+
+
+    const cityB =
+        networkData[pointB];
+
+
+    if (
+        !cityA ||
+        !cityB
+    ) {
+
         return 0;
+
     }
 
+
     const lat1 =
-        cityA.lat * Math.PI / 180;
+        cityA.lat *
+        Math.PI / 180;
+
 
     const lat2 =
-        cityB.lat * Math.PI / 180;
+        cityB.lat *
+        Math.PI / 180;
+
 
     const deltaLat =
-        (cityB.lat - cityA.lat) *
+        (
+            cityB.lat -
+            cityA.lat
+        ) *
         Math.PI / 180;
+
 
     const deltaLon =
-        (cityB.lon - cityA.lon) *
+        (
+            cityB.lon -
+            cityA.lon
+        ) *
         Math.PI / 180;
 
+
     const a =
-        Math.sin(deltaLat / 2) ** 2 +
+        Math.sin(
+            deltaLat / 2
+        ) ** 2 +
+
         Math.cos(lat1) *
         Math.cos(lat2) *
-        Math.sin(deltaLon / 2) ** 2;
+        Math.sin(
+            deltaLon / 2
+        ) ** 2;
+
 
     const c =
         2 *
@@ -431,7 +773,10 @@ function calculateDistance(pointA, pointB) {
             Math.sqrt(1 - a)
         );
 
-    return earthRadius * c;
+
+    return (
+        earthRadius * c
+    );
 
 }
 
@@ -440,12 +785,23 @@ function calculateDistance(pointA, pointB) {
    TEMPO DE PROPAGAÇÃO
 ========================================================= */
 
-function calculateTravelTime(distanceKm) {
+function calculateTravelTime(
+    distanceKm
+) {
 
-    const fiberSpeed = 200000;
+    /*
+        Velocidade aproximada da luz
+        dentro da fibra.
+    */
+
+    const fiberSpeed =
+        200000;
+
 
     const seconds =
-        distanceKm / fiberSpeed;
+        distanceKm /
+        fiberSpeed;
+
 
     return {
 
@@ -469,39 +825,117 @@ function calculateTravelTime(distanceKm) {
    FORMATAR TEMPO
 ========================================================= */
 
-function formatTravelTime(time) {
+function formatTravelTime(
+    time
+) {
 
-    if (time.nanoseconds < 1000) {
+    if (
+        time.nanoseconds < 1000
+    ) {
 
         return (
-            time.nanoseconds.toFixed(2) +
+            time.nanoseconds
+                .toFixed(2) +
             " ns"
         );
 
     }
 
-    if (time.microseconds < 1000) {
+
+    if (
+        time.microseconds < 1000
+    ) {
 
         return (
-            time.microseconds.toFixed(2) +
+            time.microseconds
+                .toFixed(2) +
             " μs"
         );
 
     }
 
-    if (time.milliseconds < 1000) {
+
+    if (
+        time.milliseconds < 1000
+    ) {
 
         return (
-            time.milliseconds.toFixed(4) +
+            time.milliseconds
+                .toFixed(4) +
             " ms"
         );
 
     }
 
+
     return (
-        time.seconds.toFixed(3) +
+        time.seconds
+            .toFixed(3) +
         " s"
     );
+
+}
+
+
+/* =========================================================
+   COORDENADAS DO MAPA
+========================================================= */
+
+function getMapCoordinates(
+    node
+) {
+
+    if (
+        !node ||
+        !networkMap
+    ) {
+
+        return null;
+
+    }
+
+
+    const mapRect =
+        networkMap.getBoundingClientRect();
+
+
+    const nodeRect =
+        node.getBoundingClientRect();
+
+
+    if (
+        !mapRect.width ||
+        !mapRect.height
+    ) {
+
+        return null;
+
+    }
+
+
+    return {
+
+        x:
+            (
+                (
+                    nodeRect.left +
+                    nodeRect.width / 2 -
+                    mapRect.left
+                ) /
+                mapRect.width
+            ) * 1000,
+
+        y:
+            (
+                (
+                    nodeRect.top +
+                    nodeRect.height / 2 -
+                    mapRect.top
+                ) /
+                mapRect.height
+            ) * 650
+
+    };
 
 }
 
@@ -510,39 +944,116 @@ function formatTravelTime(time) {
    CRIAR CONEXÃO
 ========================================================= */
 
-function createFiberConnection(from, to) {
+function createFiberConnection(
+    from,
+    to,
+    animate = true
+) {
 
-    if (!networkMap || !fiberLines) {
+    if (
+        !networkMap ||
+        !fiberLines
+    ) {
+
         return null;
+
     }
 
-    const fromData = networkData[from];
-    const toData = networkData[to];
 
-    if (!fromData || !toData) {
+    const fromNode =
+        document.querySelector(
+            `[data-node="${from}"]`
+        );
+
+
+    const toNode =
+        document.querySelector(
+            `[data-node="${to}"]`
+        );
+
+
+    if (
+        !fromNode ||
+        !toNode
+    ) {
+
         return null;
+
     }
 
-    const x1 = fromData.x * 10;
-    const y1 = fromData.y * 6.5;
 
-    const x2 = toData.x * 10;
-    const y2 = toData.y * 6.5;
+    const start =
+        getMapCoordinates(
+            fromNode
+        );
 
-    const middleX = (x1 + x2) / 2;
+
+    const end =
+        getMapCoordinates(
+            toNode
+        );
+
+
+    if (
+        !start ||
+        !end
+    ) {
+
+        return null;
+
+    }
+
+
+    const x1 =
+        start.x;
+
+    const y1 =
+        start.y;
+
+
+    const x2 =
+        end.x;
+
+    const y2 =
+        end.y;
+
+
+    /*
+        Curvatura adaptativa.
+
+        No celular as linhas continuam
+        curvas, mas não fazem curvas
+        gigantes que poderiam atravessar
+        visualmente o mapa inteiro.
+    */
+
+    const middleX =
+        (x1 + x2) / 2;
+
 
     const distanceVisual =
-        Math.abs(y2 - y1);
+        Math.hypot(
+            x2 - x1,
+            y2 - y1
+        );
 
-    const middleY =
-        Math.min(y1, y2) -
+
+    const curve =
         Math.max(
-            45,
+            35,
             Math.min(
-                100,
-                distanceVisual * .25
+                125,
+                distanceVisual * .18
             )
         );
+
+
+    const middleY =
+        Math.min(
+            y1,
+            y2
+        ) - curve;
+
 
     const pathData = `
         M ${x1} ${y1}
@@ -551,25 +1062,36 @@ function createFiberConnection(from, to) {
     `;
 
 
+    /*
+        Linha externa / halo
+    */
+
     const backgroundPath =
         document.createElementNS(
             "http://www.w3.org/2000/svg",
             "path"
         );
 
+
     backgroundPath.setAttribute(
         "d",
         pathData
     );
 
+
     backgroundPath.classList.add(
         "fiber-path-bg"
     );
+
 
     fiberLines.appendChild(
         backgroundPath
     );
 
+
+    /*
+        Linha óptica principal
+    */
 
     const fiber =
         document.createElementNS(
@@ -577,14 +1099,17 @@ function createFiberConnection(from, to) {
             "path"
         );
 
+
     fiber.setAttribute(
         "d",
         pathData
     );
 
+
     fiber.classList.add(
         "fiber-path"
     );
+
 
     fiberLines.appendChild(
         fiber
@@ -592,6 +1117,7 @@ function createFiberConnection(from, to) {
 
 
     let length = 1000;
+
 
     try {
 
@@ -608,25 +1134,43 @@ function createFiberConnection(from, to) {
     fiber.style.strokeDasharray =
         `${length} ${length}`;
 
+
     fiber.style.strokeDashoffset =
         length;
 
 
-    requestAnimationFrame(() => {
+    if (animate) {
 
-        fiber.style.transition =
-            "stroke-dashoffset 1.2s ease";
+        requestAnimationFrame(
+            () => {
+
+                fiber.style.transition =
+                    "stroke-dashoffset 1.2s ease";
+
+                fiber.style.strokeDashoffset =
+                    "0";
+
+            }
+        );
+
+    } else {
 
         fiber.style.strokeDashoffset =
             "0";
 
-    });
+    }
 
 
     return {
+
         path: fiber,
+
+        backgroundPath,
+
         from,
+
         to
+
     };
 
 }
@@ -636,7 +1180,9 @@ function createFiberConnection(from, to) {
    PULSO DE LUZ
 ========================================================= */
 
-function animateLight(connection) {
+function animateLight(
+    connection
+) {
 
     if (
         !connection ||
@@ -644,12 +1190,18 @@ function animateLight(connection) {
         !travelingLight ||
         !networkMap
     ) {
+
         return;
+
     }
 
-    const path = connection.path;
+
+    const path =
+        connection.path;
+
 
     let totalLength;
+
 
     try {
 
@@ -662,18 +1214,27 @@ function animateLight(connection) {
 
     }
 
+
     const startTime =
         performance.now();
 
-    const duration = 1800;
 
-    travelingLight.style.opacity = "1";
+    const duration =
+        1800;
 
 
-    function animate(currentTime) {
+    travelingLight.style.opacity =
+        "1";
+
+
+    function animate(
+        currentTime
+    ) {
 
         const elapsed =
-            currentTime - startTime;
+            currentTime -
+            startTime;
+
 
         const progress =
             Math.min(
@@ -681,34 +1242,54 @@ function animateLight(connection) {
                 1
             );
 
+
         const eased =
             progress *
             progress *
-            (3 - 2 * progress);
+            (
+                3 -
+                2 * progress
+            );
+
 
         const point =
             path.getPointAtLength(
-                totalLength * eased
+                totalLength *
+                eased
             );
+
+
+        /*
+            O SVG usa viewBox
+            1000 x 650.
+
+            Convertemos para pixels
+            reais do container.
+        */
 
         const x =
             point.x *
             networkMap.clientWidth /
             1000;
 
+
         const y =
             point.y *
             networkMap.clientHeight /
             650;
 
+
         travelingLight.style.left =
             `${x}px`;
+
 
         travelingLight.style.top =
             `${y}px`;
 
 
-        if (progress < 1) {
+        if (
+            progress < 1
+        ) {
 
             requestAnimationFrame(
                 animate
@@ -723,6 +1304,7 @@ function animateLight(connection) {
 
     }
 
+
     requestAnimationFrame(
         animate
     );
@@ -734,13 +1316,22 @@ function animateLight(connection) {
    PAINEL TÉCNICO
 ========================================================= */
 
-function updateTechnicalPanel(from, to) {
+function updateTechnicalPanel(
+    from,
+    to
+) {
 
     const distance =
-        calculateDistance(from, to);
+        calculateDistance(
+            from,
+            to
+        );
+
 
     const time =
-        calculateTravelTime(distance);
+        calculateTravelTime(
+            distance
+        );
 
 
     if (dataOrigin) {
@@ -770,7 +1361,9 @@ function updateTechnicalPanel(from, to) {
     if (dataTravelTime) {
 
         dataTravelTime.textContent =
-            formatTravelTime(time);
+            formatTravelTime(
+                time
+            );
 
     }
 
@@ -789,30 +1382,39 @@ function updateTechnicalPanel(from, to) {
    CONECTAR CIDADES
 ========================================================= */
 
-function connectNodes(from, to) {
+function connectNodes(
+    from,
+    to
+) {
 
-    if (from === to) {
+    if (
+        from === to
+    ) {
+
         return;
+
     }
 
 
     const alreadyConnected =
-        connections.some(connection =>
+        connections.some(
+            connection =>
 
-            (
-                connection.from === from &&
-                connection.to === to
-            ) ||
+                (
+                    connection.from === from &&
+                    connection.to === to
+                ) ||
 
-            (
-                connection.from === to &&
-                connection.to === from
-            )
-
+                (
+                    connection.from === to &&
+                    connection.to === from
+                )
         );
 
 
-    if (alreadyConnected) {
+    if (
+        alreadyConnected
+    ) {
 
         if (networkMessage) {
 
@@ -820,6 +1422,7 @@ function connectNodes(from, to) {
                 `ROTA ${networkData[from].name.toUpperCase()} ↔ ${networkData[to].name.toUpperCase()} JÁ ESTÁ ATIVA`;
 
         }
+
 
         return;
 
@@ -829,22 +1432,28 @@ function connectNodes(from, to) {
     const connection =
         createFiberConnection(
             from,
-            to
+            to,
+            true
         );
 
 
     if (!connection) {
+
         return;
+
     }
 
 
-    connections.push(connection);
+    connections.push(
+        connection
+    );
 
 
     const fromNode =
         document.querySelector(
             `[data-node="${from}"]`
         );
+
 
     const toNode =
         document.querySelector(
@@ -853,11 +1462,20 @@ function connectNodes(from, to) {
 
 
     if (fromNode) {
-        fromNode.classList.add("connected");
+
+        fromNode.classList.add(
+            "connected"
+        );
+
     }
 
+
     if (toNode) {
-        toNode.classList.add("connected");
+
+        toNode.classList.add(
+            "connected"
+        );
+
     }
 
 
@@ -894,185 +1512,261 @@ function connectNodes(from, to) {
    CLIQUE NOS NÓS
 ========================================================= */
 
-networkNodes.forEach(node => {
+networkNodes.forEach(
+    node => {
 
-    node.addEventListener("click", () => {
+        node.addEventListener(
+            "click",
+            () => {
 
-        const number =
-            Number(node.dataset.node);
-
-
-        if (!networkData[number]) {
-            return;
-        }
-
-
-        if (selectedNode === null) {
-
-            selectedNode = number;
+                const number =
+                    Number(
+                        node.dataset.node
+                    );
 
 
-            networkNodes.forEach(item => {
+                if (
+                    !networkData[number]
+                ) {
 
-                item.classList.remove(
+                    return;
+
+                }
+
+
+                /*
+                    PRIMEIRO CLIQUE
+                */
+
+                if (
+                    selectedNode === null
+                ) {
+
+                    selectedNode =
+                        number;
+
+
+                    networkNodes.forEach(
+                        item => {
+
+                            item.classList.remove(
+                                "selected"
+                            );
+
+                        }
+                    );
+
+
+                    node.classList.add(
+                        "selected"
+                    );
+
+
+                    if (networkMessage) {
+
+                        networkMessage.textContent =
+                            `${networkData[number].flag} ${networkData[number].name.toUpperCase()} SELECIONADA — ESCOLHA O DESTINO`;
+
+                    }
+
+
+                    if (nextConnection) {
+
+                        nextConnection.textContent =
+                            `${networkData[number].name} → ?`;
+
+                    }
+
+
+                    return;
+
+                }
+
+
+                /*
+                    CLICOU NOVAMENTE NA MESMA CIDADE
+                */
+
+                if (
+                    number ===
+                    selectedNode
+                ) {
+
+                    node.classList.remove(
+                        "selected"
+                    );
+
+
+                    selectedNode =
+                        null;
+
+
+                    if (networkMessage) {
+
+                        networkMessage.textContent =
+                            "SELECIONE UMA CIDADE DE ORIGEM";
+
+                    }
+
+
+                    if (nextConnection) {
+
+                        nextConnection.textContent =
+                            "ESCOLHA QUALQUER PONTO";
+
+                    }
+
+
+                    return;
+
+                }
+
+
+                /*
+                    SEGUNDO CLIQUE
+                */
+
+                const origin =
+                    selectedNode;
+
+
+                const destination =
+                    number;
+
+
+                connectNodes(
+                    origin,
+                    destination
+                );
+
+
+                networkNodes.forEach(
+                    item => {
+
+                        item.classList.remove(
+                            "selected"
+                        );
+
+                    }
+                );
+
+
+                node.classList.add(
                     "selected"
                 );
 
-            });
 
-
-            node.classList.add(
-                "selected"
-            );
-
-
-            if (networkMessage) {
-
-                networkMessage.textContent =
-                    `${networkData[number].flag} ${networkData[number].name.toUpperCase()} SELECIONADA — ESCOLHA O DESTINO`;
+                selectedNode =
+                    destination;
 
             }
-
-
-            if (nextConnection) {
-
-                nextConnection.textContent =
-                    `${networkData[number].name} → ?`;
-
-            }
-
-
-            return;
-
-        }
-
-
-        if (number === selectedNode) {
-
-            node.classList.remove(
-                "selected"
-            );
-
-            selectedNode = null;
-
-
-            if (networkMessage) {
-
-                networkMessage.textContent =
-                    "SELECIONE UMA CIDADE DE ORIGEM";
-
-            }
-
-
-            if (nextConnection) {
-
-                nextConnection.textContent =
-                    "ESCOLHA QUALQUER PONTO";
-
-            }
-
-
-            return;
-
-        }
-
-
-        const origin =
-            selectedNode;
-
-        const destination =
-            number;
-
-
-        connectNodes(
-            origin,
-            destination
         );
 
-
-        networkNodes.forEach(item => {
-
-            item.classList.remove(
-                "selected"
-            );
-
-        });
-
-
-        node.classList.add(
-            "selected"
-        );
-
-
-        selectedNode =
-            destination;
-
-    });
-
-});
+    }
+);
 
 
 /* =========================================================
    RESET DA REDE
 ========================================================= */
 
-if (resetNetwork) {
+if (
+    resetNetwork
+) {
 
     resetNetwork.addEventListener(
         "click",
         () => {
 
-            selectedNode = null;
-            connections = [];
+            selectedNode =
+                null;
+
+
+            connections =
+                [];
 
 
             if (fiberLines) {
-                fiberLines.innerHTML = "";
+
+                fiberLines.innerHTML =
+                    "";
+
             }
 
 
-            networkNodes.forEach(node => {
+            networkNodes.forEach(
+                node => {
 
-                node.classList.remove(
-                    "selected",
-                    "connected"
-                );
+                    node.classList.remove(
+                        "selected",
+                        "connected"
+                    );
 
-            });
+                }
+            );
 
 
             if (dataOrigin) {
-                dataOrigin.textContent = "—";
+
+                dataOrigin.textContent =
+                    "—";
+
             }
+
 
             if (dataDestination) {
-                dataDestination.textContent = "—";
+
+                dataDestination.textContent =
+                    "—";
+
             }
+
 
             if (dataDistance) {
-                dataDistance.textContent = "—";
+
+                dataDistance.textContent =
+                    "—";
+
             }
+
 
             if (dataTravelTime) {
-                dataTravelTime.textContent = "—";
+
+                dataTravelTime.textContent =
+                    "—";
+
             }
+
 
             if (networkLatency) {
-                networkLatency.textContent = "0.00 ns";
+
+                networkLatency.textContent =
+                    "0.00 ns";
+
             }
+
 
             if (nextConnection) {
+
                 nextConnection.textContent =
                     "ESCOLHA QUALQUER PONTO";
+
             }
+
 
             if (networkMessage) {
+
                 networkMessage.textContent =
                     "CLIQUE EM QUALQUER PONTO PARA INICIAR";
+
             }
 
+
             if (travelingLight) {
-                travelingLight.style.opacity = "0";
+
+                travelingLight.style.opacity =
+                    "0";
+
             }
 
         }
@@ -1085,40 +1779,76 @@ if (resetNetwork) {
    RECONSTRUIR ROTAS NO RESIZE
 ========================================================= */
 
+let resizeTimeout;
+
+
 window.addEventListener(
     "resize",
     () => {
 
-        if (
-            connections.length === 0 ||
-            !fiberLines
-        ) {
-            return;
-        }
+        clearTimeout(
+            resizeTimeout
+        );
 
 
-        const savedConnections =
-            connections.map(connection => ({
-                from: connection.from,
-                to: connection.to
-            }));
+        resizeTimeout =
+            setTimeout(
+                rebuildNetworkRoutes,
+                120
+            );
+
+    }
+);
 
 
-        fiberLines.innerHTML = "";
+function rebuildNetworkRoutes() {
 
-        connections = [];
+    if (
+        connections.length === 0 ||
+        !fiberLines
+    ) {
+
+        return;
+
+    }
 
 
-        savedConnections.forEach(connection => {
+    const savedConnections =
+        connections.map(
+            connection => ({
+
+                from:
+                    connection.from,
+
+                to:
+                    connection.to
+
+            })
+        );
+
+
+    fiberLines.innerHTML =
+        "";
+
+
+    connections =
+        [];
+
+
+    savedConnections.forEach(
+        connection => {
 
             const newConnection =
                 createFiberConnection(
                     connection.from,
-                    connection.to
+                    connection.to,
+                    false
                 );
 
 
-            if (newConnection) {
+            if (
+                newConnection
+            ) {
 
                 connections.push(
                     newConnection
@@ -1126,10 +1856,10 @@ window.addEventListener(
 
             }
 
-        });
+        }
+    );
 
-    }
-);
+}
 
 
 /* =========================================================
@@ -1139,95 +1869,136 @@ window.addEventListener(
 const quizQuestions = [
 
     {
+
         question:
             "Qual é o principal meio utilizado pela fibra óptica para transportar informações?",
 
         options: [
+
             "Corrente elétrica",
+
             "Pulsos de luz",
+
             "Ondas sonoras",
+
             "Campo magnético"
+
         ],
 
         answer: 1,
 
         explanation:
             "A fibra óptica transmite informações utilizando sinais luminosos."
+
     },
 
+
     {
+
         question:
             "Qual é aproximadamente a velocidade da luz no vácuo?",
 
         options: [
+
             "3.000 km/s",
+
             "30.000 km/s",
+
             "299.792 km/s",
+
             "999.999 km/s"
+
         ],
 
         answer: 2,
 
         explanation:
             "A velocidade da luz no vácuo é aproximadamente 299.792 km/s."
+
     },
 
+
     {
+
         question:
             "O que ajuda a manter a luz confinada no núcleo da fibra?",
 
         options: [
+
             "Reflexão interna total",
+
             "Eletricidade",
+
             "Magnetismo",
+
             "Calor"
+
         ],
 
         answer: 0,
 
         explanation:
             "A reflexão interna total permite que a luz permaneça guiada no núcleo."
+
     },
 
+
     {
+
         question:
             "Qual material é normalmente utilizado no núcleo das fibras ópticas convencionais?",
 
         options: [
+
             "Ferro",
+
             "Cobre",
+
             "Vidro",
+
             "Alumínio"
+
         ],
 
         answer: 2,
 
         explanation:
             "Fibras ópticas convencionais utilizam principalmente vidro de alta pureza."
+
     },
 
+
     {
+
         question:
             "Por que a fibra óptica é importante para a internet moderna?",
 
         options: [
+
             "Porque oferece grande capacidade de transmissão",
+
             "Porque utiliza ondas sonoras",
+
             "Porque funciona apenas em curtas distâncias",
+
             "Porque não precisa de equipamentos"
+
         ],
 
         answer: 0,
 
         explanation:
             "A fibra possui grande capacidade e baixa perda de sinal, sendo essencial para redes modernas."
+
     }
 
 ];
 
 
 let currentQuestion = 0;
+
 let quizScore = 0;
+
 let quizAnswered = false;
 
 
@@ -1236,25 +2007,30 @@ const quizQuestion =
         "quizQuestion"
     );
 
+
 const quizOptions =
     document.getElementById(
         "quizOptions"
     );
+
 
 const quizFeedback =
     document.getElementById(
         "quizFeedback"
     );
 
+
 const quizNext =
     document.getElementById(
         "quizNext"
     );
 
+
 const quizProgress =
     document.getElementById(
         "quizProgress"
     );
+
 
 const quizBar =
     document.getElementById(
@@ -1272,15 +2048,20 @@ function loadQuizQuestion() {
         !quizProgress ||
         !quizBar
     ) {
+
         return;
+
     }
 
 
     const question =
-        quizQuestions[currentQuestion];
+        quizQuestions[
+            currentQuestion
+        ];
 
 
-    quizAnswered = false;
+    quizAnswered =
+        false;
 
 
     quizQuestion.textContent =
@@ -1306,7 +2087,10 @@ function loadQuizQuestion() {
     quizProgress.textContent =
         `${String(
             currentQuestion + 1
-        ).padStart(2, "0")} / ${
+        ).padStart(
+            2,
+            "0"
+        )} / ${
             quizQuestions.length
         }`;
 
@@ -1323,7 +2107,10 @@ function loadQuizQuestion() {
 
 
     question.options.forEach(
-        (option, index) => {
+        (
+            option,
+            index
+        ) => {
 
             const button =
                 document.createElement(
@@ -1366,21 +2153,32 @@ function loadQuizQuestion() {
 }
 
 
+/* =========================================================
+   RESPONDER QUIZ
+========================================================= */
+
 function answerQuestion(
     selected,
     selectedButton
 ) {
 
-    if (quizAnswered) {
+    if (
+        quizAnswered
+    ) {
+
         return;
+
     }
 
 
-    quizAnswered = true;
+    quizAnswered =
+        true;
 
 
     const question =
-        quizQuestions[currentQuestion];
+        quizQuestions[
+            currentQuestion
+        ];
 
 
     const options =
@@ -1389,11 +2187,14 @@ function answerQuestion(
         );
 
 
-    options.forEach(button => {
+    options.forEach(
+        button => {
 
-        button.disabled = true;
+            button.disabled =
+                true;
 
-    });
+        }
+    );
 
 
     if (
@@ -1448,33 +2249,9 @@ function answerQuestion(
 }
 
 
-if (quizNext) {
-
-    quizNext.addEventListener(
-        "click",
-        () => {
-
-            if (
-                currentQuestion >=
-                quizQuestions.length - 1
-            ) {
-
-                showQuizResult();
-
-                return;
-
-            }
-
-
-            currentQuestion++;
-
-            loadQuizQuestion();
-
-        }
-    );
-
-}
-
+/* =========================================================
+   RESULTADO QUIZ
+========================================================= */
 
 function showQuizResult() {
 
@@ -1495,10 +2272,15 @@ function showQuizResult() {
 
 
     quizFeedback.textContent =
+
         quizScore >= 4
+
             ? "EXCELENTE! Você domina os conceitos básicos de fibra óptica."
+
             : quizScore >= 3
+
                 ? "MUITO BOM! Você já conhece bastante sobre o tema."
+
                 : "CONTINUE ESTUDANDO! Explore novamente a pesquisa.";
 
 
@@ -1516,17 +2298,58 @@ function showQuizResult() {
 }
 
 
+/* =========================================================
+   REINICIAR QUIZ
+========================================================= */
+
 function restartQuiz() {
 
-    currentQuestion = 0;
-    quizScore = 0;
-    quizAnswered = false;
+    currentQuestion =
+        0;
 
 
-    quizNext.onclick = null;
+    quizScore =
+        0;
+
+
+    quizAnswered =
+        false;
+
+
+    quizNext.onclick =
+        null;
 
 
     loadQuizQuestion();
+
+}
+
+
+if (quizNext) {
+
+    quizNext.addEventListener(
+        "click",
+        () => {
+
+            if (
+                currentQuestion >=
+                quizQuestions.length - 1
+            ) {
+
+                showQuizResult();
+
+                return;
+
+            }
+
+
+            currentQuestion++;
+
+
+            loadQuizQuestion();
+
+        }
+    );
 
 }
 
@@ -1552,7 +2375,9 @@ document.addEventListener(
             !heroVisual ||
             window.innerWidth < 800
         ) {
+
             return;
+
         }
 
 
@@ -1585,20 +2410,35 @@ document.addEventListener(
 
 console.log(
     "%c FIBER OPTIC SYSTEM ONLINE ",
-    "background:#001820;color:#00eaff;font-size:14px;font-weight:bold;padding:8px;"
+    `
+        background:#001820;
+        color:#00eaff;
+        font-size:14px;
+        font-weight:bold;
+        padding:8px;
+    `
 );
+
 
 console.log(
     "Pesquisa sobre fibra óptica carregada."
 );
 
+
 console.log(
-    "Mapa mundial carregado."
+    "Mapa mundial SVG carregado."
 );
+
+
+console.log(
+    "Mapa responsivo ativado."
+);
+
 
 console.log(
     "Sistema de animação em cascata ativado."
 );
+
 
 console.log(
     "Rede internacional pronta."

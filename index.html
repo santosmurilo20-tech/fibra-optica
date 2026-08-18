@@ -2,1488 +2,1847 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <meta
         name="description"
-        content="O Futuro da Comunicação — pesquisa interativa sobre fibra óptica."
+        content="Pesquisa interativa sobre fibra óptica, transmissão de dados e redes de comunicação."
     >
 
-    <title>O Futuro da Comunicação | Fibra Óptica</title>
+    <title>FIBER OPTIC // Pesquisa Interativa</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
+
 
 <body>
 
-<!-- =====================================================
-     CURSOR
-===================================================== -->
+    <!-- =====================================================
+         CURSOR
+    ====================================================== -->
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
+    <div id="cursor"></div>
+    <div id="cursorRing"></div>
 
 
-<!-- =====================================================
-     FUNDO
-===================================================== -->
-
-<div class="background">
-    <div class="grid-background"></div>
-
-    <div class="glow glow-1"></div>
-    <div class="glow glow-2"></div>
-    <div class="glow glow-3"></div>
+    <!-- =====================================================
+         PARTÍCULAS
+    ====================================================== -->
 
     <canvas id="particles"></canvas>
-</div>
 
 
-<!-- =====================================================
-     HEADER
-===================================================== -->
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
 
-<header class="header">
+    <header class="site-header">
 
-    <a href="#inicio" class="logo">
+        <div class="header-inner">
 
-        <span class="logo-symbol">FO</span>
-
-        <span class="logo-text">
-            C.E. PADRE
-            <strong>CLAUDIO MORELLI</strong>
-        </span>
-
-    </a>
-
-    <nav class="nav">
-
-        <a href="#inicio">INÍCIO</a>
-        <a href="#pesquisa">PESQUISA</a>
-        <a href="#historia">HISTÓRIA</a>
-        <a href="#velocidade">VELOCIDADE</a>
-        <a href="#rede">REDE ÓPTICA</a>
-        <a href="#curiosidades">CURIOSIDADES</a>
-        <a href="#quiz">QUIZ</a>
-        <a href="#referencias">REFERÊNCIAS</a>
-
-    </nav>
-
-    <button
-        class="menu-button"
-        id="menuButton"
-        type="button"
-        aria-label="Abrir menu"
-    >
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-
-</header>
-
-
-<!-- =====================================================
-     MENU MOBILE
-===================================================== -->
-
-<div class="mobile-menu" id="mobileMenu">
-
-    <a href="#inicio">INÍCIO</a>
-    <a href="#pesquisa">PESQUISA</a>
-    <a href="#historia">HISTÓRIA</a>
-    <a href="#velocidade">VELOCIDADE</a>
-    <a href="#rede">REDE ÓPTICA</a>
-    <a href="#curiosidades">CURIOSIDADES</a>
-    <a href="#quiz">QUIZ</a>
-    <a href="#referencias">REFERÊNCIAS</a>
-
-</div>
-
-
-<main>
-
-<!-- =====================================================
-     HERO
-===================================================== -->
-
-<section class="hero" id="inicio">
-
-    <div class="hero-content reveal">
-
-        <div class="hero-tag">
-            <span class="live-dot"></span>
-            PESQUISA • TECNOLOGIA • FÍSICA
-        </div>
-
-        <h1 class="hero-title">
-
-            <span>O FUTURO DA</span>
-
-            <span class="gradient-text">
-                COMUNICAÇÃO
-            </span>
-
-        </h1>
-
-        <p class="hero-description">
-
-            Como pequenos pulsos de luz conseguem
-            atravessar quilômetros de fibra e conectar
-            pessoas, cidades e continentes em frações
-            de segundo.
-
-        </p>
-
-        <div class="hero-buttons">
-
-            <a href="#pesquisa" class="button button-primary">
-                EXPLORAR PESQUISA
-                <span>→</span>
+            <a
+                href="#inicio"
+                class="logo"
+            >
+                <span class="logo-symbol">◈</span>
+                <span>FIBER<span>OPTIC</span></span>
             </a>
 
-            <a href="#rede" class="button button-secondary">
-                TESTAR A REDE
-            </a>
 
-        </div>
+            <nav class="desktop-nav">
 
-        <div class="hero-stats">
+                <a href="#inicio">INÍCIO</a>
+                <a href="#pesquisa">PESQUISA</a>
+                <a href="#historia">HISTÓRIA</a>
+                <a href="#internet">INTERNET</a>
+                <a href="#network">NETWORK LAB</a>
+                <a href="#quiz">QUIZ</a>
 
-            <div class="stat reveal">
-                <strong>299.792</strong>
-                <span>km/s</span>
-                <small>velocidade da luz no vácuo</small>
-            </div>
+            </nav>
 
-            <div class="stat reveal">
-                <strong>200.000</strong>
-                <span>km/s</span>
-                <small>aprox. dentro da fibra</small>
-            </div>
 
-            <div class="stat reveal">
-                <strong>∞</strong>
-                <span>dados</span>
-                <small>possibilidades de conexão</small>
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="hero-visual reveal">
-
-        <div class="fiber-orb">
-
-            <div class="orb-core"></div>
-
-            <div class="orb-ring ring-1"></div>
-            <div class="orb-ring ring-2"></div>
-            <div class="orb-ring ring-3"></div>
-
-            <div class="orb-data data-1">00101101</div>
-            <div class="orb-data data-2">10110010</div>
-            <div class="orb-data data-3">01011001</div>
-
-        </div>
-
-        <div class="floating-code code-1">
-            LIGHT://001
-        </div>
-
-        <div class="floating-code code-2">
-            SIGNAL://ONLINE
-        </div>
-
-        <div class="floating-code code-3">
-            SPEED://200000
-        </div>
-
-    </div>
-
-    <div class="scroll-indicator">
-        <span></span>
-        SCROLL PARA EXPLORAR
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     CONCEITO
-===================================================== -->
-
-<section class="section" id="pesquisa">
-
-    <div class="section-number reveal">
-        01 / CONCEITO
-    </div>
-
-    <div class="section-heading reveal">
-
-        <span class="eyebrow">O QUE É?</span>
-
-        <h2>
-            A FIBRA QUE
-            <span>TRANSPORTA LUZ</span>
-        </h2>
-
-        <p>
-            A fibra óptica é um meio de transmissão que utiliza
-            sinais luminosos para transportar informações.
-            Ela é formada principalmente por um núcleo,
-            uma casca e camadas de proteção.
-        </p>
-
-    </div>
-
-
-    <div class="concept-grid">
-
-        <article class="concept-card reveal">
-            <div class="card-number">01</div>
-            <div class="card-icon">◈</div>
-            <h3>NÚCLEO</h3>
-            <p>
-                Região central da fibra por onde a luz se propaga.
-            </p>
-            <div class="card-line"></div>
-        </article>
-
-        <article class="concept-card reveal">
-            <div class="card-number">02</div>
-            <div class="card-icon">◎</div>
-            <h3>CASCA</h3>
-            <p>
-                Camada com índice de refração diferente que
-                ajuda a manter a luz confinada no núcleo.
-            </p>
-            <div class="card-line"></div>
-        </article>
-
-        <article class="concept-card reveal">
-            <div class="card-number">03</div>
-            <div class="card-icon">◉</div>
-            <h3>PROTEÇÃO</h3>
-            <p>
-                Revestimentos protegem a fibra contra
-                impactos, umidade e condições ambientais.
-            </p>
-            <div class="card-line"></div>
-        </article>
-
-        <article class="concept-card reveal">
-            <div class="card-number">04</div>
-            <div class="card-icon">✦</div>
-            <h3>TRANSMISSÃO</h3>
-            <p>
-                Pulsos de luz representam informações
-                digitais que podem percorrer grandes distâncias.
-            </p>
-            <div class="card-line"></div>
-        </article>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     FUNCIONAMENTO
-===================================================== -->
-
-<section class="section dark-section">
-
-    <div class="section-number reveal">
-        02 / FUNCIONAMENTO
-    </div>
-
-    <div class="section-heading reveal">
-
-        <span class="eyebrow">TECNOLOGIA</span>
-
-        <h2>
-            COMO A LUZ
-            <span>CARREGA DADOS?</span>
-        </h2>
-
-        <p>
-            Informações digitais podem ser convertidas em sinais
-            luminosos e transmitidas através da fibra.
-        </p>
-
-    </div>
-
-
-    <div class="process">
-
-        <div class="process-line"></div>
-
-        <div class="process-step reveal">
-            <div class="process-number">01</div>
-            <h3>INFORMAÇÃO</h3>
-            <p>
-                Os dados são organizados em sinais digitais.
-            </p>
-        </div>
-
-        <div class="process-step reveal">
-            <div class="process-number">02</div>
-            <h3>LASER</h3>
-            <p>
-                Um transmissor transforma os dados em sinais de luz.
-            </p>
-        </div>
-
-        <div class="process-step reveal">
-            <div class="process-number">03</div>
-            <h3>FIBRA</h3>
-            <p>
-                O pulso luminoso percorre o núcleo da fibra.
-            </p>
-        </div>
-
-        <div class="process-step reveal">
-            <div class="process-number">04</div>
-            <h3>RECEPTOR</h3>
-            <p>
-                Um receptor converte o sinal luminoso novamente em informação.
-            </p>
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     FÍSICA
-===================================================== -->
-
-<section class="section">
-
-    <div class="section-number reveal">
-        03 / FÍSICA
-    </div>
-
-    <div class="physics-layout">
-
-        <div class="physics-text reveal">
-
-            <span class="eyebrow">
-                REFLEXÃO INTERNA TOTAL
-            </span>
-
-            <h2>
-                A LUZ NÃO
-                <span>ESCAPA.</span>
-            </h2>
-
-            <p>
-                A fibra óptica utiliza diferenças entre os índices
-                de refração do núcleo e da casca para manter a luz
-                confinada dentro do núcleo.
-            </p>
-
-            <p>
-                Quando as condições são adequadas, ocorre a
-                reflexão interna total. Assim, o sinal luminoso
-                pode continuar avançando pela fibra.
-            </p>
-
-        </div>
-
-
-        <div class="fiber-physics reveal">
-
-            <div class="fiber-core">
-
-                <div class="light-ray ray-1"></div>
-                <div class="light-ray ray-2"></div>
-                <div class="light-ray ray-3"></div>
-                <div class="light-ray ray-4"></div>
-
-            </div>
-
-            <div class="fiber-label label-core">
-                NÚCLEO
-            </div>
-
-            <div class="fiber-label label-cladding">
-                CASCA
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     SUBTEMAS
-===================================================== -->
-
-<section class="section dark-section">
-
-    <div class="section-number reveal">
-        04 / SUBTEMAS
-    </div>
-
-    <div class="section-heading reveal">
-
-        <span class="eyebrow">
-            EXPLORANDO A TECNOLOGIA
-        </span>
-
-        <h2>
-            QUATRO CAMINHOS
-            <span>PARA ENTENDER</span>
-        </h2>
-
-    </div>
-
-
-    <div class="subtheme-grid">
-
-        <a href="#historia" class="subtheme reveal">
-            <span>01</span>
-            <h3>HISTÓRIA</h3>
-            <p>
-                Da comunicação óptica inicial às redes
-                modernas de fibra.
-            </p>
-            <div class="subtheme-arrow">→</div>
-        </a>
-
-        <a href="#velocidade" class="subtheme reveal">
-            <span>02</span>
-            <h3>VELOCIDADE</h3>
-            <p>
-                Entenda a velocidade da luz e a transmissão
-                de dados.
-            </p>
-            <div class="subtheme-arrow">→</div>
-        </a>
-
-        <a href="#internet" class="subtheme reveal">
-            <span>03</span>
-            <h3>INTERNET</h3>
-            <p>
-                Como cabos de fibra conectam cidades,
-                países e continentes.
-            </p>
-            <div class="subtheme-arrow">→</div>
-        </a>
-
-        <a href="#futuro" class="subtheme reveal">
-            <span>04</span>
-            <h3>FUTURO</h3>
-            <p>
-                O papel da fibra nas próximas gerações
-                de comunicação.
-            </p>
-            <div class="subtheme-arrow">→</div>
-        </a>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     HISTÓRIA
-===================================================== -->
-
-<section class="section research-section" id="historia">
-
-    <div class="section-number reveal">
-        05 / HISTÓRIA
-    </div>
-
-    <div class="section-heading reveal">
-
-        <span class="eyebrow">LINHA DO TEMPO</span>
-
-        <h2>
-            DE SINAIS DE LUZ
-            <span>À INTERNET GLOBAL</span>
-        </h2>
-
-        <p>
-            A comunicação por luz é muito mais antiga que a fibra
-            óptica moderna. O desenvolvimento científico transformou
-            uma ideia simples em uma infraestrutura global.
-        </p>
-
-    </div>
-
-
-    <div class="timeline">
-
-        <article class="timeline-item reveal">
-            <span>1792</span>
-            <div>
-                <h3>TELEGRAFIA ÓPTICA</h3>
-                <p>
-                    Sistemas de semáforos ópticos foram utilizados
-                    para transmitir mensagens a distância antes
-                    das telecomunicações elétricas modernas.
-                </p>
-            </div>
-        </article>
-
-        <article class="timeline-item reveal">
-            <span>1854</span>
-            <div>
-                <h3>PRINCÍPIO DA LUZ GUIADA</h3>
-                <p>
-                    Experimentos demonstraram que a luz poderia
-                    ser guiada por fenômenos relacionados à
-                    reflexão interna total.
-                </p>
-            </div>
-        </article>
-
-        <article class="timeline-item reveal">
-            <span>1950–1960</span>
-            <div>
-                <h3>FIBRAS PARA IMAGEM E COMUNICAÇÃO</h3>
-                <p>
-                    Pesquisadores desenvolveram fibras com aplicações
-                    em transmissão de imagens e começaram a investigar
-                    seu potencial para telecomunicações.
-                </p>
-            </div>
-        </article>
-
-        <article class="timeline-item reveal">
-            <span>1966</span>
-            <div>
-                <h3>PROPOSTA PARA TELECOMUNICAÇÕES</h3>
-                <p>
-                    Charles Kao e George Hockham publicaram um trabalho
-                    fundamental mostrando que fibras de vidro com perdas
-                    suficientemente baixas poderiam ser utilizadas em
-                    sistemas de comunicação.
-                </p>
-            </div>
-        </article>
-
-        <article class="timeline-item reveal">
-            <span>1970+</span>
-            <div>
-                <h3>FIBRA DE BAIXA PERDA</h3>
-                <p>
-                    Avanços na fabricação do vidro permitiram produzir
-                    fibras com perdas muito menores, tornando a tecnologia
-                    cada vez mais viável.
-                </p>
-            </div>
-        </article>
-
-        <article class="timeline-item reveal">
-            <span>HOJE</span>
-            <div>
-                <h3>INFRAESTRUTURA GLOBAL</h3>
-                <p>
-                    A fibra óptica é utilizada em redes metropolitanas,
-                    data centers, redes de longa distância e cabos
-                    submarinos que conectam continentes.
-                </p>
-            </div>
-        </article>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     VELOCIDADE
-===================================================== -->
-
-<section class="section dark-section" id="velocidade">
-
-    <div class="section-number reveal">
-        06 / VELOCIDADE
-    </div>
-
-    <div class="section-heading reveal">
-
-        <span class="eyebrow">FÍSICA DA TRANSMISSÃO</span>
-
-        <h2>
-            POR QUE A FIBRA
-            <span>É TÃO RÁPIDA?</span>
-        </h2>
-
-    </div>
-
-
-    <div class="information-grid">
-
-        <article class="info-panel reveal">
-            <span class="info-number">299.792</span>
-            <small>KM/S</small>
-            <h3>LUZ NO VÁCUO</h3>
-            <p>
-                A velocidade da luz no vácuo é aproximadamente
-                299.792 quilômetros por segundo.
-            </p>
-        </article>
-
-        <article class="info-panel reveal">
-            <span class="info-number">~200.000</span>
-            <small>KM/S</small>
-            <h3>LUZ NA FIBRA</h3>
-            <p>
-                Dentro da fibra, a velocidade é menor que no vácuo
-                devido às propriedades ópticas do material.
-            </p>
-        </article>
-
-        <article class="info-panel reveal">
-            <span class="info-number">Tb/s</span>
-            <small>CAPACIDADE</small>
-            <h3>MUITOS DADOS</h3>
-            <p>
-                Sistemas ópticos modernos podem transportar enormes
-                volumes de dados usando técnicas avançadas de
-                multiplexação e modulação.
-            </p>
-        </article>
-
-    </div>
-
-
-    <div class="research-text reveal">
-
-        <h3>
-            VELOCIDADE NÃO É A MESMA COISA QUE LATÊNCIA
-        </h3>
-
-        <p>
-            Uma rede pode possuir grande capacidade de transmissão
-            e ainda apresentar latência. A distância física, os
-            equipamentos, os roteadores, a qualidade do caminho e
-            outros fatores influenciam o tempo total de comunicação.
-        </p>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     INTERNET
-===================================================== -->
-
-<section class="section" id="internet">
-
-    <div class="section-number reveal">
-        07 / INTERNET
-    </div>
-
-    <div class="section-heading reveal">
-
-        <span class="eyebrow">
-            INFRAESTRUTURA INVISÍVEL
-        </span>
-
-        <h2>
-            A INTERNET
-            <span>PASSA PELA FIBRA</span>
-        </h2>
-
-        <p>
-            Quando uma pessoa envia uma mensagem, assiste a um vídeo
-            ou acessa um site, os dados podem atravessar diferentes
-            redes e milhares de quilômetros.
-        </p>
-
-    </div>
-
-
-    <div class="application-grid">
-
-        <article class="application-card reveal">
-            <div>01</div>
-            <h3>CASAS</h3>
-            <p>
-                Conexões FTTH levam fibra óptica até residências,
-                oferecendo grande capacidade para internet.
-            </p>
-        </article>
-
-        <article class="application-card reveal">
-            <div>02</div>
-            <h3>EMPRESAS</h3>
-            <p>
-                Organizações utilizam redes ópticas para conectar
-                servidores, escritórios e sistemas críticos.
-            </p>
-        </article>
-
-        <article class="application-card reveal">
-            <div>03</div>
-            <h3>DATA CENTERS</h3>
-            <p>
-                Grandes centros de processamento dependem de
-                conexões de alta capacidade e baixa latência.
-            </p>
-        </article>
-
-        <article class="application-card reveal">
-            <div>04</div>
-            <h3>CABOS SUBMARINOS</h3>
-            <p>
-                Cabos ópticos instalados no fundo dos oceanos
-                conectam diferentes continentes.
-            </p>
-        </article>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     FUTURO
-===================================================== -->
-
-<section class="section dark-section" id="futuro">
-
-    <div class="section-number reveal">
-        08 / FUTURO
-    </div>
-
-    <div class="future-layout">
-
-        <div class="future-text reveal">
-
-            <span class="eyebrow">
-                PRÓXIMAS GERAÇÕES
-            </span>
-
-            <h2>
-                O FUTURO
-                <span>AINDA PRECISA DE FIBRA.</span>
-            </h2>
-
-            <p>
-                Mesmo com o crescimento das redes sem fio, a
-                infraestrutura física continua essencial.
-            </p>
-
-            <p>
-                Torres celulares, redes 5G e futuras gerações móveis
-                precisam de conexões de alta capacidade para transportar
-                os dados até os grandes centros de processamento.
-            </p>
-
-        </div>
-
-        <div class="future-list">
-
-            <div class="future-item reveal">
-                <span>01</span>
-                <strong>MAIOR CAPACIDADE</strong>
-            </div>
-
-            <div class="future-item reveal">
-                <span>02</span>
-                <strong>MENOR LATÊNCIA</strong>
-            </div>
-
-            <div class="future-item reveal">
-                <span>03</span>
-                <strong>DATA CENTERS</strong>
-            </div>
-
-            <div class="future-item reveal">
-                <span>04</span>
-                <strong>REDES GLOBAIS</strong>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     FLASHCARDS
-===================================================== -->
-
-<section class="section" id="curiosidades">
-
-    <div class="section-number reveal">
-        09 / CURIOSIDADES
-    </div>
-
-    <div class="section-heading reveal">
-
-        <span class="eyebrow">VOCÊ SABIA?</span>
-
-        <h2>
-            FATOS QUE
-            <span>PARECEM FICÇÃO</span>
-        </h2>
-
-    </div>
-
-
-    <div class="flashcards">
-
-        <article class="flashcard reveal" tabindex="0">
-
-            <div class="flash-front">
-                <span>01</span>
-                <h3>A INTERNET VIAJA POR CABOS SUBMARINOS?</h3>
-                <small>CLIQUE PARA REVELAR</small>
-            </div>
-
-            <div class="flash-back">
-                <strong>VERDADE</strong>
-                <p>
-                    Cabos submarinos de fibra óptica transportam
-                    grandes volumes de dados entre continentes.
-                </p>
-            </div>
-
-        </article>
-
-
-        <article class="flashcard reveal" tabindex="0">
-
-            <div class="flash-front">
-                <span>02</span>
-                <h3>A FIBRA É FEITA DE METAL?</h3>
-                <small>CLIQUE PARA REVELAR</small>
-            </div>
-
-            <div class="flash-back">
-                <strong>MITO</strong>
-                <p>
-                    A fibra óptica convencional utiliza principalmente
-                    vidro de alta pureza no núcleo e na casca.
-                </p>
-            </div>
-
-        </article>
-
-
-        <article class="flashcard reveal" tabindex="0">
-
-            <div class="flash-front">
-                <span>03</span>
-                <h3>A LUZ PODE TRANSPORTAR INFORMAÇÃO?</h3>
-                <small>CLIQUE PARA REVELAR</small>
-            </div>
-
-            <div class="flash-back">
-                <strong>VERDADE</strong>
-                <p>
-                    Sinais luminosos podem ser modulados para representar
-                    informações digitais.
-                </p>
-            </div>
-
-        </article>
-
-
-        <article class="flashcard reveal" tabindex="0">
-
-            <div class="flash-front">
-                <span>04</span>
-                <h3>A FIBRA SOFRE INTERFERÊNCIA ELETROMAGNÉTICA?</h3>
-                <small>CLIQUE PARA REVELAR</small>
-            </div>
-
-            <div class="flash-back">
-                <strong>NÃO DA MESMA FORMA</strong>
-                <p>
-                    Por transmitir luz em vez de corrente elétrica,
-                    a fibra é altamente resistente a interferências
-                    eletromagnéticas.
-                </p>
-            </div>
-
-        </article>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     NETWORK LAB
-===================================================== -->
-
-<section class="section dark-section" id="rede">
-
-    <div class="section-number reveal">
-        10 / NETWORK LAB
-    </div>
-
-    <div class="section-heading reveal">
-
-        <span class="eyebrow">
-            SIMULADOR DE TELECOMUNICAÇÕES
-        </span>
-
-        <h2>
-            CONSTRUA UMA
-            <span>REDE ÓPTICA</span>
-        </h2>
-
-        <p>
-            Clique em duas cidades para criar uma conexão.
-            A primeira cidade será a origem e a segunda será
-            o destino.
-        </p>
-
-    </div>
-
-
-    <div class="network-interface reveal">
-
-        <div class="network-topbar">
-
-            <div class="network-status">
-                <span class="live-dot"></span>
-                NETWORK STATUS
-                <strong>ONLINE</strong>
-            </div>
-
-            <div class="network-clock">
-                LATÊNCIA TEÓRICA:
-                <strong id="networkLatency">0.00 ns</strong>
-            </div>
-
-        </div>
-
-
-        <div class="fiber-map" id="fiberMap">
-
-            <div class="map-grid"></div>
-
-            <!-- MAPA MUNDI REALISTA EM SVG -->
-            <svg
-                class="world-map"
-                viewBox="0 0 1000 500"
-                preserveAspectRatio="none"
-                aria-label="Mapa-múndi"
+            <button
+                id="menuButton"
+                class="menu-button"
+                type="button"
+                aria-label="Abrir menu"
             >
 
-                <!-- América do Norte -->
-                <path
-                    class="continent"
-                    d="M75 105 L95 70 L145 62 L190 78 L205 105 L185 130
-                    L160 125 L145 150 L115 142 L100 120 Z"
-                />
+                <span></span>
+                <span></span>
+                <span></span>
 
-                <!-- América Central -->
-                <path
-                    class="continent"
-                    d="M180 145 L198 155 L205 175 L190 182 L180 165 Z"
-                />
+            </button>
 
-                <!-- América do Sul -->
-                <path
-                    class="continent"
-                    d="M205 185 L245 190 L270 220 L265 255 L245 295
-                    L220 335 L200 315 L205 275 L185 235 Z"
-                />
-
-                <!-- Europa -->
-                <path
-                    class="continent"
-                    d="M475 105 L510 82 L550 88 L565 110 L545 130
-                    L510 125 L490 140 Z"
-                />
-
-                <!-- África -->
-                <path
-                    class="continent"
-                    d="M485 145 L535 140 L565 175 L550 225 L520 270
-                    L485 245 L475 205 L460 175 Z"
-                />
-
-                <!-- Ásia -->
-                <path
-                    class="continent"
-                    d="M555 90 L610 65 L685 70 L755 90 L825 105
-                    L875 135 L850 165 L790 160 L740 180 L680 155
-                    L620 145 L570 130 Z"
-                />
-
-                <!-- Japão -->
-                <path
-                    class="continent"
-                    d="M865 155 L880 170 L875 190 L862 180 Z"
-                />
-
-                <!-- Austrália -->
-                <path
-                    class="continent"
-                    d="M755 300 L810 285 L855 300 L870 330
-                    L835 355 L780 350 L750 325 Z"
-                />
-
-                <!-- Groenlândia -->
-                <path
-                    class="continent"
-                    d="M300 55 L350 40 L390 55 L375 90 L330 100 L300 80 Z"
-                />
-
-            </svg>
+        </div>
 
 
-            <svg
-                class="fiber-lines"
-                id="fiberLines"
-                viewBox="0 0 1000 650"
-                preserveAspectRatio="none"
-            ></svg>
+        <div
+            id="mobileMenu"
+            class="mobile-menu"
+        >
 
+            <a href="#inicio">INÍCIO</a>
+            <a href="#pesquisa">PESQUISA</a>
+            <a href="#historia">HISTÓRIA</a>
+            <a href="#internet">INTERNET</a>
+            <a href="#network">NETWORK LAB</a>
+            <a href="#quiz">QUIZ</a>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <main>
+
+        <section
+            id="inicio"
+            class="hero section"
+        >
+
+            <div class="hero-content reveal">
+
+                <div class="eyebrow">
+                    <span></span>
+                    SISTEMA DE PESQUISA // FIBRA ÓPTICA
+                </div>
+
+
+                <h1>
+
+                    A VELOCIDADE
+                    <strong>DA LUZ</strong>
+
+                </h1>
+
+
+                <p class="hero-description">
+
+                    Uma jornada interativa pelo interior das
+                    fibras ópticas e pela tecnologia que conecta
+                    bilhões de pessoas através de pulsos de luz.
+
+                </p>
+
+
+                <div class="hero-actions">
+
+                    <a
+                        href="#pesquisa"
+                        class="primary-button"
+                    >
+                        INICIAR PESQUISA
+                        <span>→</span>
+                    </a>
+
+                    <a
+                        href="#network"
+                        class="secondary-button"
+                    >
+                        ABRIR NETWORK LAB
+                    </a>
+
+                </div>
+
+
+                <div class="hero-stats">
+
+                    <div>
+                        <strong>~200.000</strong>
+                        <span>KM/S NA FIBRA</span>
+                    </div>
+
+                    <div>
+                        <strong>99,9%</strong>
+                        <span>CONFIABILIDADE</span>
+                    </div>
+
+                    <div>
+                        <strong>∞</strong>
+                        <span>CAPACIDADE DE EXPANSÃO</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="hero-visual">
+
+                <div class="orbital orbital-one"></div>
+                <div class="orbital orbital-two"></div>
+
+                <div class="fiber-core">
+
+                    <div class="fiber-ray ray-one"></div>
+                    <div class="fiber-ray ray-two"></div>
+                    <div class="fiber-ray ray-three"></div>
+
+                    <div class="fiber-glow"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PESQUISA
+        ================================================== -->
+
+        <section
+            id="pesquisa"
+            class="section research-section"
+        >
+
+            <div class="section-heading reveal">
+
+                <div class="section-number">01</div>
+
+                <div>
+
+                    <span class="section-label">
+                        FUNDAMENTOS
+                    </span>
+
+                    <h2>
+                        COMO FUNCIONA
+                        <span>A FIBRA ÓPTICA?</span>
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="concept-grid">
+
+                <article class="concept-card reveal">
+
+                    <div class="card-number">01</div>
+
+                    <div class="card-icon">◉</div>
+
+                    <h3>LUZ</h3>
+
+                    <p>
+                        A informação é convertida em pulsos
+                        luminosos que percorrem o interior
+                        extremamente fino da fibra.
+                    </p>
+
+                </article>
+
+
+                <article class="concept-card reveal">
+
+                    <div class="card-number">02</div>
+
+                    <div class="card-icon">⌁</div>
+
+                    <h3>REFLEXÃO</h3>
+
+                    <p>
+                        A reflexão interna total mantém a luz
+                        confinada no núcleo, permitindo que o
+                        sinal atravesse grandes distâncias.
+                    </p>
+
+                </article>
+
+
+                <article class="concept-card reveal">
+
+                    <div class="card-number">03</div>
+
+                    <div class="card-icon">◇</div>
+
+                    <h3>TRANSMISSÃO</h3>
+
+                    <p>
+                        Os pulsos ópticos carregam enormes
+                        quantidades de dados com baixa perda
+                        e alta velocidade.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             HISTÓRIA
+        ================================================== -->
+
+        <section
+            id="historia"
+            class="section history-section"
+        >
+
+            <div class="section-heading reveal">
+
+                <div class="section-number">02</div>
+
+                <div>
+
+                    <span class="section-label">
+                        EVOLUÇÃO
+                    </span>
+
+                    <h2>
+                        UMA TECNOLOGIA
+                        <span>QUE CONECTOU O MUNDO</span>
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline">
+
+                <article class="timeline-item reveal">
+
+                    <div class="timeline-year">
+                        1950+
+                    </div>
+
+                    <div class="timeline-line"></div>
+
+                    <div class="timeline-content">
+
+                        <h3>
+                            PRIMEIROS AVANÇOS
+                        </h3>
+
+                        <p>
+                            Pesquisadores começam a desenvolver
+                            formas de utilizar fibras de vidro
+                            para transportar sinais luminosos.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <article class="timeline-item reveal">
+
+                    <div class="timeline-year">
+                        1966
+                    </div>
+
+                    <div class="timeline-line"></div>
+
+                    <div class="timeline-content">
+
+                        <h3>
+                            UMA NOVA POSSIBILIDADE
+                        </h3>
+
+                        <p>
+                            Surge a proposta de utilizar fibras
+                            ópticas de baixa perda para
+                            telecomunicações.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <article class="timeline-item reveal">
+
+                    <div class="timeline-year">
+                        1970
+                    </div>
+
+                    <div class="timeline-line"></div>
+
+                    <div class="timeline-content">
+
+                        <h3>
+                            FIBRA DE BAIXA PERDA
+                        </h3>
+
+                        <p>
+                            O desenvolvimento de fibras com
+                            perdas muito menores torna a
+                            tecnologia comercialmente viável.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <article class="timeline-item reveal">
+
+                    <div class="timeline-year">
+                        HOJE
+                    </div>
+
+                    <div class="timeline-line"></div>
+
+                    <div class="timeline-content">
+
+                        <h3>
+                            INTERNET GLOBAL
+                        </h3>
+
+                        <p>
+                            Cabos terrestres e submarinos conectam
+                            continentes e formam uma das principais
+                            infraestruturas da internet.
+                        </p>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             VELOCIDADE
+        ================================================== -->
+
+        <section class="section speed-section">
+
+            <div class="speed-layout">
+
+                <div class="speed-content reveal">
+
+                    <span class="section-label">
+                        FÍSICA DA TRANSMISSÃO
+                    </span>
+
+                    <h2>
+                        QUASE A
+                        <span>VELOCIDADE DA LUZ</span>
+                    </h2>
+
+                    <p>
+                        A luz viaja no vácuo a aproximadamente
+                        299.792 km/s. Dentro da fibra óptica,
+                        sua velocidade é menor devido às
+                        propriedades do material.
+                    </p>
+
+                </div>
+
+
+                <div class="speed-display reveal">
+
+                    <div class="speed-number">
+                        200<span>.000</span>
+                    </div>
+
+                    <div class="speed-unit">
+                        KM/S
+                    </div>
+
+                    <div class="speed-line"></div>
+
+                    <div class="speed-caption">
+                        VELOCIDADE APROXIMADA DE PROPAGAÇÃO
+                        EM UMA FIBRA ÓPTICA
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             INTERNET
+        ================================================== -->
+
+        <section
+            id="internet"
+            class="section internet-section"
+        >
+
+            <div class="section-heading reveal">
+
+                <div class="section-number">03</div>
+
+                <div>
+
+                    <span class="section-label">
+                        INFRAESTRUTURA
+                    </span>
+
+                    <h2>
+                        A INTERNET
+                        <span>VIAJA POR FIBRAS</span>
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="application-grid">
+
+                <article class="application-card reveal">
+
+                    <div class="application-icon">
+                        ◎
+                    </div>
+
+                    <h3>
+                        DATA CENTERS
+                    </h3>
+
+                    <p>
+                        Grandes centros de processamento
+                        dependem de conexões ópticas de
+                        altíssima capacidade.
+                    </p>
+
+                </article>
+
+
+                <article class="application-card reveal">
+
+                    <div class="application-icon">
+                        ◌
+                    </div>
+
+                    <h3>
+                        CABOS SUBMARINOS
+                    </h3>
+
+                    <p>
+                        Cabos instalados no fundo dos oceanos
+                        transportam dados entre continentes.
+                    </p>
+
+                </article>
+
+
+                <article class="application-card reveal">
+
+                    <div class="application-icon">
+                        ◈
+                    </div>
+
+                    <h3>
+                        REDES DOMÉSTICAS
+                    </h3>
+
+                    <p>
+                        A fibra chega até residências através
+                        das modernas redes FTTH.
+                    </p>
+
+                </article>
+
+
+                <article class="application-card reveal">
+
+                    <div class="application-icon">
+                        ⌁
+                    </div>
+
+                    <h3>
+                        TELECOMUNICAÇÕES
+                    </h3>
+
+                    <p>
+                        Operadoras utilizam fibra para transportar
+                        voz, vídeo, internet e grandes volumes
+                        de dados.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             FLASHCARDS
+        ================================================== -->
+
+        <section class="section flashcard-section">
+
+            <div class="section-heading reveal">
+
+                <div class="section-number">04</div>
+
+                <div>
+
+                    <span class="section-label">
+                        APRENDIZADO INTERATIVO
+                    </span>
+
+                    <h2>
+                        DESCUBRA OS
+                        <span>COMPONENTES</span>
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="flashcard-grid">
+
+                <article
+                    class="flashcard reveal"
+                    tabindex="0"
+                >
+
+                    <div class="flashcard-inner">
+
+                        <div class="flashcard-front">
+
+                            <span>01</span>
+
+                            <h3>
+                                NÚCLEO
+                            </h3>
+
+                            <small>
+                                CLIQUE PARA REVELAR
+                            </small>
+
+                        </div>
+
+                        <div class="flashcard-back">
+
+                            <h3>
+                                NÚCLEO
+                            </h3>
+
+                            <p>
+                                Região central da fibra onde
+                                a luz é efetivamente guiada.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <article
+                    class="flashcard reveal"
+                    tabindex="0"
+                >
+
+                    <div class="flashcard-inner">
+
+                        <div class="flashcard-front">
+
+                            <span>02</span>
+
+                            <h3>
+                                CASCA
+                            </h3>
+
+                            <small>
+                                CLIQUE PARA REVELAR
+                            </small>
+
+                        </div>
+
+                        <div class="flashcard-back">
+
+                            <h3>
+                                CASCA
+                            </h3>
+
+                            <p>
+                                Camada que envolve o núcleo
+                                e possui índice de refração
+                                diferente.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <article
+                    class="flashcard reveal"
+                    tabindex="0"
+                >
+
+                    <div class="flashcard-inner">
+
+                        <div class="flashcard-front">
+
+                            <span>03</span>
+
+                            <h3>
+                                REVESTIMENTO
+                            </h3>
+
+                            <small>
+                                CLIQUE PARA REVELAR
+                            </small>
+
+                        </div>
+
+                        <div class="flashcard-back">
+
+                            <h3>
+                                REVESTIMENTO
+                            </h3>
+
+                            <p>
+                                Protege mecanicamente a fibra
+                                contra danos externos.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             NETWORK LAB
+        ================================================== -->
+
+        <section
+            id="network"
+            class="section network-section"
+        >
+
+            <div class="network-header reveal">
+
+                <div>
+
+                    <span class="section-label">
+                        SIMULAÇÃO DE REDE
+                    </span>
+
+                    <h2>
+                        NETWORK
+                        <span>LAB</span>
+                    </h2>
+
+                    <p>
+                        Selecione duas cidades para criar uma
+                        conexão óptica e visualizar o pulso de
+                        luz percorrendo a rota.
+                    </p>
+
+                </div>
+
+
+                <div class="network-status">
+
+                    <span class="status-dot"></span>
+
+                    SYSTEM ONLINE
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 MAPA
+            ============================================== -->
 
             <div
-                class="traveling-light"
-                id="travelingLight"
-            ></div>
-
-
-            <!-- CIDADES -->
-
-            <button
-                class="network-node node-1"
-                data-node="1"
-                type="button"
+                id="fiberMap"
+                class="fiber-map reveal"
             >
-                <span class="node-pulse"></span>
-                <span class="node-number">01</span>
-                <span class="node-name">CURITIBA</span>
-            </button>
+
+                <div class="map-grid"></div>
+
+                <div class="map-vignette"></div>
+
+                <div class="map-scanline"></div>
 
 
-            <button
-                class="network-node node-2"
-                data-node="2"
-                type="button"
-            >
-                <span class="node-pulse"></span>
-                <span class="node-number">02</span>
-                <span class="node-name">NOVA YORK</span>
-            </button>
+                <!-- MAPA-MÚNDI SVG -->
+
+                <svg
+                    class="world-map"
+                    viewBox="0 0 1000 650"
+                    preserveAspectRatio="xMidYMid meet"
+                    aria-label="Mapa mundial de conexões ópticas"
+                >
+
+                    <defs>
+
+                        <linearGradient
+                            id="landGradient"
+                            x1="0"
+                            y1="0"
+                            x2="0"
+                            y2="1"
+                        >
+
+                            <stop
+                                offset="0%"
+                                stop-color="#173b48"
+                            />
+
+                            <stop
+                                offset="100%"
+                                stop-color="#09232d"
+                            />
+
+                        </linearGradient>
 
 
-            <button
-                class="network-node node-3"
-                data-node="3"
-                type="button"
-            >
-                <span class="node-pulse"></span>
-                <span class="node-number">03</span>
-                <span class="node-name">PARIS</span>
-            </button>
+                        <linearGradient
+                            id="landEdge"
+                            x1="0"
+                            y1="0"
+                            x2="1"
+                            y2="1"
+                        >
+
+                            <stop
+                                offset="0%"
+                                stop-color="#2c7587"
+                            />
+
+                            <stop
+                                offset="100%"
+                                stop-color="#10414e"
+                            />
+
+                        </linearGradient>
 
 
-            <button
-                class="network-node node-4"
-                data-node="4"
-                type="button"
-            >
-                <span class="node-pulse"></span>
-                <span class="node-number">04</span>
-                <span class="node-name">TÓQUIO</span>
-            </button>
+                        <filter
+                            id="landGlow"
+                            x="-30%"
+                            y="-30%"
+                            width="160%"
+                            height="160%"
+                        >
+
+                            <feGaussianBlur
+                                stdDeviation="2"
+                                result="blur"
+                            />
+
+                            <feMerge>
+
+                                <feMergeNode
+                                    in="blur"
+                                />
+
+                                <feMergeNode
+                                    in="SourceGraphic"
+                                />
+
+                            </feMerge>
+
+                        </filter>
 
 
-            <button
-                class="network-node node-5"
-                data-node="5"
-                type="button"
-            >
-                <span class="node-pulse"></span>
-                <span class="node-number">05</span>
-                <span class="node-name">MOSCOU</span>
-            </button>
+                        <pattern
+                            id="mapDots"
+                            width="18"
+                            height="18"
+                            patternUnits="userSpaceOnUse"
+                        >
+
+                            <circle
+                                cx="1"
+                                cy="1"
+                                r=".8"
+                                fill="#00eaff"
+                                opacity=".13"
+                            />
+
+                        </pattern>
+
+                    </defs>
 
 
-            <button
-                class="network-node node-6"
-                data-node="6"
-                type="button"
-            >
-                <span class="node-pulse"></span>
-                <span class="node-number">06</span>
-                <span class="node-name">LONDRES</span>
-            </button>
+                    <!-- Ocean -->
+
+                    <rect
+                        x="0"
+                        y="0"
+                        width="1000"
+                        height="650"
+                        fill="#04141b"
+                    />
 
 
-            <div
-                class="network-message"
-                id="networkMessage"
-            >
-                ESCOLHA O PRIMEIRO PONTO PARA INICIAR
+                    <!-- Pontos atmosféricos -->
+
+                    <rect
+                        x="0"
+                        y="0"
+                        width="1000"
+                        height="650"
+                        fill="url(#mapDots)"
+                        opacity=".5"
+                    />
+
+
+                    <!-- Linhas de latitude -->
+
+                    <g
+                        class="map-latitude"
+                        fill="none"
+                    >
+
+                        <ellipse
+                            cx="500"
+                            cy="325"
+                            rx="470"
+                            ry="110"
+                        />
+
+                        <ellipse
+                            cx="500"
+                            cy="325"
+                            rx="470"
+                            ry="205"
+                        />
+
+                        <ellipse
+                            cx="500"
+                            cy="325"
+                            rx="470"
+                            ry="295"
+                        />
+
+                        <path d="M 500 25 C 430 180 430 470 500 625" />
+                        <path d="M 500 25 C 570 180 570 470 500 625" />
+
+                    </g>
+
+
+                    <!-- =================================================
+                         CONTINENTES
+                         ================================================= -->
+
+
+                    <!-- AMÉRICA DO NORTE -->
+
+                    <path
+                        class="continent"
+                        d="
+                        M 108 142
+                        L 127 115
+                        L 157 94
+                        L 190 87
+                        L 220 96
+                        L 249 110
+                        L 276 125
+                        L 291 145
+                        L 284 163
+                        L 262 165
+                        L 250 180
+                        L 232 188
+                        L 222 208
+                        L 206 225
+                        L 193 245
+                        L 179 250
+                        L 167 235
+                        L 157 218
+                        L 144 204
+                        L 137 185
+                        L 120 171
+                        L 101 157
+                        Z
+                        "
+                    />
+
+
+                    <!-- GROENLÂNDIA -->
+
+                    <path
+                        class="continent"
+                        d="
+                        M 285 62
+                        L 315 43
+                        L 352 45
+                        L 374 62
+                        L 365 91
+                        L 342 112
+                        L 314 112
+                        L 293 96
+                        Z
+                        "
+                    />
+
+
+                    <!-- AMÉRICA CENTRAL -->
+
+                    <path
+                        class="continent"
+                        d="
+                        M 205 242
+                        L 216 250
+                        L 225 261
+                        L 236 267
+                        L 244 278
+                        L 235 285
+                        L 222 278
+                        L 212 268
+                        L 201 257
+                        Z
+                        "
+                    />
+
+
+                    <!-- AMÉRICA DO SUL -->
+
+                    <path
+                        class="continent"
+                        d="
+                        M 226 280
+                        L 248 286
+                        L 267 301
+                        L 276 324
+                        L 270 350
+                        L 260 373
+                        L 249 401
+                        L 237 427
+                        L 223 448
+                        L 211 468
+                        L 197 474
+                        L 186 457
+                        L 183 435
+                        L 187 414
+                        L 179 394
+                        L 184 369
+                        L 193 348
+                        L 198 324
+                        L 209 303
+                        Z
+                        "
+                    />
+
+
+                    <!-- EUROPA -->
+
+                    <path
+                        class="continent"
+                        d="
+                        M 493 155
+                        L 512 146
+                        L 534 149
+                        L 547 157
+                        L 544 169
+                        L 527 175
+                        L 514 172
+                        L 501 180
+                        L 488 173
+                        L 482 162
+                        Z
+                        "
+                    />
+
+
+                    <!-- ÁFRICA -->
+
+                    <path
+                        class="continent"
+                        d="
+                        M 487 214
+                        L 509 205
+                        L 532 211
+                        L 549 226
+                        L 558 249
+                        L 557 275
+                        L 550 302
+                        L 539 331
+                        L 524 356
+                        L 507 370
+                        L 491 360
+                        L 480 337
+                        L 472 311
+                        L 467 284
+                        L 467 255
+                        L 474 232
+                        Z
+                        "
+                    />
+
+
+                    <!-- ÁSIA -->
+
+                    <path
+                        class="continent"
+                        d="
+                        M 548 147
+                        L 575 126
+                        L 612 112
+                        L 649 106
+                        L 684 113
+                        L 716 126
+                        L 746 141
+                        L 777 158
+                        L 801 178
+                        L 819 198
+                        L 826 219
+                        L 813 235
+                        L 791 237
+                        L 770 230
+                        L 750 222
+                        L 728 227
+                        L 709 239
+                        L 687 239
+                        L 671 230
+                        L 650 224
+                        L 632 212
+                        L 612 205
+                        L 592 192
+                        L 574 178
+                        L 555 166
+                        Z
+                        "
+                    />
+
+
+                    <!-- ÍNDIA -->
+
+                    <path
+                        class="continent"
+                        d="
+                        M 659 220
+                        L 679 231
+                        L 690 251
+                        L 684 274
+                        L 670 291
+                        L 659 275
+                        L 653 254
+                        L 649 236
+                        Z
+                        "
+                    />
+
+
+                    <!-- SUDESTE ASIÁTICO -->
+
+                    <path
+                        class="continent"
+                        d="
+                        M 718 250
+                        L 735 258
+                        L 747 272
+                        L 742 288
+                        L 728 296
+                        L 716 283
+                        L 709 267
+                        Z
+                        "
+                    />
+
+
+                    <!-- JAPÃO -->
+
+                    <path
+                        class="continent island"
+                        d="
+                        M 820 221
+                        L 829 212
+                        L 836 216
+                        L 834 229
+                        L 825 240
+                        L 817 234
+                        Z
+                        "
+                    />
+
+
+                    <!-- RÚSSIA / NORTE ASIÁTICO -->
+
+                    <path
+                        class="continent"
+                        d="
+                        M 540 96
+                        L 577 77
+                        L 622 67
+                        L 670 62
+                        L 718 66
+                        L 766 74
+                        L 810 84
+                        L 845 97
+                        L 861 113
+                        L 848 128
+                        L 813 133
+                        L 778 129
+                        L 741 125
+                        L 704 119
+                        L 666 116
+                        L 627 119
+                        L 592 125
+                        L 558 132
+                        Z
+                        "
+                    />
+
+
+                    <!-- AUSTRÁLIA -->
+
+                    <path
+                        class="continent"
+                        d="
+                        M 745 386
+                        L 768 373
+                        L 799 372
+                        L 827 381
+                        L 847 397
+                        L 853 417
+                        L 846 437
+                        L 828 450
+                        L 799 454
+                        L 773 448
+                        L 750 434
+                        L 738 416
+                        Z
+                        "
+                    />
+
+
+                    <!-- NOVA ZELÂNDIA -->
+
+                    <path
+                        class="continent island"
+                        d="
+                        M 874 435
+                        L 882 426
+                        L 889 432
+                        L 887 444
+                        L 879 453
+                        Z
+                        "
+                    />
+
+
+                    <!-- ANTÁRTIDA -->
+
+                    <path
+                        class="continent antarctica"
+                        d="
+                        M 80 555
+                        C 190 530 290 548 390 538
+                        C 490 526 600 540 710 532
+                        C 800 526 880 542 930 560
+                        L 940 620
+                        L 60 620
+                        Z
+                        "
+                    />
+
+
+                    <!-- Bordas -->
+
+                    <g
+                        class="continent-highlight"
+                        fill="none"
+                    >
+
+                        <path d="M108 142 L127 115 L157 94 L190 87" />
+                        <path d="M226 280 L248 286 L267 301" />
+                        <path d="M493 155 L512 146 L534 149" />
+                        <path d="M487 214 L509 205 L532 211" />
+                        <path d="M548 147 L575 126 L612 112" />
+                        <path d="M745 386 L768 373 L799 372" />
+
+                    </g>
+
+
+                    <!-- Rotas ficam aqui -->
+
+                    <g
+                        id="fiberLines"
+                        class="fiber-lines"
+                    ></g>
+
+                </svg>
+
+
+                <!-- Pulso de luz -->
+
+                <div
+                    id="travelingLight"
+                    class="traveling-light"
+                ></div>
+
+
+                <!-- =============================================
+                     CIDADES
+                ============================================== -->
+
+
+                <button
+                    class="network-node"
+                    data-node="1"
+                    style="left:25%;top:68%;"
+                    aria-label="Curitiba, Brasil"
+                >
+
+                    <span class="node-pulse"></span>
+                    <span class="node-core"></span>
+
+                    <span class="node-label">
+                        <b>CURITIBA</b>
+                        <small>🇧🇷 BRASIL</small>
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="network-node"
+                    data-node="2"
+                    style="left:44%;top:32%;"
+                    aria-label="Nova York, Estados Unidos"
+                >
+
+                    <span class="node-pulse"></span>
+                    <span class="node-core"></span>
+
+                    <span class="node-label">
+                        <b>NOVA YORK</b>
+                        <small>🇺🇸 EUA</small>
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="network-node"
+                    data-node="3"
+                    style="left:55%;top:31%;"
+                    aria-label="Paris, França"
+                >
+
+                    <span class="node-pulse"></span>
+                    <span class="node-core"></span>
+
+                    <span class="node-label">
+                        <b>PARIS</b>
+                        <small>🇫🇷 FRANÇA</small>
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="network-node"
+                    data-node="4"
+                    style="left:85%;top:40%;"
+                    aria-label="Tóquio, Japão"
+                >
+
+                    <span class="node-pulse"></span>
+                    <span class="node-core"></span>
+
+                    <span class="node-label">
+                        <b>TÓQUIO</b>
+                        <small>🇯🇵 JAPÃO</small>
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="network-node"
+                    data-node="5"
+                    style="left:69%;top:22%;"
+                    aria-label="Moscou, Rússia"
+                >
+
+                    <span class="node-pulse"></span>
+                    <span class="node-core"></span>
+
+                    <span class="node-label">
+                        <b>MOSCOVO</b>
+                        <small>🇷🇺 RÚSSIA</small>
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="network-node"
+                    data-node="6"
+                    style="left:53%;top:26%;"
+                    aria-label="Londres, Reino Unido"
+                >
+
+                    <span class="node-pulse"></span>
+                    <span class="node-core"></span>
+
+                    <span class="node-label">
+                        <b>LONDRES</b>
+                        <small>🇬🇧 REINO UNIDO</small>
+                    </span>
+
+                </button>
+
+
+                <div class="map-coordinates">
+                    <span>WORLD NETWORK // OPTICAL BACKBONE</span>
+                    <span>LAT 00° // LONG 00°</span>
+                </div>
+
             </div>
 
-        </div>
+
+            <!-- =============================================
+                 PAINEL
+            ============================================== -->
+
+            <div class="network-panel reveal">
+
+                <div class="network-message">
+
+                    <span class="message-icon">⌁</span>
+
+                    <p id="networkMessage">
+                        CLIQUE EM QUALQUER PONTO PARA INICIAR
+                    </p>
+
+                </div>
 
 
-        <div class="network-data">
+                <div class="network-stats">
 
-            <div class="data-box">
-                <span>ORIGEM</span>
-                <strong id="dataOrigin">—</strong>
+                    <div class="network-stat">
+
+                        <span>ORIGEM</span>
+
+                        <strong id="dataOrigin">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="network-stat">
+
+                        <span>DESTINO</span>
+
+                        <strong id="dataDestination">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="network-stat">
+
+                        <span>DISTÂNCIA</span>
+
+                        <strong id="dataDistance">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="network-stat">
+
+                        <span>TEMPO DE PROPAGAÇÃO</span>
+
+                        <strong id="dataTravelTime">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="network-stat">
+
+                        <span>LATÊNCIA TEÓRICA</span>
+
+                        <strong id="networkLatency">
+                            0.00 ns
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="network-controls">
+
+                    <div>
+
+                        <span class="next-label">
+                            PRÓXIMA CONEXÃO
+                        </span>
+
+                        <strong id="nextConnection">
+                            ESCOLHA QUALQUER PONTO
+                        </strong>
+
+                    </div>
+
+
+                    <button
+                        id="resetNetwork"
+                        class="reset-button"
+                        type="button"
+                    >
+                        RESETAR REDE
+                    </button>
+
+                </div>
+
             </div>
 
-            <div class="data-box">
-                <span>DESTINO</span>
-                <strong id="dataDestination">—</strong>
-            </div>
-
-            <div class="data-box">
-                <span>DISTÂNCIA</span>
-                <strong id="dataDistance">—</strong>
-            </div>
-
-            <div class="data-box">
-                <span>LUZ NO VÁCUO</span>
-                <strong>299.792 km/s</strong>
-            </div>
-
-            <div class="data-box highlight">
-                <span>VELOCIDADE NA FIBRA</span>
-                <strong>~200.000 km/s</strong>
-            </div>
-
-            <div class="data-box highlight">
-                <span>TEMPO DO PULSO</span>
-                <strong id="dataTravelTime">—</strong>
-            </div>
-
-        </div>
+        </section>
 
 
-        <div class="network-controls">
+        <!-- =================================================
+             FUTURO
+        ================================================== -->
 
-            <div>
-                <span class="network-step-label">
-                    MODO DE CONEXÃO
+        <section class="section future-section">
+
+            <div class="future-box reveal">
+
+                <div class="future-decoration">
+                    05
+                </div>
+
+                <span class="section-label">
+                    PRÓXIMA GERAÇÃO
                 </span>
 
-                <strong id="nextConnection">
-                    LIVRE
-                </strong>
+                <h2>
+                    O FUTURO
+                    <span>CONTINUA ÓPTICO</span>
+                </h2>
+
+                <p>
+                    Com o crescimento da inteligência artificial,
+                    computação em nuvem, streaming e serviços
+                    digitais, a demanda por infraestrutura óptica
+                    continua aumentando.
+                </p>
+
+
+                <div class="future-grid">
+
+                    <div>
+                        <strong>01</strong>
+                        <span>MAIOR CAPACIDADE</span>
+                    </div>
+
+                    <div>
+                        <strong>02</strong>
+                        <span>MENOR LATÊNCIA</span>
+                    </div>
+
+                    <div>
+                        <strong>03</strong>
+                        <span>REDES MAIS INTELIGENTES</span>
+                    </div>
+
+                </div>
+
             </div>
 
-            <button
-                class="network-reset"
-                id="resetNetwork"
-                type="button"
-            >
-                RESETAR REDE
-            </button>
-
-        </div>
-
-    </div>
+        </section>
 
 
-    <div class="technical-explanation reveal">
+        <!-- =================================================
+             CURIOSIDADES
+        ================================================== -->
 
-        <div>
-            <span class="eyebrow">FÍSICA DA TRANSMISSÃO</span>
+        <section class="section curiosity-section">
 
-            <h3>
-                A LUZ ATRAVESSA
-                DISTÂNCIAS ENORMES.
-            </h3>
-        </div>
+            <div class="section-heading reveal">
 
-        <p>
-            O simulador utiliza uma velocidade aproximada de
-            200.000 km/s para representar a propagação da luz
-            em uma fibra óptica. O tempo calculado é uma estimativa
-            teórica baseada na distância direta entre os pontos.
-        </p>
+                <div class="section-number">06</div>
 
-    </div>
+                <div>
 
-</section>
+                    <span class="section-label">
+                        VOCÊ SABIA?
+                    </span>
 
+                    <h2>
+                        CURIOSIDADES
+                        <span>ÓPTICAS</span>
+                    </h2>
 
-<!-- =====================================================
-     QUIZ
-===================================================== -->
+                </div>
 
-<section class="section" id="quiz">
-
-    <div class="section-number reveal">
-        11 / QUIZ
-    </div>
-
-    <div class="section-heading reveal">
-
-        <span class="eyebrow">
-            TESTE SEU CONHECIMENTO
-        </span>
-
-        <h2>
-            VOCÊ ENTENDE
-            <span>DE FIBRA?</span>
-        </h2>
-
-    </div>
-
-
-    <div class="quiz-box reveal">
-
-        <div class="quiz-progress">
-
-            <span id="quizProgress">01 / 05</span>
-
-            <div>
-                <span id="quizBar"></span>
             </div>
 
-        </div>
+
+            <div class="curiosity-grid">
+
+                <article class="reference-card reveal">
+
+                    <span>01</span>
+
+                    <h3>
+                        MAIS FINO QUE UM FIO
+                    </h3>
+
+                    <p>
+                        O núcleo de uma fibra óptica pode ser
+                        extremamente pequeno, apesar de transportar
+                        grandes quantidades de informação.
+                    </p>
+
+                </article>
 
 
-        <h3 id="quizQuestion">
-            Carregando pergunta...
-        </h3>
+                <article class="reference-card reveal">
+
+                    <span>02</span>
+
+                    <h3>
+                        NÃO É ELETRICIDADE
+                    </h3>
+
+                    <p>
+                        A informação é transmitida por luz,
+                        tornando a fibra imune a diversas
+                        interferências eletromagnéticas.
+                    </p>
+
+                </article>
 
 
-        <div
-            class="quiz-options"
-            id="quizOptions"
-        ></div>
+                <article class="reference-card reveal">
+
+                    <span>03</span>
+
+                    <h3>
+                        CONECTA CONTINENTES
+                    </h3>
+
+                    <p>
+                        Cabos ópticos submarinos formam uma
+                        gigantesca rede global que conecta
+                        diferentes partes do planeta.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
 
 
-        <div
-            class="quiz-feedback"
-            id="quizFeedback"
-        ></div>
+        <!-- =================================================
+             QUIZ
+        ================================================== -->
 
-
-        <button
-            class="button button-primary quiz-next"
-            id="quizNext"
-            type="button"
+        <section
+            id="quiz"
+            class="section quiz-section"
         >
-            PRÓXIMA
-            <span>→</span>
-        </button>
 
-    </div>
+            <div class="quiz-container reveal">
 
-</section>
+                <div class="quiz-top">
+
+                    <div>
+
+                        <span class="section-label">
+                            TESTE SEU CONHECIMENTO
+                        </span>
+
+                        <h2>
+                            FIBER
+                            <span>QUIZ</span>
+                        </h2>
+
+                    </div>
 
 
-<!-- =====================================================
-     REFERÊNCIAS
-===================================================== -->
+                    <div
+                        id="quizProgress"
+                        class="quiz-progress"
+                    >
+                        01 / 05
+                    </div>
 
-<section class="section dark-section" id="referencias">
+                </div>
 
-    <div class="section-number reveal">
-        12 / REFERÊNCIAS
-    </div>
 
-    <div class="section-heading reveal">
+                <div class="quiz-progress-track">
 
-        <span class="eyebrow">
-            FONTES DE PESQUISA
-        </span>
+                    <div
+                        id="quizBar"
+                        class="quiz-progress-bar"
+                    ></div>
 
-        <h2>
-            CONCEITO TEÓRICO
-            <span>E DADOS</span>
-        </h2>
+                </div>
+
+
+                <div class="quiz-question-box">
+
+                    <div class="quiz-q-number">
+                        QUESTION
+                    </div>
+
+                    <h3 id="quizQuestion">
+                        Carregando...
+                    </h3>
+
+                </div>
+
+
+                <div
+                    id="quizOptions"
+                    class="quiz-options"
+                ></div>
+
+
+                <div
+                    id="quizFeedback"
+                    class="quiz-feedback"
+                ></div>
+
+
+                <div class="quiz-bottom">
+
+                    <button
+                        id="quizNext"
+                        class="primary-button"
+                        type="button"
+                        style="display:none;"
+                    >
+                        PRÓXIMA →
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             REFERÊNCIAS
+        ================================================== -->
+
+        <section class="section references-section">
+
+            <div class="section-heading reveal">
+
+                <div class="section-number">07</div>
+
+                <div>
+
+                    <span class="section-label">
+                        ENCERRAMENTO
+                    </span>
+
+                    <h2>
+                        CONHECIMENTO
+                        <span>CONECTA</span>
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="references-content reveal">
+
+                <p>
+                    A fibra óptica representa uma das tecnologias
+                    fundamentais da infraestrutura digital moderna.
+                    Seu funcionamento combina física, engenharia,
+                    materiais e sistemas de comunicação para
+                    transformar luz em informação.
+                </p>
+
+                <div class="reference-line"></div>
+
+                <span>
+                    FIBER OPTIC RESEARCH // 2026
+                </span>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="site-footer">
+
+        <div>
+            FIBER<span>OPTIC</span>
+        </div>
 
         <p>
-            Esta pesquisa utiliza conceitos fundamentais de física,
-            óptica e telecomunicações. As fontes abaixo servem como
-            referências para aprofundamento.
+            PESQUISA INTERATIVA SOBRE FIBRA ÓPTICA
         </p>
 
-    </div>
+        <small>
+            SYSTEM STATUS: ONLINE
+        </small>
+
+    </footer>
 
 
-    <div class="references-grid">
-
-        <article class="reference-card reveal">
-            <span>01</span>
-            <h3>ITU</h3>
-            <p>
-                International Telecommunication Union — informações
-                e padrões relacionados às telecomunicações.
-            </p>
-            <a
-                href="https://www.itu.int/"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                VISITAR FONTE →
-            </a>
-        </article>
-
-
-        <article class="reference-card reveal">
-            <span>02</span>
-            <h3>IEEE</h3>
-            <p>
-                Instituto internacional de referência em engenharia,
-                tecnologia e telecomunicações.
-            </p>
-            <a
-                href="https://www.ieee.org/"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                VISITAR FONTE →
-            </a>
-        </article>
-
-
-        <article class="reference-card reveal">
-            <span>03</span>
-            <h3>NASA</h3>
-            <p>
-                Material científico relacionado à luz, física e
-                velocidade da luz.
-            </p>
-            <a
-                href="https://science.nasa.gov/"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                VISITAR FONTE →
-            </a>
-        </article>
-
-
-        <article class="reference-card reveal">
-            <span>04</span>
-            <h3>CISCO</h3>
-            <p>
-                Conteúdos técnicos sobre redes, infraestrutura,
-                transmissão de dados e fibra óptica.
-            </p>
-            <a
-                href="https://www.cisco.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                VISITAR FONTE →
-            </a>
-        </article>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     CONCLUSÃO
-===================================================== -->
-
-<section class="final-section">
-
-    <div class="final-grid">
-
-        <div class="reveal">
-
-            <span class="eyebrow">CONCLUSÃO</span>
-
-            <h2>
-                O FUTURO
-                <span>JÁ ESTÁ CONECTADO.</span>
-            </h2>
-
-        </div>
-
-
-        <p class="reveal">
-
-            A fibra óptica representa uma das principais tecnologias
-            responsáveis pela comunicação moderna. Ela permite que
-            enormes quantidades de informação sejam transportadas
-            através de pulsos de luz, conectando pessoas, empresas,
-            cidades e continentes.
-
-        </p>
-
-    </div>
-
-    <div class="final-line"></div>
-
-</section>
-
-</main>
-
-
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
-<footer class="footer">
-
-    <div class="footer-brand">
-
-        <span class="logo-symbol">FO</span>
-
-        <div>
-            <strong>O FUTURO DA COMUNICAÇÃO</strong>
-            <span>Pesquisa sobre Fibra Óptica</span>
-        </div>
-
-    </div>
-
-
-    <div class="footer-info">
-
-        <div>
-            <span>INSTITUIÇÃO</span>
-            <strong>C.E. PADRE CLAUDIO MORELLI</strong>
-        </div>
-
-        <div>
-            <span>INTEGRANTES</span>
-            <strong>MURILO • VICTOR FERREIRA</strong>
-        </div>
-
-        <div>
-            <span>TURMA</span>
-            <strong>2G • TARDE</strong>
-        </div>
-
-    </div>
-
-
-    <div class="footer-bottom">
-
-        <span>
-            CONCEITO TEÓRICO • DADOS • PESQUISA
-        </span>
-
-        <span>© 2026</span>
-
-    </div>
-
-</footer>
-
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
+
 </html>
