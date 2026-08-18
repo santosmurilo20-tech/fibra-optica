@@ -45,7 +45,6 @@ function animateCursor() {
     ringY +=
         (mouseY - ringY) * .15;
 
-
     if (cursorRing) {
 
         cursorRing.style.left =
@@ -56,13 +55,11 @@ function animateCursor() {
 
     }
 
-
     requestAnimationFrame(
         animateCursor
     );
 
 }
-
 
 animateCursor();
 
@@ -90,7 +87,6 @@ hoverElements.forEach(
 
             }
         );
-
 
         element.addEventListener(
             "mouseleave",
@@ -205,7 +201,6 @@ if (canvas) {
 
         particles = [];
 
-
         const amount =
             Math.min(
                 120,
@@ -262,7 +257,6 @@ if (canvas) {
             return;
         }
 
-
         ctx.clearRect(
             0,
             0,
@@ -301,7 +295,12 @@ if (canvas) {
 
 
                 ctx.fillStyle =
-                    `rgba(0,246,255,${particle.alpha})`;
+                    `rgba(
+                        0,
+                        246,
+                        255,
+                        ${particle.alpha}
+                    )`;
 
 
                 ctx.fill();
@@ -445,10 +444,17 @@ const networkData = {
     1: {
 
         name: "Curitiba",
+
         country: "Brasil",
+
         flag: "🇧🇷",
 
+        x: 22.5,
+
+        y: 69,
+
         lat: -25.4284,
+
         lon: -49.2733
 
     },
@@ -457,10 +463,17 @@ const networkData = {
     2: {
 
         name: "Nova York",
+
         country: "Estados Unidos",
+
         flag: "🇺🇸",
 
+        x: 20.8,
+
+        y: 34,
+
         lat: 40.7128,
+
         lon: -74.0060
 
     },
@@ -469,10 +482,17 @@ const networkData = {
     3: {
 
         name: "Paris",
+
         country: "França",
+
         flag: "🇫🇷",
 
+        x: 51.8,
+
+        y: 30,
+
         lat: 48.8566,
+
         lon: 2.3522
 
     },
@@ -481,10 +501,17 @@ const networkData = {
     4: {
 
         name: "Tóquio",
+
         country: "Japão",
+
         flag: "🇯🇵",
 
+        x: 81.5,
+
+        y: 31,
+
         lat: 35.6762,
+
         lon: 139.6503
 
     },
@@ -493,10 +520,17 @@ const networkData = {
     5: {
 
         name: "Moscou",
+
         country: "Rússia",
+
         flag: "🇷🇺",
 
+        x: 67.2,
+
+        y: 20,
+
         lat: 55.7558,
+
         lon: 37.6173
 
     },
@@ -505,10 +539,17 @@ const networkData = {
     6: {
 
         name: "Londres",
+
         country: "Reino Unido",
+
         flag: "🇬🇧",
 
+        x: 53.1,
+
+        y: 25,
+
         lat: 51.5074,
+
         lon: -0.1278
 
     }
@@ -517,235 +558,16 @@ const networkData = {
 
 
 /* =========================================================
-   MAPA-MÚNDI REAL
+   ESTADO
 ========================================================= */
 
-const worldMap =
-    document.getElementById(
-        "worldMap"
-    );
+let selectedNode = null;
 
-const worldCountries =
-    document.getElementById(
-        "worldCountries"
-    );
-
-const worldBorders =
-    document.getElementById(
-        "worldBorders"
-    );
-
-
-let worldProjection = null;
-let worldPath = null;
-
-
-/*
-   A projeção Mercator permite que as coordenadas
-   geográficas das cidades coincidam com o mapa.
-*/
-
-function initializeWorldProjection() {
-
-    if (!worldMap) {
-        return;
-    }
-
-
-    worldProjection =
-        d3.geoNaturalEarth1()
-            .fitExtent(
-                [
-                    [15, 15],
-                    [985, 635]
-                ],
-                {
-                    type: "Sphere"
-                }
-            );
-
-
-    worldPath =
-        d3.geoPath(
-            worldProjection
-        );
-
-}
-
-
-initializeWorldProjection();
-
-
-async function loadRealWorldMap() {
-
-    if (
-        !worldMap ||
-        !worldCountries ||
-        !worldBorders ||
-        typeof d3 === "undefined" ||
-        typeof topojson === "undefined"
-    ) {
-
-        return;
-
-    }
-
-
-    try {
-
-        const response =
-            await fetch(
-                "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"
-            );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Não foi possível carregar o mapa."
-            );
-
-        }
-
-
-        const world =
-            await response.json();
-
-
-        const countries =
-            topojson.feature(
-                world,
-                world.objects.countries
-            );
-
-
-        const borders =
-            topojson.mesh(
-                world,
-                world.objects.countries,
-                (
-                    a,
-                    b
-                ) => a !== b
-            );
-
-
-        worldCountries.innerHTML =
-            "";
-
-
-        worldBorders.innerHTML =
-            "";
-
-
-        worldCountries
-            .querySelectorAll("*")
-            .forEach(
-                element => element.remove()
-            );
-
-
-        countries.features.forEach(
-            country => {
-
-                const path =
-                    document.createElementNS(
-                        "http://www.w3.org/2000/svg",
-                        "path"
-                    );
-
-
-                path.setAttribute(
-                    "d",
-                    worldPath(country)
-                );
-
-
-                path.classList.add(
-                    "country"
-                );
-
-
-                worldCountries.appendChild(
-                    path
-                );
-
-            }
-        );
-
-
-        const borderPath =
-            document.createElementNS(
-                "http://www.w3.org/2000/svg",
-                "path"
-            );
-
-
-        borderPath.setAttribute(
-            "d",
-            worldPath(borders)
-        );
-
-
-        borderPath.classList.add(
-            "country-border"
-        );
-
-
-        worldBorders.appendChild(
-            borderPath
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            "Erro ao carregar mapa-múndi:",
-            error
-        );
-
-    }
-
-}
-
-
-loadRealWorldMap();
+let connections = [];
 
 
 /* =========================================================
-   CONVERSÃO COORDENADAS → MAPA
-========================================================= */
-
-function geographicPoint(
-    nodeId
-) {
-
-    const city =
-        networkData[nodeId];
-
-
-    if (
-        !city ||
-        !worldProjection
-    ) {
-
-        return null;
-
-    }
-
-
-    return worldProjection(
-        [
-            city.lon,
-            city.lat
-        ]
-    );
-
-}
-
-
-/* =========================================================
-   DISTÂNCIA
+   HAVERSINE
 ========================================================= */
 
 function calculateDistance(
@@ -753,9 +575,7 @@ function calculateDistance(
     pointB
 ) {
 
-    const earthRadius =
-        6371;
-
+    const earthRadius = 6371;
 
     const cityA =
         networkData[pointA];
@@ -778,7 +598,6 @@ function calculateDistance(
         cityA.lat *
         Math.PI /
         180;
-
 
     const lat2 =
         cityB.lat *
@@ -838,9 +657,7 @@ function calculateTravelTime(
     distanceKm
 ) {
 
-    const fiberSpeed =
-        200000;
-
+    const fiberSpeed = 200000;
 
     const seconds =
         distanceKm /
@@ -866,7 +683,7 @@ function calculateTravelTime(
 
 
 /* =========================================================
-   FORMATAR TEMPO
+   FORMATA TEMPO
 ========================================================= */
 
 function formatTravelTime(
@@ -878,8 +695,7 @@ function formatTravelTime(
     ) {
 
         return (
-            time.nanoseconds
-                .toFixed(2) +
+            time.nanoseconds.toFixed(2) +
             " ns"
         );
 
@@ -891,8 +707,7 @@ function formatTravelTime(
     ) {
 
         return (
-            time.microseconds
-                .toFixed(2) +
+            time.microseconds.toFixed(2) +
             " μs"
         );
 
@@ -904,8 +719,7 @@ function formatTravelTime(
     ) {
 
         return (
-            time.milliseconds
-                .toFixed(4) +
+            time.milliseconds.toFixed(4) +
             " ms"
         );
 
@@ -913,8 +727,7 @@ function formatTravelTime(
 
 
     return (
-        time.seconds
-            .toFixed(3) +
+        time.seconds.toFixed(3) +
         " s"
     );
 
@@ -940,16 +753,16 @@ function createFiberConnection(
     }
 
 
-    const pointA =
-        geographicPoint(from);
+    const fromData =
+        networkData[from];
 
-    const pointB =
-        geographicPoint(to);
+    const toData =
+        networkData[to];
 
 
     if (
-        !pointA ||
-        !pointB
+        !fromData ||
+        !toData
     ) {
 
         return null;
@@ -957,37 +770,37 @@ function createFiberConnection(
     }
 
 
-    const x1 = pointA[0];
-    const y1 = pointA[1];
+    const x1 =
+        fromData.x * 10;
 
-    const x2 = pointB[0];
-    const y2 = pointB[1];
+    const y1 =
+        fromData.y * 6.5;
+
+
+    const x2 =
+        toData.x * 10;
+
+    const y2 =
+        toData.y * 6.5;
 
 
     const middleX =
-        (
-            x1 +
-            x2
-        ) / 2;
+        (x1 + x2) / 2;
 
 
     const distanceVisual =
         Math.abs(
-            y2 -
-            y1
+            y2 - y1
         );
 
 
     const middleY =
-        Math.min(
-            y1,
-            y2
-        ) -
+        Math.min(y1, y2) -
         Math.max(
-            35,
+            45,
             Math.min(
-                110,
-                distanceVisual * .2
+                100,
+                distanceVisual * .25
             )
         );
 
@@ -1086,6 +899,7 @@ function createFiberConnection(
         path: fiber,
 
         from,
+
         to
 
     };
@@ -1094,7 +908,7 @@ function createFiberConnection(
 
 
 /* =========================================================
-   ANIMAR LUZ
+   ANIMAÇÃO DO PULSO
 ========================================================= */
 
 function animateLight(
@@ -1104,7 +918,8 @@ function animateLight(
     if (
         !connection ||
         !connection.path ||
-        !travelingLight
+        !travelingLight ||
+        !networkMap
     ) {
 
         return;
@@ -1178,20 +993,19 @@ function animateLight(
 
 
         const x =
-            point.x /
-            1000 *
-            networkMap.clientWidth;
+            point.x *
+            networkMap.clientWidth /
+            1000;
 
 
         const y =
-            point.y /
-            650 *
-            networkMap.clientHeight;
+            point.y *
+            networkMap.clientHeight /
+            650;
 
 
         travelingLight.style.left =
             `${x}px`;
-
 
         travelingLight.style.top =
             `${y}px`;
@@ -1223,63 +1037,7 @@ function animateLight(
 
 
 /* =========================================================
-   POSICIONAR CIDADES EXATAMENTE NO MAPA
-========================================================= */
-
-function positionNetworkNodes() {
-
-    if (
-        !worldProjection ||
-        !networkMap
-    ) {
-
-        return;
-
-    }
-
-
-    networkNodes.forEach(
-        node => {
-
-            const id =
-                Number(
-                    node.dataset.node
-                );
-
-
-            const point =
-                geographicPoint(id);
-
-
-            if (!point) {
-                return;
-            }
-
-
-            node.style.left =
-                `${point[0] / 10}%`;
-
-
-            node.style.top =
-                `${point[1] / 6.5}%`;
-
-        }
-    );
-
-}
-
-
-positionNetworkNodes();
-
-
-window.addEventListener(
-    "resize",
-    positionNetworkNodes
-);
-
-
-/* =========================================================
-   PAINEL
+   PAINEL TÉCNICO
 ========================================================= */
 
 function updateTechnicalPanel(
@@ -1327,7 +1085,9 @@ function updateTechnicalPanel(
     if (dataTravelTime) {
 
         dataTravelTime.textContent =
-            formatTravelTime(time);
+            formatTravelTime(
+                time
+            );
 
     }
 
@@ -1343,18 +1103,7 @@ function updateTechnicalPanel(
 
 
 /* =========================================================
-   ESTADO
-========================================================= */
-
-let selectedNode =
-    null;
-
-let connections =
-    [];
-
-
-/* =========================================================
-   CONECTAR
+   CONECTAR CIDADES
 ========================================================= */
 
 function connectNodes(
@@ -1589,7 +1338,6 @@ networkNodes.forEach(
                 const origin =
                     selectedNode;
 
-
                 const destination =
                     number;
 
@@ -1667,27 +1415,42 @@ if (
 
 
             if (dataOrigin) {
-                dataOrigin.textContent = "—";
+
+                dataOrigin.textContent =
+                    "—";
+
             }
 
 
             if (dataDestination) {
-                dataDestination.textContent = "—";
+
+                dataDestination.textContent =
+                    "—";
+
             }
 
 
             if (dataDistance) {
-                dataDistance.textContent = "—";
+
+                dataDistance.textContent =
+                    "—";
+
             }
 
 
             if (dataTravelTime) {
-                dataTravelTime.textContent = "—";
+
+                dataTravelTime.textContent =
+                    "—";
+
             }
 
 
             if (networkLatency) {
-                networkLatency.textContent = "0.00 ns";
+
+                networkLatency.textContent =
+                    "0.00 ns";
+
             }
 
 
@@ -1799,12 +1562,10 @@ const quizQuestions = [
             "Qual é o principal meio utilizado pela fibra óptica para transportar informações?",
 
         options: [
-
             "Corrente elétrica",
             "Pulsos de luz",
             "Ondas sonoras",
             "Campo magnético"
-
         ],
 
         answer: 1,
@@ -1821,12 +1582,10 @@ const quizQuestions = [
             "Qual é aproximadamente a velocidade da luz no vácuo?",
 
         options: [
-
             "3.000 km/s",
             "30.000 km/s",
             "299.792 km/s",
             "999.999 km/s"
-
         ],
 
         answer: 2,
@@ -1843,12 +1602,10 @@ const quizQuestions = [
             "O que mantém a luz confinada dentro do núcleo da fibra?",
 
         options: [
-
             "Reflexão interna total",
             "Eletricidade",
             "Magnetismo",
             "Calor"
-
         ],
 
         answer: 0,
@@ -1865,12 +1622,10 @@ const quizQuestions = [
             "Qual material é normalmente utilizado no núcleo de fibras ópticas convencionais?",
 
         options: [
-
             "Ferro",
             "Cobre",
             "Vidro",
             "Alumínio"
-
         ],
 
         answer: 2,
@@ -1887,12 +1642,10 @@ const quizQuestions = [
             "Por que a fibra é importante para a internet moderna?",
 
         options: [
-
             "Porque transmite grandes quantidades de dados rapidamente",
             "Porque utiliza ondas sonoras",
             "Porque funciona apenas em curtas distâncias",
             "Porque não precisa de equipamentos"
-
         ],
 
         answer: 0,
@@ -1906,7 +1659,9 @@ const quizQuestions = [
 
 
 let currentQuestion = 0;
+
 let quizScore = 0;
+
 let quizAnswered = false;
 
 
@@ -1964,7 +1719,9 @@ function loadQuizQuestion() {
 
 
     if (!question) {
+
         return;
+
     }
 
 
@@ -2007,8 +1764,7 @@ function loadQuizQuestion() {
                     currentQuestion + 1
                 ) /
                 quizQuestions.length
-            ) *
-            100
+            ) * 100
         }%`;
 
 
@@ -2147,9 +1903,7 @@ function answerQuestion(
 }
 
 
-if (
-    quizNext
-) {
+if (quizNext) {
 
     quizNext.addEventListener(
         "click",
@@ -2236,10 +1990,8 @@ function restartQuiz() {
     currentQuestion =
         0;
 
-
     quizScore =
         0;
-
 
     quizAnswered =
         false;
@@ -2319,17 +2071,18 @@ console.log(
     "background:#001820;color:#00f6ff;font-size:14px;font-weight:bold;padding:8px;"
 );
 
-
 console.log(
-    "Mapa-múndi real carregado."
+    "Mapa mundial carregado."
 );
-
 
 console.log(
     "Rede internacional carregada."
 );
 
-
 console.log(
     "Rotas livres ativadas."
+);
+
+console.log(
+    "Curitiba → qualquer cidade."
 );
