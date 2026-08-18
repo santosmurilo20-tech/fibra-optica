@@ -1,187 +1,598 @@
 /* =========================================================
-   FIBRA ÓPTICA
-   JAVASCRIPT DO SITE
+   CURSOR
 ========================================================= */
+
+const cursor = document.querySelector(".cursor-glow");
+
+document.addEventListener("mousemove", (event) => {
+
+    cursor.style.left = `${event.clientX}px`;
+    cursor.style.top = `${event.clientY}px`;
+
+});
 
 
 /* =========================================================
    PARTICULAS
 ========================================================= */
 
-const particleContainer = document.querySelector(".particles");
+const canvas = document.getElementById("particleCanvas");
+const ctx = canvas.getContext("2d");
+
+let particles = [];
+
+function resizeCanvas() {
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+}
+
+resizeCanvas();
+
+window.addEventListener("resize", resizeCanvas);
+
+
+class Particle {
+
+    constructor() {
+
+        this.x =
+            Math.random() *
+            canvas.width;
+
+        this.y =
+            Math.random() *
+            canvas.height;
+
+        this.size =
+            Math.random() * 2 + 0.5;
+
+        this.speedX =
+            (Math.random() - 0.5) * 0.3;
+
+        this.speedY =
+            (Math.random() - 0.5) * 0.3;
+
+        this.opacity =
+            Math.random() * 0.6;
+
+    }
+
+
+    update() {
+
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+
+        if (this.x < 0)
+            this.x = canvas.width;
+
+        if (this.x > canvas.width)
+            this.x = 0;
+
+        if (this.y < 0)
+            this.y = canvas.height;
+
+        if (this.y > canvas.height)
+            this.y = 0;
+
+    }
+
+
+    draw() {
+
+        ctx.beginPath();
+
+        ctx.arc(
+            this.x,
+            this.y,
+            this.size,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fillStyle =
+            `rgba(0,255,240,${this.opacity})`;
+
+        ctx.fill();
+
+    }
+
+}
+
 
 function createParticles() {
 
-    for (let i = 0; i < 35; i++) {
+    particles = [];
 
-        const particle = document.createElement("span");
+    const amount =
+        window.innerWidth < 700
+            ? 60
+            : 120;
 
-        particle.style.position = "absolute";
-        particle.style.width = `${Math.random() * 3 + 1}px`;
-        particle.style.height = particle.style.width;
+    for (
+        let i = 0;
+        i < amount;
+        i++
+    ) {
 
-        particle.style.borderRadius = "50%";
+        particles.push(
+            new Particle()
+        );
 
-        particle.style.background = "#00eaff";
-
-        particle.style.left = `${Math.random() * 100}%`;
-        particle.style.top = `${Math.random() * 100}%`;
-
-        particle.style.opacity = Math.random() * .6 + .2;
-
-        particle.style.boxShadow =
-            "0 0 10px rgba(0,234,255,.8)";
-
-        particle.style.animation =
-            `particleRandom ${Math.random() * 8 + 5}s ease-in-out infinite`;
-
-        particle.style.animationDelay =
-            `${Math.random() * 5}s`;
-
-        particleContainer.appendChild(particle);
     }
+
 }
 
 createParticles();
 
 
-/* =========================================================
-   ANIMAÇÃO DAS PARTICULAS
-========================================================= */
+function animateParticles() {
 
-const particleStyle = document.createElement("style");
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
 
-particleStyle.innerHTML = `
 
-@keyframes particleRandom {
+    particles.forEach(
+        particle => {
 
-    0% {
-        transform: translate3d(0, 0, 0);
-        opacity: .2;
-    }
+            particle.update();
+            particle.draw();
 
-    25% {
-        transform: translate3d(20px, -30px, 0);
-        opacity: .8;
-    }
+        }
+    );
 
-    50% {
-        transform: translate3d(-20px, -60px, 0);
-        opacity: .3;
-    }
 
-    75% {
-        transform: translate3d(30px, -30px, 0);
-        opacity: .8;
-    }
-
-    100% {
-        transform: translate3d(0, 0, 0);
-        opacity: .2;
-    }
+    requestAnimationFrame(
+        animateParticles
+    );
 
 }
 
-`;
+animateParticles();
 
-document.head.appendChild(particleStyle);
+
+/* =========================================================
+   MOUSE PARALLAX
+========================================================= */
+
+const heroContent =
+    document.querySelector(".hero-content");
+
+const fiberVisual =
+    document.querySelector(".fiber-visual");
+
+
+document.addEventListener(
+    "mousemove",
+    (event) => {
+
+        const x =
+            (event.clientX /
+                window.innerWidth -
+                0.5);
+
+        const y =
+            (event.clientY /
+                window.innerHeight -
+                0.5);
+
+
+        if (heroContent) {
+
+            heroContent.style.transform =
+                `translate(
+                    ${x * -8}px,
+                    ${y * -8}px
+                )`;
+
+        }
+
+
+        if (fiberVisual) {
+
+            fiberVisual.style.transform =
+                `translateY(-50%)
+                 translate(
+                    ${x * 20}px,
+                    ${y * 20}px
+                 )`;
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   MENU MOBILE
+========================================================= */
+
+const menuButton =
+    document.getElementById("menuButton");
+
+const mobileMenu =
+    document.getElementById("mobileMenu");
+
+
+menuButton.addEventListener(
+    "click",
+    () => {
+
+        mobileMenu.classList.toggle(
+            "open"
+        );
+
+    }
+);
+
+
+document.querySelectorAll(
+    ".mobile-menu a"
+).forEach(
+    link => {
+
+        link.addEventListener(
+            "click",
+            () => {
+
+                mobileMenu.classList.remove(
+                    "open"
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   NAVEGAÇÃO ATIVA
+========================================================= */
+
+const sections =
+    document.querySelectorAll(
+        "section[id]"
+    );
+
+const navLinks =
+    document.querySelectorAll(
+        ".nav-link"
+    );
+
+
+window.addEventListener(
+    "scroll",
+    () => {
+
+        let current = "";
+
+        sections.forEach(
+            section => {
+
+                const sectionTop =
+                    section.offsetTop - 200;
+
+                if (
+                    window.scrollY >=
+                    sectionTop
+                ) {
+
+                    current =
+                        section.getAttribute(
+                            "id"
+                        );
+
+                }
+
+            }
+        );
+
+
+        navLinks.forEach(
+            link => {
+
+                link.classList.remove(
+                    "active"
+                );
+
+
+                if (
+                    link.getAttribute(
+                        "href"
+                    ) ===
+                    `#${current}`
+                ) {
+
+                    link.classList.add(
+                        "active"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   TILT DOS CARDS
+========================================================= */
+
+const cards =
+    document.querySelectorAll(
+        ".big-card, .theme-card"
+    );
+
+
+cards.forEach(
+    card => {
+
+        card.addEventListener(
+            "mousemove",
+            (event) => {
+
+                const rect =
+                    card.getBoundingClientRect();
+
+                const x =
+                    event.clientX -
+                    rect.left;
+
+                const y =
+                    event.clientY -
+                    rect.top;
+
+                const centerX =
+                    rect.width / 2;
+
+                const centerY =
+                    rect.height / 2;
+
+                const rotateX =
+                    (y - centerY) /
+                    20;
+
+                const rotateY =
+                    (centerX - x) /
+                    20;
+
+
+                card.style.transform =
+                    `perspective(900px)
+                     rotateX(${rotateX}deg)
+                     rotateY(${rotateY}deg)
+                     translateY(-8px)`;
+
+            }
+        );
+
+
+        card.addEventListener(
+            "mouseleave",
+            () => {
+
+                card.style.transform =
+                    "";
+
+            }
+        );
+
+    }
+);
 
 
 /* =========================================================
    FLASHCARDS
 ========================================================= */
 
-const flashcards =
-    document.querySelectorAll(".flashcard");
+const factCards =
+    document.querySelectorAll(
+        ".fact-card"
+    );
 
-flashcards.forEach(card => {
 
-    card.addEventListener("click", () => {
+factCards.forEach(
+    card => {
 
-        card.classList.toggle("flipped");
+        card.addEventListener(
+            "click",
+            () => {
 
-    });
+                card.classList.toggle(
+                    "flipped"
+                );
 
-});
+            }
+        );
+
+    }
+);
 
 
 /* =========================================================
-   BOTÃO VOLTAR AO TOPO
+   SIMULAÇÃO DA FIBRA
 ========================================================= */
 
-const backTop =
-    document.getElementById("backTop");
+const sendSignal =
+    document.getElementById(
+        "sendSignal"
+    );
 
-window.addEventListener("scroll", () => {
+const simulationSignal =
+    document.getElementById(
+        "simulationSignal"
+    );
 
-    if (window.scrollY > 500) {
 
-        backTop.classList.add("show");
+sendSignal.addEventListener(
+    "click",
+    () => {
 
-    } else {
+        simulationSignal.classList.remove(
+            "run"
+        );
 
-        backTop.classList.remove("show");
+
+        void simulationSignal.offsetWidth;
+
+
+        simulationSignal.classList.add(
+            "run"
+        );
+
+
+        sendSignal.querySelector("span")
+            ?.replaceWith();
+
+
+    }
+);
+
+
+/* =========================================================
+   CONTADORES
+========================================================= */
+
+const counters =
+    document.querySelectorAll(
+        "[data-counter]"
+    );
+
+
+let countersStarted = false;
+
+
+function animateCounters() {
+
+    if (countersStarted)
+        return;
+
+    const statsSection =
+        document.querySelector(
+            ".stats-section"
+        );
+
+
+    if (!statsSection)
+        return;
+
+
+    const rect =
+        statsSection.getBoundingClientRect();
+
+
+    if (
+        rect.top <
+        window.innerHeight * 0.8
+    ) {
+
+        countersStarted = true;
+
+
+        counters.forEach(
+            counter => {
+
+                const target =
+                    Number(
+                        counter.dataset.counter
+                    );
+
+                let current = 0;
+
+                const increment =
+                    target / 100;
+
+
+                const timer =
+                    setInterval(
+                        () => {
+
+                            current +=
+                                increment;
+
+
+                            if (
+                                current >=
+                                target
+                            ) {
+
+                                current =
+                                    target;
+
+                                clearInterval(
+                                    timer
+                                );
+
+                            }
+
+
+                            counter.textContent =
+                                Math.floor(
+                                    current
+                                ).toLocaleString(
+                                    "pt-BR"
+                                );
+
+                        },
+                        20
+                    );
+
+            }
+        );
 
     }
 
-});
+}
 
 
-backTop.addEventListener("click", () => {
+window.addEventListener(
+    "scroll",
+    animateCounters
+);
 
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-
-});
+animateCounters();
 
 
 /* =========================================================
    QUIZ
 ========================================================= */
 
-const questions = [
+const quizData = [
 
     {
         question:
-            "O que é transmitido através da fibra óptica?",
+            "O que é utilizado para transportar informações dentro de uma fibra óptica?",
 
         answers: [
-            "Apenas eletricidade",
-            "Sinais luminosos que representam informações",
-            "Apenas ondas sonoras",
-            "Apenas imagens"
-        ],
-
-        correct: 1
-    },
-
-
-    {
-        question:
-            "Qual é a principal função do núcleo da fibra?",
-
-        answers: [
-            "Proteger o cabo contra chuva",
-            "Transportar a luz",
-            "Produzir eletricidade",
-            "Resfriar o cabo"
-        ],
-
-        correct: 1
-    },
-
-
-    {
-        question:
-            "O que ajuda a manter a luz dentro do núcleo?",
-
-        answers: [
-            "Reflexão interna total",
-            "Eletricidade",
-            "Magnetismo",
+            "Corrente elétrica",
+            "Pulsos de luz",
+            "Ondas sonoras",
             "Calor"
+        ],
+
+        correct: 1
+    },
+
+
+    {
+        question:
+            "Qual material é normalmente utilizado no núcleo das fibras ópticas?",
+
+        answers: [
+            "Vidro ou material semelhante",
+            "Ferro",
+            "Cobre",
+            "Alumínio"
         ],
 
         correct: 0
@@ -190,13 +601,28 @@ const questions = [
 
     {
         question:
-            "Uma das principais vantagens da fibra óptica é:",
+            "Qual fenômeno permite que a luz percorra o interior da fibra?",
 
         answers: [
-            "Baixa velocidade",
-            "Grande perda de sinal",
-            "Alta capacidade de transmissão",
-            "Produção de calor"
+            "Reflexão interna total",
+            "Combustão",
+            "Magnetismo",
+            "Evaporação"
+        ],
+
+        correct: 0
+    },
+
+
+    {
+        question:
+            "Onde podemos encontrar grandes redes de fibra óptica?",
+
+        answers: [
+            "Somente em computadores",
+            "Apenas em televisores",
+            "Em redes de comunicação",
+            "Somente em satélites"
         ],
 
         correct: 2
@@ -205,16 +631,16 @@ const questions = [
 
     {
         question:
-            "A fibra óptica é utilizada principalmente para:",
+            "Qual é uma das principais vantagens da fibra óptica?",
 
         answers: [
-            "Transmissão de informações",
-            "Produzir combustível",
-            "Aquecer ambientes",
-            "Produzir alimentos"
+            "Baixa capacidade",
+            "Alta velocidade e capacidade",
+            "Maior interferência",
+            "Necessidade de eletricidade no núcleo"
         ],
 
-        correct: 0
+        correct: 1
     }
 
 ];
@@ -227,421 +653,683 @@ let score = 0;
 let answered = false;
 
 
-const questionElement =
-    document.getElementById("question");
+const questionText =
+    document.getElementById(
+        "questionText"
+    );
 
-const answersElement =
-    document.getElementById("answers");
+const answersContainer =
+    document.getElementById(
+        "answers"
+    );
 
 const questionNumber =
-    document.getElementById("questionNumber");
+    document.getElementById(
+        "questionNumber"
+    );
 
-const totalQuestions =
-    document.getElementById("totalQuestions");
+const quizScore =
+    document.getElementById(
+        "quizScore"
+    );
 
-const progress =
-    document.getElementById("progress");
-
-const quizContent =
-    document.getElementById("quizContent");
+const quizProgress =
+    document.getElementById(
+        "quizProgress"
+    );
 
 const quizResult =
-    document.getElementById("quizResult");
+    document.getElementById(
+        "quizResult"
+    );
 
-const scoreElement =
-    document.getElementById("score");
+const nextQuestion =
+    document.getElementById(
+        "nextQuestion"
+    );
 
-const restartButton =
-    document.getElementById("restartQuiz");
-
-
-totalQuestions.textContent =
-    questions.length;
-
-
-/* =========================================================
-   CARREGAR QUESTÃO
-========================================================= */
 
 function loadQuestion() {
 
     answered = false;
 
+    quizResult.textContent = "";
+
+    nextQuestion.classList.remove(
+        "show"
+    );
+
+
     const question =
-        questions[currentQuestion];
+        quizData[
+            currentQuestion
+        ];
 
 
-    questionElement.textContent =
+    questionText.textContent =
         question.question;
 
 
     questionNumber.textContent =
-        currentQuestion + 1;
+        `QUESTÃO
+        ${String(currentQuestion + 1).padStart(2, "0")}
+        / ${quizData.length}`;
 
 
-    progress.style.width =
-        `${((currentQuestion + 1) / questions.length) * 100}%`;
+    quizProgress.style.width =
+        `${(
+            (currentQuestion + 1) /
+            quizData.length
+        ) * 100}%`;
 
 
-    answersElement.innerHTML = "";
+    answersContainer.innerHTML = "";
 
 
-    question.answers.forEach((answer, index) => {
+    question.answers.forEach(
+        (answer, index) => {
 
-        const button =
-            document.createElement("button");
+            const button =
+                document.createElement(
+                    "button"
+                );
 
-        button.textContent =
-            `${String.fromCharCode(65 + index)}) ${answer}`;
 
-        button.dataset.answer = index;
+            button.textContent =
+                answer;
 
-        button.addEventListener(
-            "click",
-            () => selectAnswer(button, index)
-        );
 
-        answersElement.appendChild(button);
+            button.addEventListener(
+                "click",
+                () =>
+                    selectAnswer(
+                        index,
+                        button
+                    )
+            );
 
-    });
+
+            answersContainer.appendChild(
+                button
+            );
+
+        }
+    );
 
 }
 
 
-/* =========================================================
-   SELECIONAR RESPOSTA
-========================================================= */
+function selectAnswer(
+    selected,
+    button
+) {
 
-function selectAnswer(button, index) {
+    if (answered)
+        return;
 
-    if (answered) return;
 
     answered = true;
 
 
-    const correctAnswer =
-        questions[currentQuestion].correct;
+    const question =
+        quizData[
+            currentQuestion
+        ];
 
 
-    const allButtons =
-        answersElement.querySelectorAll("button");
+    const buttons =
+        answersContainer.querySelectorAll(
+            "button"
+        );
 
 
-    if (index === correctAnswer) {
+    buttons.forEach(
+        (btn, index) => {
 
-        button.classList.add("correct");
+            if (
+                index ===
+                question.correct
+            ) {
+
+                btn.classList.add(
+                    "correct"
+                );
+
+            }
+
+        }
+    );
+
+
+    if (
+        selected ===
+        question.correct
+    ) {
 
         score++;
 
+        button.classList.add(
+            "correct"
+        );
+
+        quizResult.textContent =
+            "✓ RESPOSTA CORRETA!";
+
     } else {
 
-        button.classList.add("wrong");
+        button.classList.add(
+            "wrong"
+        );
 
-        allButtons[correctAnswer]
-            .classList.add("correct");
+        quizResult.textContent =
+            "✕ RESPOSTA INCORRETA.";
 
     }
 
 
-    setTimeout(() => {
+    quizScore.textContent =
+        `PONTOS: ${score}`;
+
+
+    nextQuestion.classList.add(
+        "show"
+    );
+
+}
+
+
+nextQuestion.addEventListener(
+    "click",
+    () => {
 
         currentQuestion++;
 
-        if (currentQuestion < questions.length) {
 
-            loadQuestion();
+        if (
+            currentQuestion >=
+            quizData.length
+        ) {
+
+            showQuizEnd();
 
         } else {
 
-            finishQuiz();
+            loadQuestion();
 
         }
 
-    }, 1000);
+    }
+);
+
+
+function showQuizEnd() {
+
+    questionText.textContent =
+        "QUIZ FINALIZADO!";
+
+
+    answersContainer.innerHTML = "";
+
+
+    quizResult.innerHTML =
+        `VOCÊ MARCOU
+        <strong>${score}</strong>
+        DE
+        <strong>${quizData.length}</strong>
+        PONTOS.`;
+
+
+    questionNumber.textContent =
+        "RESULTADO";
+
+
+    quizProgress.style.width =
+        "100%";
+
+
+    nextQuestion.textContent =
+        "REFAZER QUIZ";
+
+
+    nextQuestion.classList.add(
+        "show"
+    );
+
+
+    nextQuestion.onclick =
+        () => {
+
+            currentQuestion = 0;
+
+            score = 0;
+
+            quizScore.textContent =
+                "PONTOS: 0";
+
+            nextQuestion.textContent =
+                "PRÓXIMA QUESTÃO →";
+
+            loadQuestion();
+
+        };
 
 }
-
-
-/* =========================================================
-   FINALIZAR QUIZ
-========================================================= */
-
-function finishQuiz() {
-
-    quizContent.classList.add("hidden");
-
-    quizResult.classList.remove("hidden");
-
-    scoreElement.textContent =
-        `${score} / ${questions.length}`;
-
-}
-
-
-/* =========================================================
-   REINICIAR QUIZ
-========================================================= */
-
-restartButton.addEventListener("click", () => {
-
-    currentQuestion = 0;
-
-    score = 0;
-
-    quizResult.classList.add("hidden");
-
-    quizContent.classList.remove("hidden");
-
-    loadQuestion();
-
-});
 
 
 loadQuestion();
 
 
 /* =========================================================
-   ANIMAÇÃO DE REVELAÇÃO AO ROLAR
+   MINI GAME
+========================================================= */
+
+const gameNodes =
+    document.querySelectorAll(
+        ".game-node"
+    );
+
+const gameScore =
+    document.getElementById(
+        "gameScore"
+    );
+
+const gameTime =
+    document.getElementById(
+        "gameTime"
+    );
+
+const gameMessage =
+    document.getElementById(
+        "gameMessage"
+    );
+
+const restartGame =
+    document.getElementById(
+        "restartGame"
+    );
+
+
+let gameCurrent = 1;
+
+let gamePoints = 0;
+
+let timeLeft = 30;
+
+let gameInterval = null;
+
+let gameStarted = false;
+
+
+function startGame() {
+
+    gameCurrent = 1;
+
+    gamePoints = 0;
+
+    timeLeft = 30;
+
+    gameStarted = true;
+
+
+    gameScore.textContent =
+        gamePoints;
+
+    gameTime.textContent =
+        timeLeft;
+
+
+    gameNodes.forEach(
+        node => {
+
+            node.classList.remove(
+                "clicked"
+            );
+
+        }
+    );
+
+
+    gameMessage.textContent =
+        "CLIQUE NO NÓ 01";
+
+
+    clearInterval(
+        gameInterval
+    );
+
+
+    gameInterval =
+        setInterval(
+            () => {
+
+                timeLeft--;
+
+                gameTime.textContent =
+                    timeLeft;
+
+
+                if (
+                    timeLeft <= 0
+                ) {
+
+                    endGame(
+                        "TEMPO ESGOTADO!"
+                    );
+
+                }
+
+            },
+            1000
+        );
+
+}
+
+
+function endGame(message) {
+
+    gameStarted = false;
+
+    clearInterval(
+        gameInterval
+    );
+
+    gameMessage.textContent =
+        `${message} PONTOS: ${gamePoints}`;
+
+}
+
+
+gameNodes.forEach(
+    node => {
+
+        node.addEventListener(
+            "click",
+            () => {
+
+                if (!gameStarted)
+                    return;
+
+
+                const number =
+                    Number(
+                        node.dataset.node
+                    );
+
+
+                if (
+                    number ===
+                    gameCurrent
+                ) {
+
+                    node.classList.add(
+                        "clicked"
+                    );
+
+
+                    gamePoints += 100;
+
+                    gameScore.textContent =
+                        gamePoints;
+
+
+                    gameCurrent++;
+
+
+                    if (
+                        gameCurrent >
+                        5
+                    ) {
+
+                        endGame(
+                            "✓ CONEXÃO COMPLETA!"
+                        );
+
+                    } else {
+
+                        gameMessage.textContent =
+                            `AGORA CLIQUE NO NÓ
+                            0${gameCurrent}`;
+
+                    }
+
+                } else {
+
+                    gameMessage.textContent =
+                        `ERRO! PROCURE O NÓ
+                        0${gameCurrent}`;
+
+                    gamePoints =
+                        Math.max(
+                            0,
+                            gamePoints - 50
+                        );
+
+                    gameScore.textContent =
+                        gamePoints;
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+restartGame.addEventListener(
+    "click",
+    startGame
+);
+
+
+/* =========================================================
+   EFEITO DE HOVER NOS BOTÕES
+========================================================= */
+
+const interactiveElements =
+    document.querySelectorAll(
+        "button, .primary-button, .secondary-button, .nav-link"
+    );
+
+
+interactiveElements.forEach(
+    element => {
+
+        element.addEventListener(
+            "mouseenter",
+            () => {
+
+                if (cursor) {
+
+                    cursor.style.transform =
+                        "translate(-50%, -50%) scale(2.5)";
+
+                }
+
+            }
+        );
+
+
+        element.addEventListener(
+            "mouseleave",
+            () => {
+
+                if (cursor) {
+
+                    cursor.style.transform =
+                        "translate(-50%, -50%) scale(1)";
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   REVEAL AO SCROLL
 ========================================================= */
 
 const revealElements =
     document.querySelectorAll(
-        ".research-card, " +
-        ".structure-card, " +
-        ".step, " +
-        ".advantage-card, " +
-        ".application-card, " +
-        ".flashcard, " +
-        ".evidence-box, " +
-        ".source"
+        ".big-card, .theme-card, .fact-card, .process-step, .gallery-item"
     );
 
 
-const observer =
+const revealObserver =
     new IntersectionObserver(
+        (entries) => {
 
-        entries => {
+            entries.forEach(
+                entry => {
 
-            entries.forEach(entry => {
+                    if (
+                        entry.isIntersecting
+                    ) {
 
-                if (entry.isIntersecting) {
+                        entry.target.style.opacity =
+                            "1";
 
-                    entry.target.classList.add("revealed");
+                        entry.target.style.transform =
+                            "translateY(0)";
+
+                        revealObserver.unobserve(
+                            entry.target
+                        );
+
+                    }
 
                 }
-
-            });
+            );
 
         },
-
         {
-            threshold: .12
+            threshold: 0.12
         }
-
     );
 
 
-revealElements.forEach(element => {
+revealElements.forEach(
+    element => {
 
-    element.style.opacity = "0";
+        element.style.opacity = "0";
 
-    element.style.transform =
-        "translateY(30px)";
+        element.style.transform =
+            "translateY(35px)";
 
-    element.style.transition =
-        "opacity .7s ease, transform .7s ease";
+        element.style.transition =
+            "opacity .8s ease, transform .8s ease";
 
-    observer.observe(element);
-
-});
-
-
-const revealStyle =
-    document.createElement("style");
-
-revealStyle.innerHTML = `
-
-.revealed {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-}
-
-`;
-
-document.head.appendChild(revealStyle);
-
-
-/* =========================================================
-   EFEITO PARALLAX NO HERO
-========================================================= */
-
-const fiberContainer =
-    document.querySelector(".fiber-container");
-
-window.addEventListener("mousemove", event => {
-
-    if (!fiberContainer) return;
-
-
-    const x =
-        (window.innerWidth / 2 - event.clientX) / 80;
-
-    const y =
-        (window.innerHeight / 2 - event.clientY) / 80;
-
-
-    fiberContainer.style.transform =
-        `perspective(1000px)
-         rotateY(${x}deg)
-         rotateX(${y}deg)`;
-
-});
-
-
-/* =========================================================
-   RESET DO PARALLAX
-========================================================= */
-
-fiberContainer.addEventListener("mouseleave", () => {
-
-    fiberContainer.style.transform =
-        "perspective(1000px) rotateY(0deg) rotateX(0deg)";
-
-});
-
-
-/* =========================================================
-   EFEITO DE DIGITAÇÃO NO STATUS
-========================================================= */
-
-const statusText =
-    document.querySelector(".status");
-
-let statusToggle = true;
-
-
-setInterval(() => {
-
-    if (!statusText) return;
-
-    statusToggle = !statusToggle;
-
-    if (statusToggle) {
-
-        statusText.innerHTML =
-            `<span></span>SISTEMA ONLINE`;
-
-    } else {
-
-        statusText.innerHTML =
-            `<span></span>CONEXÃO ESTÁVEL`;
+        revealObserver.observe(
+            element
+        );
 
     }
-
-}, 3000);
-
-
-/* =========================================================
-   CURSOR / BRILHO NAS SEÇÕES
-========================================================= */
-
-document.querySelectorAll(
-    ".advantage-card, .application-card, .evidence-box"
-).forEach(card => {
-
-    card.addEventListener("mousemove", event => {
-
-        const rect =
-            card.getBoundingClientRect();
-
-        const x =
-            event.clientX - rect.left;
-
-        const y =
-            event.clientY - rect.top;
-
-
-        card.style.background = `
-            radial-gradient(
-                circle at ${x}px ${y}px,
-                rgba(0,234,255,.10),
-                rgba(0,234,255,.015) 35%,
-                transparent 70%
-            )
-        `;
-
-    });
-
-
-    card.addEventListener("mouseleave", () => {
-
-        card.style.background = "";
-
-    });
-
-});
+);
 
 
 /* =========================================================
-   CONTADOR DE DADOS NO HERO
+   EFEITO DE CLIQUE NO SITE
 ========================================================= */
 
-const dataPackets =
-    document.querySelectorAll(".data-packet");
+document.addEventListener(
+    "click",
+    (event) => {
+
+        const ripple =
+            document.createElement(
+                "span"
+            );
 
 
-setInterval(() => {
+        ripple.style.position =
+            "fixed";
 
-    dataPackets.forEach(packet => {
+        ripple.style.left =
+            `${event.clientX}px`;
 
-        const randomNumber =
-            Math.floor(
-                Math.random() * 999999
-            )
-            .toString()
-            .padStart(6, "0");
+        ripple.style.top =
+            `${event.clientY}px`;
 
-        packet.textContent =
-            randomNumber;
+        ripple.style.width =
+            "5px";
 
-    });
+        ripple.style.height =
+            "5px";
 
-}, 800);
+        ripple.style.borderRadius =
+            "50%";
+
+        ripple.style.border =
+            "1px solid #00fff0";
+
+        ripple.style.pointerEvents =
+            "none";
+
+        ripple.style.zIndex =
+            "9998";
+
+        ripple.style.transform =
+            "translate(-50%, -50%)";
+
+        ripple.style.boxShadow =
+            "0 0 15px #00fff0";
+
+        document.body.appendChild(
+            ripple
+        );
+
+
+        ripple.animate(
+            [
+                {
+                    width: "5px",
+                    height: "5px",
+                    opacity: 1
+                },
+
+                {
+                    width: "80px",
+                    height: "80px",
+                    opacity: 0
+                }
+            ],
+            {
+                duration: 500,
+                easing: "ease-out"
+            }
+        );
+
+
+        setTimeout(
+            () => {
+
+                ripple.remove();
+
+            },
+            500
+        );
+
+    }
+);
 
 
 /* =========================================================
-   EFEITO DE LUZ NO MOUSE
+   CONSOLE
 ========================================================= */
 
-const mouseGlow =
-    document.createElement("div");
+console.log(
+    "%c FIBRA ∞ ",
+    "color:#00fff0;font-size:30px;font-weight:bold;"
+);
 
-mouseGlow.style.position = "fixed";
+console.log(
+    "%c O Futuro da Comunicação ",
+    "color:#7a5cff;font-size:16px;"
+);
 
-mouseGlow.style.width = "250px";
-mouseGlow.style.height = "250px";
-
-mouseGlow.style.borderRadius = "50%";
-
-mouseGlow.style.pointerEvents = "none";
-
-mouseGlow.style.zIndex = "-1";
-
-mouseGlow.style.background =
-    "radial-gradient(circle, rgba(0,234,255,.06), transparent 70%)";
-
-mouseGlow.style.transform =
-    "translate(-50%, -50%)";
-
-document.body.appendChild(mouseGlow);
-
-
-document.addEventListener("mousemove", event => {
-
-    mouseGlow.style.left =
-        `${event.clientX}px`;
-
-    mouseGlow.style.top =
-        `${event.clientY}px`;
-
-});
+console.log(
+    "Projeto escolar — C.E. Padre Claudio Morelli"
+);
