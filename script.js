@@ -3,14 +3,10 @@
 ========================================================= */
 
 const cursor =
-    document.getElementById(
-        "cursor"
-    );
+    document.getElementById("cursor");
 
 const cursorRing =
-    document.getElementById(
-        "cursorRing"
-    );
+    document.getElementById("cursorRing");
 
 
 let mouseX = 0;
@@ -24,12 +20,8 @@ document.addEventListener(
     "mousemove",
     event => {
 
-        mouseX =
-            event.clientX;
-
-        mouseY =
-            event.clientY;
-
+        mouseX = event.clientX;
+        mouseY = event.clientY;
 
         if (cursor) {
 
@@ -48,16 +40,10 @@ document.addEventListener(
 function animateCursor() {
 
     ringX +=
-        (
-            mouseX -
-            ringX
-        ) * .15;
+        (mouseX - ringX) * .15;
 
     ringY +=
-        (
-            mouseY -
-            ringY
-        ) * .15;
+        (mouseY - ringY) * .15;
 
 
     if (cursorRing) {
@@ -136,7 +122,10 @@ const mobileMenu =
     );
 
 
-if (menuButton && mobileMenu) {
+if (
+    menuButton &&
+    mobileMenu
+) {
 
     menuButton.addEventListener(
         "click",
@@ -183,16 +172,13 @@ const canvas =
 
 
 let ctx = null;
-
 let particles = [];
 
 
 if (canvas) {
 
     ctx =
-        canvas.getContext(
-            "2d"
-        );
+        canvas.getContext("2d");
 
 
     function resizeCanvas() {
@@ -366,11 +352,8 @@ flashcards.forEach(
             event => {
 
                 if (
-                    event.key ===
-                    "Enter" ||
-
-                    event.key ===
-                    " "
+                    event.key === "Enter" ||
+                    event.key === " "
                 ) {
 
                     event.preventDefault();
@@ -390,7 +373,6 @@ flashcards.forEach(
 
 /* =========================================================
    NETWORK LAB
-   REDE INTERNACIONAL DE FIBRA ÓPTICA
 ========================================================= */
 
 const networkMap =
@@ -462,156 +444,72 @@ const networkData = {
 
     1: {
 
-        name:
-            "Curitiba",
+        name: "Curitiba",
+        country: "Brasil",
+        flag: "🇧🇷",
 
-        country:
-            "Brasil",
-
-        flag:
-            "🇧🇷",
-
-        x:
-            28,
-
-        y:
-            68,
-
-        lat:
-            -25.4284,
-
-        lon:
-            -49.2733
+        lat: -25.4284,
+        lon: -49.2733
 
     },
 
 
     2: {
 
-        name:
-            "Nova York",
+        name: "Nova York",
+        country: "Estados Unidos",
+        flag: "🇺🇸",
 
-        country:
-            "Estados Unidos",
-
-        flag:
-            "🇺🇸",
-
-        x:
-            43,
-
-        y:
-            35,
-
-        lat:
-            40.7128,
-
-        lon:
-            -74.0060
+        lat: 40.7128,
+        lon: -74.0060
 
     },
 
 
     3: {
 
-        name:
-            "Paris",
+        name: "Paris",
+        country: "França",
+        flag: "🇫🇷",
 
-        country:
-            "França",
-
-        flag:
-            "🇫🇷",
-
-        x:
-            57,
-
-        y:
-            31,
-
-        lat:
-            48.8566,
-
-        lon:
-            2.3522
+        lat: 48.8566,
+        lon: 2.3522
 
     },
 
 
     4: {
 
-        name:
-            "Tóquio",
+        name: "Tóquio",
+        country: "Japão",
+        flag: "🇯🇵",
 
-        country:
-            "Japão",
-
-        flag:
-            "🇯🇵",
-
-        x:
-            87,
-
-        y:
-            39,
-
-        lat:
-            35.6762,
-
-        lon:
-            139.6503
+        lat: 35.6762,
+        lon: 139.6503
 
     },
 
 
     5: {
 
-        name:
-            "Moscou",
+        name: "Moscou",
+        country: "Rússia",
+        flag: "🇷🇺",
 
-        country:
-            "Rússia",
-
-        flag:
-            "🇷🇺",
-
-        x:
-            70,
-
-        y:
-            22,
-
-        lat:
-            55.7558,
-
-        lon:
-            37.6173
+        lat: 55.7558,
+        lon: 37.6173
 
     },
 
 
     6: {
 
-        name:
-            "Londres",
+        name: "Londres",
+        country: "Reino Unido",
+        flag: "🇬🇧",
 
-        country:
-            "Reino Unido",
-
-        flag:
-            "🇬🇧",
-
-        x:
-            53,
-
-        y:
-            25,
-
-        lat:
-            51.5074,
-
-        lon:
-            -0.1278
+        lat: 51.5074,
+        lon: -0.1278
 
     }
 
@@ -619,19 +517,235 @@ const networkData = {
 
 
 /* =========================================================
-   ESTADO DA REDE
+   MAPA-MÚNDI REAL
 ========================================================= */
 
-let selectedNode =
-    null;
+const worldMap =
+    document.getElementById(
+        "worldMap"
+    );
 
-let connections =
-    [];
+const worldCountries =
+    document.getElementById(
+        "worldCountries"
+    );
+
+const worldBorders =
+    document.getElementById(
+        "worldBorders"
+    );
+
+
+let worldProjection = null;
+let worldPath = null;
+
+
+/*
+   A projeção Mercator permite que as coordenadas
+   geográficas das cidades coincidam com o mapa.
+*/
+
+function initializeWorldProjection() {
+
+    if (!worldMap) {
+        return;
+    }
+
+
+    worldProjection =
+        d3.geoNaturalEarth1()
+            .fitExtent(
+                [
+                    [15, 15],
+                    [985, 635]
+                ],
+                {
+                    type: "Sphere"
+                }
+            );
+
+
+    worldPath =
+        d3.geoPath(
+            worldProjection
+        );
+
+}
+
+
+initializeWorldProjection();
+
+
+async function loadRealWorldMap() {
+
+    if (
+        !worldMap ||
+        !worldCountries ||
+        !worldBorders ||
+        typeof d3 === "undefined" ||
+        typeof topojson === "undefined"
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Não foi possível carregar o mapa."
+            );
+
+        }
+
+
+        const world =
+            await response.json();
+
+
+        const countries =
+            topojson.feature(
+                world,
+                world.objects.countries
+            );
+
+
+        const borders =
+            topojson.mesh(
+                world,
+                world.objects.countries,
+                (
+                    a,
+                    b
+                ) => a !== b
+            );
+
+
+        worldCountries.innerHTML =
+            "";
+
+
+        worldBorders.innerHTML =
+            "";
+
+
+        worldCountries
+            .querySelectorAll("*")
+            .forEach(
+                element => element.remove()
+            );
+
+
+        countries.features.forEach(
+            country => {
+
+                const path =
+                    document.createElementNS(
+                        "http://www.w3.org/2000/svg",
+                        "path"
+                    );
+
+
+                path.setAttribute(
+                    "d",
+                    worldPath(country)
+                );
+
+
+                path.classList.add(
+                    "country"
+                );
+
+
+                worldCountries.appendChild(
+                    path
+                );
+
+            }
+        );
+
+
+        const borderPath =
+            document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "path"
+            );
+
+
+        borderPath.setAttribute(
+            "d",
+            worldPath(borders)
+        );
+
+
+        borderPath.classList.add(
+            "country-border"
+        );
+
+
+        worldBorders.appendChild(
+            borderPath
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Erro ao carregar mapa-múndi:",
+            error
+        );
+
+    }
+
+}
+
+
+loadRealWorldMap();
 
 
 /* =========================================================
-   DISTÂNCIA ENTRE CIDADES
-   Fórmula de Haversine
+   CONVERSÃO COORDENADAS → MAPA
+========================================================= */
+
+function geographicPoint(
+    nodeId
+) {
+
+    const city =
+        networkData[nodeId];
+
+
+    if (
+        !city ||
+        !worldProjection
+    ) {
+
+        return null;
+
+    }
+
+
+    return worldProjection(
+        [
+            city.lon,
+            city.lat
+        ]
+    );
+
+}
+
+
+/* =========================================================
+   DISTÂNCIA
 ========================================================= */
 
 function calculateDistance(
@@ -711,22 +825,13 @@ function calculateDistance(
         );
 
 
-    return (
-        earthRadius *
-        c
-    );
+    return earthRadius * c;
 
 }
 
 
 /* =========================================================
-   TEMPO DE PROPAGAÇÃO NA FIBRA
-
-   Velocidade aproximada:
-   200.000 km/s
-
-   Isso considera a velocidade reduzida
-   da luz dentro da fibra óptica.
+   TEMPO
 ========================================================= */
 
 function calculateTravelTime(
@@ -761,7 +866,7 @@ function calculateTravelTime(
 
 
 /* =========================================================
-   FORMATA TEMPO
+   FORMATAR TEMPO
 ========================================================= */
 
 function formatTravelTime(
@@ -817,7 +922,7 @@ function formatTravelTime(
 
 
 /* =========================================================
-   CRIAR CONEXÃO DE FIBRA
+   CRIAR CONEXÃO
 ========================================================= */
 
 function createFiberConnection(
@@ -835,16 +940,16 @@ function createFiberConnection(
     }
 
 
-    const fromData =
-        networkData[from];
+    const pointA =
+        geographicPoint(from);
 
-    const toData =
-        networkData[to];
+    const pointB =
+        geographicPoint(to);
 
 
     if (
-        !fromData ||
-        !toData
+        !pointA ||
+        !pointB
     ) {
 
         return null;
@@ -852,33 +957,12 @@ function createFiberConnection(
     }
 
 
-    /*
-       O mapa usa viewBox:
-       1000 x 650
-    */
+    const x1 = pointA[0];
+    const y1 = pointA[1];
 
-    const x1 =
-        fromData.x *
-        10;
+    const x2 = pointB[0];
+    const y2 = pointB[1];
 
-    const y1 =
-        fromData.y *
-        6.5;
-
-
-    const x2 =
-        toData.x *
-        10;
-
-    const y2 =
-        toData.y *
-        6.5;
-
-
-    /*
-       Criamos uma curva entre
-       as duas cidades.
-    */
 
     const middleX =
         (
@@ -900,10 +984,10 @@ function createFiberConnection(
             y2
         ) -
         Math.max(
-            45,
+            35,
             Math.min(
-                100,
-                distanceVisual * .25
+                110,
+                distanceVisual * .2
             )
         );
 
@@ -914,10 +998,6 @@ function createFiberConnection(
         ${x2} ${y2}
     `;
 
-
-    /* =====================================================
-       BRILHO EXTERNO
-    ===================================================== */
 
     const backgroundPath =
         document.createElementNS(
@@ -942,10 +1022,6 @@ function createFiberConnection(
     );
 
 
-    /* =====================================================
-       FIO PRINCIPAL
-    ===================================================== */
-
     const fiber =
         document.createElementNS(
             "http://www.w3.org/2000/svg",
@@ -969,11 +1045,6 @@ function createFiberConnection(
     );
 
 
-    /*
-       Faz o fio nascer da origem
-       até o destino.
-    */
-
     let length = 1000;
 
 
@@ -984,8 +1055,7 @@ function createFiberConnection(
 
     } catch {
 
-        length =
-            1000;
+        length = 1000;
 
     }
 
@@ -1013,11 +1083,9 @@ function createFiberConnection(
 
     return {
 
-        path:
-            fiber,
+        path: fiber,
 
         from,
-
         to
 
     };
@@ -1026,7 +1094,7 @@ function createFiberConnection(
 
 
 /* =========================================================
-   ANIMAR O PULSO DE LUZ
+   ANIMAR LUZ
 ========================================================= */
 
 function animateLight(
@@ -1036,8 +1104,7 @@ function animateLight(
     if (
         !connection ||
         !connection.path ||
-        !travelingLight ||
-        !networkMap
+        !travelingLight
     ) {
 
         return;
@@ -1068,13 +1135,6 @@ function animateLight(
         performance.now();
 
 
-    /*
-       Duração visual da animação.
-
-       Não representa o tempo físico real.
-       O tempo físico real aparece no painel.
-    */
-
     const duration =
         1800;
 
@@ -1100,10 +1160,6 @@ function animateLight(
             );
 
 
-        /*
-           Suavização do movimento.
-        */
-
         const eased =
             progress *
             progress *
@@ -1122,15 +1178,15 @@ function animateLight(
 
 
         const x =
-            point.x *
-            networkMap.clientWidth /
-            1000;
+            point.x /
+            1000 *
+            networkMap.clientWidth;
 
 
         const y =
-            point.y *
-            networkMap.clientHeight /
-            650;
+            point.y /
+            650 *
+            networkMap.clientHeight;
 
 
         travelingLight.style.left =
@@ -1167,7 +1223,63 @@ function animateLight(
 
 
 /* =========================================================
-   ATUALIZAR PAINEL TÉCNICO
+   POSICIONAR CIDADES EXATAMENTE NO MAPA
+========================================================= */
+
+function positionNetworkNodes() {
+
+    if (
+        !worldProjection ||
+        !networkMap
+    ) {
+
+        return;
+
+    }
+
+
+    networkNodes.forEach(
+        node => {
+
+            const id =
+                Number(
+                    node.dataset.node
+                );
+
+
+            const point =
+                geographicPoint(id);
+
+
+            if (!point) {
+                return;
+            }
+
+
+            node.style.left =
+                `${point[0] / 10}%`;
+
+
+            node.style.top =
+                `${point[1] / 6.5}%`;
+
+        }
+    );
+
+}
+
+
+positionNetworkNodes();
+
+
+window.addEventListener(
+    "resize",
+    positionNetworkNodes
+);
+
+
+/* =========================================================
+   PAINEL
 ========================================================= */
 
 function updateTechnicalPanel(
@@ -1215,9 +1327,7 @@ function updateTechnicalPanel(
     if (dataTravelTime) {
 
         dataTravelTime.textContent =
-            formatTravelTime(
-                time
-            );
+            formatTravelTime(time);
 
     }
 
@@ -1233,10 +1343,18 @@ function updateTechnicalPanel(
 
 
 /* =========================================================
-   CONECTAR DUAS CIDADES
+   ESTADO
+========================================================= */
 
-   QUALQUER CIDADE PODE SER:
-   ORIGEM OU DESTINO.
+let selectedNode =
+    null;
+
+let connections =
+    [];
+
+
+/* =========================================================
+   CONECTAR
 ========================================================= */
 
 function connectNodes(
@@ -1252,10 +1370,6 @@ function connectNodes(
 
     }
 
-
-    /*
-       Não permite criar a mesma rota duas vezes.
-    */
 
     const alreadyConnected =
         connections.some(
@@ -1277,8 +1391,12 @@ function connectNodes(
         alreadyConnected
     ) {
 
-        networkMessage.textContent =
-            `ROTA ${networkData[from].name.toUpperCase()} ↔ ${networkData[to].name.toUpperCase()} JÁ ESTÁ ATIVA`;
+        if (networkMessage) {
+
+            networkMessage.textContent =
+                `ROTA ${networkData[from].name.toUpperCase()} ↔ ${networkData[to].name.toUpperCase()} JÁ ESTÁ ATIVA`;
+
+        }
 
         return;
 
@@ -1365,18 +1483,6 @@ function connectNodes(
 
 /* =========================================================
    CLIQUE NOS PONTOS
-
-   AGORA É TOTALMENTE LIVRE.
-
-   Exemplos:
-
-   01 → 03
-   01 → 06
-   04 → 02
-   05 → 01
-   03 → 04
-
-   NÃO EXISTE MAIS ORDEM OBRIGATÓRIA.
 ========================================================= */
 
 networkNodes.forEach(
@@ -1400,11 +1506,6 @@ networkNodes.forEach(
 
                 }
 
-
-                /*
-                   PRIMEIRO CLIQUE:
-                   seleciona a origem.
-                */
 
                 if (
                     selectedNode === null
@@ -1451,14 +1552,8 @@ networkNodes.forEach(
                 }
 
 
-                /*
-                   CLICOU NA MESMA CIDADE:
-                   cancela a seleção.
-                */
-
                 if (
-                    number ===
-                    selectedNode
+                    number === selectedNode
                 ) {
 
                     node.classList.remove(
@@ -1491,13 +1586,9 @@ networkNodes.forEach(
                 }
 
 
-                /*
-                   SEGUNDO CLIQUE:
-                   qualquer destino é permitido.
-                */
-
                 const origin =
                     selectedNode;
+
 
                 const destination =
                     number;
@@ -1508,18 +1599,6 @@ networkNodes.forEach(
                     destination
                 );
 
-
-                /*
-                   A cidade de destino
-                   passa a ser a próxima origem.
-
-                   Assim é possível fazer:
-
-                   01 → 04
-                   04 → 02
-                   02 → 06
-                   06 → 03
-                */
 
                 networkNodes.forEach(
                     item => {
@@ -1548,7 +1627,7 @@ networkNodes.forEach(
 
 
 /* =========================================================
-   RESET DA REDE
+   RESET
 ========================================================= */
 
 if (
@@ -1588,42 +1667,27 @@ if (
 
 
             if (dataOrigin) {
-
-                dataOrigin.textContent =
-                    "—";
-
+                dataOrigin.textContent = "—";
             }
 
 
             if (dataDestination) {
-
-                dataDestination.textContent =
-                    "—";
-
+                dataDestination.textContent = "—";
             }
 
 
             if (dataDistance) {
-
-                dataDistance.textContent =
-                    "—";
-
+                dataDistance.textContent = "—";
             }
 
 
             if (dataTravelTime) {
-
-                dataTravelTime.textContent =
-                    "—";
-
+                dataTravelTime.textContent = "—";
             }
 
 
             if (networkLatency) {
-
-                networkLatency.textContent =
-                    "0.00 ns";
-
+                networkLatency.textContent = "0.00 ns";
             }
 
 
@@ -1657,7 +1721,7 @@ if (
 
 
 /* =========================================================
-   RECONSTRUIR FIBRAS NO RESIZE
+   RECONSTRUIR ROTAS NO RESIZE
 ========================================================= */
 
 window.addEventListener(
@@ -1737,17 +1801,13 @@ const quizQuestions = [
         options: [
 
             "Corrente elétrica",
-
             "Pulsos de luz",
-
             "Ondas sonoras",
-
             "Campo magnético"
 
         ],
 
-        answer:
-            1,
+        answer: 1,
 
         explanation:
             "A fibra óptica transmite informações através de sinais luminosos."
@@ -1763,17 +1823,13 @@ const quizQuestions = [
         options: [
 
             "3.000 km/s",
-
             "30.000 km/s",
-
             "299.792 km/s",
-
             "999.999 km/s"
 
         ],
 
-        answer:
-            2,
+        answer: 2,
 
         explanation:
             "A velocidade da luz no vácuo é aproximadamente 299.792 km/s."
@@ -1789,17 +1845,13 @@ const quizQuestions = [
         options: [
 
             "Reflexão interna total",
-
             "Eletricidade",
-
             "Magnetismo",
-
             "Calor"
 
         ],
 
-        answer:
-            0,
+        answer: 0,
 
         explanation:
             "A reflexão interna total mantém o sinal luminoso dentro do núcleo."
@@ -1815,17 +1867,13 @@ const quizQuestions = [
         options: [
 
             "Ferro",
-
             "Cobre",
-
             "Vidro",
-
             "Alumínio"
 
         ],
 
-        answer:
-            2,
+        answer: 2,
 
         explanation:
             "Fibras ópticas convencionais utilizam principalmente vidro de alta pureza."
@@ -1841,17 +1889,13 @@ const quizQuestions = [
         options: [
 
             "Porque transmite grandes quantidades de dados rapidamente",
-
             "Porque utiliza ondas sonoras",
-
             "Porque funciona apenas em curtas distâncias",
-
             "Porque não precisa de equipamentos"
 
         ],
 
-        answer:
-            0,
+        answer: 0,
 
         explanation:
             "A fibra oferece alta capacidade e baixa perda, sendo fundamental para redes modernas."
@@ -1861,14 +1905,9 @@ const quizQuestions = [
 ];
 
 
-let currentQuestion =
-    0;
-
-let quizScore =
-    0;
-
-let quizAnswered =
-    false;
+let currentQuestion = 0;
+let quizScore = 0;
+let quizAnswered = false;
 
 
 const quizQuestion =
@@ -1925,9 +1964,7 @@ function loadQuizQuestion() {
 
 
     if (!question) {
-
         return;
-
     }
 
 
@@ -1970,7 +2007,8 @@ function loadQuizQuestion() {
                     currentQuestion + 1
                 ) /
                 quizQuestions.length
-            ) * 100
+            ) *
+            100
         }%`;
 
 
@@ -2109,16 +2147,13 @@ function answerQuestion(
 }
 
 
-if (quizNext) {
+if (
+    quizNext
+) {
 
     quizNext.addEventListener(
         "click",
         () => {
-
-            /*
-               Se acabou o quiz,
-               começa novamente.
-            */
 
             if (
                 currentQuestion >=
@@ -2133,7 +2168,6 @@ if (quizNext) {
 
 
             currentQuestion++;
-
 
             loadQuizQuestion();
 
@@ -2202,8 +2236,10 @@ function restartQuiz() {
     currentQuestion =
         0;
 
+
     quizScore =
         0;
+
 
     quizAnswered =
         false;
@@ -2214,7 +2250,6 @@ function restartQuiz() {
         quizNext.innerHTML =
             "PRÓXIMA →";
 
-
         quizNext.onclick =
             null;
 
@@ -2222,32 +2257,6 @@ function restartQuiz() {
 
 
     loadQuizQuestion();
-
-}
-
-
-/*
-   O listener normal do botão
-   precisa voltar depois do resultado.
-*/
-
-if (quizNext) {
-
-    quizNext.addEventListener(
-        "click",
-        () => {
-
-            if (
-                currentQuestion <
-                quizQuestions.length - 1
-            ) {
-
-                return;
-
-            }
-
-        }
-    );
 
 }
 
@@ -2295,17 +2304,14 @@ document.addEventListener(
 
 
         heroVisual.style.transform =
-            `translate(
-                ${x}px,
-                ${y}px
-            )`;
+            `translate(${x}px, ${y}px)`;
 
     }
 );
 
 
 /* =========================================================
-   SISTEMA INICIALIZADO
+   SISTEMA
 ========================================================= */
 
 console.log(
@@ -2313,14 +2319,17 @@ console.log(
     "background:#001820;color:#00f6ff;font-size:14px;font-weight:bold;padding:8px;"
 );
 
+
+console.log(
+    "Mapa-múndi real carregado."
+);
+
+
 console.log(
     "Rede internacional carregada."
 );
 
-console.log(
-    "Rotas livres ativadas."
-);
 
 console.log(
-    "Curitiba → qualquer cidade."
+    "Rotas livres ativadas."
 );
