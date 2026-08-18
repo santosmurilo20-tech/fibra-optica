@@ -1,763 +1,283 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <meta name="description"
-          content="O Futuro da Comunicação — pesquisa sobre fibra óptica">
+    <meta
+        name="description"
+        content="O Futuro da Comunicação — pesquisa sobre fibra óptica."
+    >
 
-    <title>O Futuro da Comunicação | Fibra Óptica</title>
+    <title>
+        O Futuro da Comunicação | Fibra Óptica
+    </title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet">
-
-    <link rel="stylesheet" href="style.css">
 </head>
+
 
 <body>
 
-    <!-- =========================================================
-         CURSOR
-    ========================================================== -->
 
-    <div class="cursor-glow"></div>
+<!-- =====================================================
+     CURSOR
+===================================================== -->
+
+<div
+    class="cursor"
+    id="cursor"
+></div>
+
+<div
+    class="cursor-ring"
+    id="cursorRing"
+></div>
 
 
-    <!-- =========================================================
-         FUNDO
-    ========================================================== -->
+<!-- =====================================================
+     FUNDO
+===================================================== -->
 
-    <canvas id="particleCanvas"></canvas>
+<div class="background">
 
     <div class="grid-background"></div>
 
-    <div class="scanlines"></div>
+    <div class="glow glow-1"></div>
+
+    <div class="glow glow-2"></div>
+
+    <canvas id="particles"></canvas>
+
+</div>
 
 
-    <!-- =========================================================
-         NAVEGAÇÃO
-    ========================================================== -->
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
-    <header class="header">
+<header class="header">
 
-        <div class="logo">
+    <a
+        href="#inicio"
+        class="logo"
+    >
 
-            <div class="logo-icon">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+        <span class="logo-symbol">
+            FO
+        </span>
 
-            <div>
-                <strong>FIBRA<span>∞</span></strong>
-                <small>C.E. PADRE CLAUDIO MORELLI</small>
-            </div>
+        <span>
+
+            C.E. PADRE
+            <strong>
+                CLAUDIO MORELLI
+            </strong>
+
+        </span>
+
+    </a>
+
+
+    <nav class="nav">
+
+        <a href="#inicio">
+            INÍCIO
+        </a>
+
+        <a href="#pesquisa">
+            PESQUISA
+        </a>
+
+        <a href="#rede">
+            REDE ÓPTICA
+        </a>
+
+        <a href="#curiosidades">
+            CURIOSIDADES
+        </a>
+
+        <a href="#quiz">
+            QUIZ
+        </a>
+
+        <a href="#pratica">
+            PRÁTICA
+        </a>
+
+    </nav>
+
+
+    <button
+        class="menu-button"
+        id="menuButton"
+        aria-label="Abrir menu"
+    >
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+    </button>
+
+</header>
+
+
+<!-- =====================================================
+     MENU MOBILE
+===================================================== -->
+
+<div
+    class="mobile-menu"
+    id="mobileMenu"
+>
+
+    <a href="#inicio">
+        INÍCIO
+    </a>
+
+    <a href="#pesquisa">
+        PESQUISA
+    </a>
+
+    <a href="#rede">
+        REDE ÓPTICA
+    </a>
+
+    <a href="#curiosidades">
+        CURIOSIDADES
+    </a>
+
+    <a href="#quiz">
+        QUIZ
+    </a>
+
+    <a href="#pratica">
+        PRÁTICA
+    </a>
+
+</div>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<main>
+
+
+<section
+    class="hero"
+    id="inicio"
+>
+
+
+    <div class="hero-content">
+
+
+        <div class="hero-tag">
+
+            <span class="live-dot"></span>
+
+            PESQUISA • TECNOLOGIA • FÍSICA
 
         </div>
 
 
-        <nav class="navbar">
+        <h1 class="hero-title">
 
-            <a href="#inicio" class="nav-link active">
-                INÍCIO
+            <span>
+                O FUTURO DA
+            </span>
+
+            <span class="gradient-text">
+                COMUNICAÇÃO
+            </span>
+
+        </h1>
+
+
+        <p class="hero-description">
+
+            Como pequenos pulsos de luz conseguem
+            atravessar quilômetros de fibra e conectar
+            pessoas, cidades e continentes em frações
+            de segundo.
+
+        </p>
+
+
+        <div class="hero-buttons">
+
+            <a
+                href="#pesquisa"
+                class="button button-primary"
+            >
+
+                EXPLORAR PESQUISA
+
+                <span>
+                    →
+                </span>
+
             </a>
 
-            <a href="#pesquisa" class="nav-link">
-                PESQUISA
+
+            <a
+                href="#rede"
+                class="button button-secondary"
+            >
+
+                TESTAR A REDE
+
             </a>
 
-            <a href="#funcionamento" class="nav-link">
-                TECNOLOGIA
-            </a>
+        </div>
 
-            <a href="#curiosidades" class="nav-link">
-                CURIOSIDADES
-            </a>
 
-            <a href="#experiencia" class="nav-link">
-                EXPERIÊNCIA
-            </a>
+        <div class="hero-stats">
 
-            <a href="#quiz" class="nav-link">
-                QUIZ
-            </a>
-
-            <a href="#jogo" class="nav-link">
-                JOGO
-            </a>
-
-        </nav>
-
-
-        <button class="menu-button" id="menuButton">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-
-    </header>
-
-
-    <!-- =========================================================
-         MENU MOBILE
-    ========================================================== -->
-
-    <div class="mobile-menu" id="mobileMenu">
-
-        <a href="#inicio">INÍCIO</a>
-        <a href="#pesquisa">PESQUISA</a>
-        <a href="#funcionamento">TECNOLOGIA</a>
-        <a href="#curiosidades">CURIOSIDADES</a>
-        <a href="#experiencia">EXPERIÊNCIA</a>
-        <a href="#quiz">QUIZ</a>
-        <a href="#jogo">JOGO</a>
-
-    </div>
-
-
-    <!-- =========================================================
-         HERO
-    ========================================================== -->
-
-    <main>
-
-        <section class="hero" id="inicio">
-
-            <div class="hero-content">
-
-                <div class="status-line">
-
-                    <span class="status-dot"></span>
-
-                    SISTEMA DE COMUNICAÇÃO ONLINE
-
-                    <span class="status-number">
-                        01
-                    </span>
-
-                </div>
-
-
-                <h1>
-
-                    O FUTURO DA
-
-                    <span class="gradient-text">
-                        COMUNICAÇÃO
-                    </span>
-
-                </h1>
-
-
-                <p class="hero-description">
-
-                    Como pequenos filamentos de vidro são capazes de
-                    transportar informações através da luz e transformar
-                    a maneira como o mundo se conecta.
-
-                </p>
-
-
-                <div class="hero-buttons">
-
-                    <a href="#pesquisa" class="primary-button">
-
-                        <span>
-                            EXPLORAR PESQUISA
-                        </span>
-
-                        <b>→</b>
-
-                    </a>
-
-
-                    <a href="#jogo" class="secondary-button">
-
-                        TESTAR TECNOLOGIA
-
-                    </a>
-
-                </div>
-
-
-                <div class="hero-info">
-
-                    <div>
-                        <strong>01</strong>
-                        <span>Pesquisa</span>
-                    </div>
-
-                    <div>
-                        <strong>02</strong>
-                        <span>Experiência</span>
-                    </div>
-
-                    <div>
-                        <strong>03</strong>
-                        <span>Interação</span>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- =================================================
-                 FIBRA ÓPTICA ANIMADA
-            ================================================== -->
-
-            <div class="fiber-visual">
-
-                <div class="fiber-core"></div>
-
-                <div class="fiber-ring ring-one"></div>
-                <div class="fiber-ring ring-two"></div>
-                <div class="fiber-ring ring-three"></div>
-
-                <div class="light-particle particle-one"></div>
-                <div class="light-particle particle-two"></div>
-                <div class="light-particle particle-three"></div>
-                <div class="light-particle particle-four"></div>
-                <div class="light-particle particle-five"></div>
-
-                <div class="fiber-label label-speed">
-                    <span>VELOCIDADE</span>
-                    <strong>∞</strong>
-                </div>
-
-                <div class="fiber-label label-light">
-                    <span>TRANSMISSÃO</span>
-                    <strong>LIGHT</strong>
-                </div>
-
-            </div>
-
-
-            <div class="scroll-indicator">
-
-                <span>SCROLL PARA EXPLORAR</span>
-
-                <div class="scroll-line"></div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================================================
-             INTRODUÇÃO
-        ========================================================== -->
-
-        <section class="section introduction" id="pesquisa">
-
-            <div class="section-number">
-                01 / PESQUISA
-            </div>
-
-
-            <div class="section-header">
-
-                <div>
-
-                    <span class="eyebrow">
-                        CONEXÃO ATRAVÉS DA LUZ
-                    </span>
-
-                    <h2>
-                        O QUE É A
-                        <span>FIBRA ÓPTICA?</span>
-                    </h2>
-
-                </div>
-
-
-                <p>
-
-                    Uma tecnologia que utiliza pulsos de luz para
-                    transmitir enormes quantidades de informação
-                    em velocidades extremamente altas.
-
-                </p>
-
-            </div>
-
-
-            <div class="intro-grid">
-
-                <article class="big-card glass-card">
-
-                    <div class="card-number">
-                        01
-                    </div>
-
-                    <div class="card-icon">
-                        ◈
-                    </div>
-
-                    <h3>
-                        FILAMENTO DE VIDRO
-                    </h3>
-
-                    <p>
-
-                        A fibra óptica é formada por filamentos
-                        extremamente finos de vidro ou materiais
-                        semelhantes, capazes de conduzir luz.
-
-                    </p>
-
-                    <div class="card-line"></div>
-
-                    <span>
-                        ESTRUTURA FÍSICA
-                    </span>
-
-                </article>
-
-
-                <article class="big-card glass-card">
-
-                    <div class="card-number">
-                        02
-                    </div>
-
-                    <div class="card-icon">
-                        ⚡
-                    </div>
-
-                    <h3>
-                        VELOCIDADE
-                    </h3>
-
-                    <p>
-
-                        Os dados são convertidos em pulsos luminosos,
-                        permitindo transmissões rápidas e eficientes
-                        a grandes distâncias.
-
-                    </p>
-
-                    <div class="card-line"></div>
-
-                    <span>
-                        TRANSMISSÃO DE DADOS
-                    </span>
-
-                </article>
-
-
-                <article class="big-card glass-card">
-
-                    <div class="card-number">
-                        03
-                    </div>
-
-                    <div class="card-icon">
-                        ◎
-                    </div>
-
-                    <h3>
-                        CONEXÃO
-                    </h3>
-
-                    <p>
-
-                        A tecnologia está presente na internet,
-                        telefonia, televisão e em diversos sistemas
-                        de comunicação modernos.
-
-                    </p>
-
-                    <div class="card-line"></div>
-
-                    <span>
-                        INFRAESTRUTURA DIGITAL
-                    </span>
-
-                </article>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================================================
-             COMO FUNCIONA
-        ========================================================== -->
-
-        <section class="section technology" id="funcionamento">
-
-            <div class="section-number">
-                02 / TECNOLOGIA
-            </div>
-
-
-            <div class="section-header">
-
-                <div>
-
-                    <span class="eyebrow">
-                        POR DENTRO DA TECNOLOGIA
-                    </span>
-
-                    <h2>
-                        COMO A LUZ
-                        <span>TRANSPORTA DADOS?</span>
-                    </h2>
-
-                </div>
-
-            </div>
-
-
-            <div class="process">
-
-                <div class="process-line"></div>
-
-
-                <article class="process-step">
-
-                    <div class="step-circle">
-                        01
-                    </div>
-
-                    <h3>
-                        INFORMAÇÃO
-                    </h3>
-
-                    <p>
-                        Dados digitais são preparados
-                        para serem transmitidos.
-                    </p>
-
-                </article>
-
-
-                <article class="process-step">
-
-                    <div class="step-circle">
-                        02
-                    </div>
-
-                    <h3>
-                        CONVERSÃO
-                    </h3>
-
-                    <p>
-                        Um equipamento converte os dados
-                        em sinais luminosos.
-                    </p>
-
-                </article>
-
-
-                <article class="process-step">
-
-                    <div class="step-circle">
-                        03
-                    </div>
-
-                    <h3>
-                        TRANSMISSÃO
-                    </h3>
-
-                    <p>
-                        A luz percorre o núcleo da fibra
-                        através da reflexão interna.
-                    </p>
-
-                </article>
-
-
-                <article class="process-step">
-
-                    <div class="step-circle">
-                        04
-                    </div>
-
-                    <h3>
-                        RECEPÇÃO
-                    </h3>
-
-                    <p>
-                        O sinal luminoso é convertido
-                        novamente em informação.
-                    </p>
-
-                </article>
-
-            </div>
-
-
-            <!-- SIMULADOR -->
-
-            <div class="simulation glass-card">
-
-                <div class="simulation-text">
-
-                    <span class="eyebrow">
-                        SIMULAÇÃO INTERATIVA
-                    </span>
-
-                    <h3>
-                        OBSERVE UM PULSO
-                        ATRAVESSAR A FIBRA
-                    </h3>
-
-                    <p>
-
-                        Clique no botão para enviar um sinal luminoso
-                        através da fibra.
-
-                    </p>
-
-                    <button id="sendSignal" class="primary-button">
-
-                        ENVIAR SINAL
-
-                        <b>→</b>
-
-                    </button>
-
-                </div>
-
-
-                <div class="fiber-simulation">
-
-                    <div class="simulation-fiber"></div>
-
-                    <div class="simulation-signal"
-                         id="simulationSignal">
-                    </div>
-
-                    <span class="node node-start">
-                        ORIGEM
-                    </span>
-
-                    <span class="node node-end">
-                        DESTINO
-                    </span>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================================================
-             SUBTEMAS
-        ========================================================== -->
-
-        <section class="section subthemes">
-
-            <div class="section-number">
-                03 / SUBTEMAS
-            </div>
-
-
-            <div class="section-header">
-
-                <div>
-
-                    <span class="eyebrow">
-                        EXPANDINDO A PESQUISA
-                    </span>
-
-                    <h2>
-                        QUATRO DIMENSÕES
-                        <span>DA FIBRA ÓPTICA</span>
-                    </h2>
-
-                </div>
-
-            </div>
-
-
-            <div class="theme-grid">
-
-                <article class="theme-card">
-
-                    <div class="theme-image image-speed">
-                        <span>01</span>
-                    </div>
-
-                    <div class="theme-content">
-
-                        <span>
-                            VELOCIDADE
-                        </span>
-
-                        <h3>
-                            Internet em alta velocidade
-                        </h3>
-
-                        <p>
-
-                            A fibra óptica possibilita conexões
-                            de alta capacidade e baixa latência,
-                            essenciais para o mundo digital.
-
-                        </p>
-
-                        <button class="learn-more">
-                            EXPLORAR +
-                        </button>
-
-                    </div>
-
-                </article>
-
-
-                <article class="theme-card">
-
-                    <div class="theme-image image-undersea">
-                        <span>02</span>
-                    </div>
-
-                    <div class="theme-content">
-
-                        <span>
-                            INFRAESTRUTURA
-                        </span>
-
-                        <h3>
-                            Cabos submarinos
-                        </h3>
-
-                        <p>
-
-                            Grandes cabos de fibra óptica
-                            atravessam oceanos conectando
-                            países e continentes.
-
-                        </p>
-
-                        <button class="learn-more">
-                            EXPLORAR +
-                        </button>
-
-                    </div>
-
-                </article>
-
-
-                <article class="theme-card">
-
-                    <div class="theme-image image-future">
-                        <span>03</span>
-                    </div>
-
-                    <div class="theme-content">
-
-                        <span>
-                            FUTURO
-                        </span>
-
-                        <h3>
-                            Cidades conectadas
-                        </h3>
-
-                        <p>
-
-                            Redes ópticas são fundamentais
-                            para tecnologias como computação
-                            em nuvem e cidades inteligentes.
-
-                        </p>
-
-                        <button class="learn-more">
-                            EXPLORAR +
-                        </button>
-
-                    </div>
-
-                </article>
-
-
-                <article class="theme-card">
-
-                    <div class="theme-image image-security">
-                        <span>04</span>
-                    </div>
-
-                    <div class="theme-content">
-
-                        <span>
-                            SEGURANÇA
-                        </span>
-
-                        <h3>
-                            Comunicação confiável
-                        </h3>
-
-                        <p>
-
-                            A transmissão por luz não sofre
-                            interferência eletromagnética da
-                            mesma forma que cabos metálicos.
-
-                        </p>
-
-                        <button class="learn-more">
-                            EXPLORAR +
-                        </button>
-
-                    </div>
-
-                </article>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================================================
-             NÚMEROS
-        ========================================================== -->
-
-        <section class="stats-section">
 
             <div class="stat">
 
-                <strong data-counter="100000">
-                    0
+                <strong>
+                    299.792
                 </strong>
 
                 <span>
-                    KM DE CABOS
+                    km/s
                 </span>
+
+                <small>
+                    velocidade da luz
+                </small>
 
             </div>
 
 
             <div class="stat">
 
-                <strong data-counter="99">
-                    0
+                <strong>
+                    01
                 </strong>
 
                 <span>
-                    % EFICIÊNCIA
+                    fio
                 </span>
 
-            </div>
-
-
-            <div class="stat">
-
-                <strong data-counter="300000">
-                    0
-                </strong>
-
-                <span>
-                    KM/S — LUZ
-                </span>
+                <small>
+                    transportando informação
+                </small>
 
             </div>
 
@@ -769,751 +289,1584 @@
                 </strong>
 
                 <span>
-                    POSSIBILIDADES
+                    dados
                 </span>
 
-            </div>
-
-        </section>
-
-
-        <!-- =========================================================
-             CURIOSIDADES
-        ========================================================== -->
-
-        <section class="section curiosities" id="curiosidades">
-
-            <div class="section-number">
-                04 / CURIOSIDADES
-            </div>
-
-
-            <div class="section-header">
-
-                <div>
-
-                    <span class="eyebrow">
-                        MITOS, FATOS E CURIOSIDADES
-                    </span>
-
-                    <h2>
-                        VOCÊ
-                        <span>SABIA?</span>
-                    </h2>
-
-                </div>
+                <small>
+                    possibilidades
+                </small>
 
             </div>
 
 
-            <div class="cards-container">
+        </div>
 
 
-                <article class="fact-card">
+    </div>
 
-                    <div class="fact-front">
 
-                        <span class="fact-number">
-                            01
-                        </span>
+    <div class="hero-visual">
 
-                        <div class="fact-symbol">
-                            ?
-                        </div>
 
-                        <h3>
-                            FIBRA ÓPTICA
-                            TRANSMITE ELETRICIDADE?
-                        </h3>
+        <div class="fiber-orb">
 
-                        <small>
-                            CLIQUE PARA DESCOBRIR
-                        </small>
+            <div class="orb-core"></div>
 
-                    </div>
+            <div class="orb-ring ring-1"></div>
 
-                    <div class="fact-back">
+            <div class="orb-ring ring-2"></div>
 
-                        <span>
-                            RESPOSTA
-                        </span>
+            <div class="orb-ring ring-3"></div>
 
-                        <h3>
-                            NÃO
-                        </h3>
+            <div class="orb-data data-1">
+                00101101
+            </div>
 
-                        <p>
-                            A comunicação ocorre através
-                            de sinais luminosos, não por
-                            corrente elétrica no núcleo.
-                        </p>
+            <div class="orb-data data-2">
+                10110010
+            </div>
 
-                    </div>
+            <div class="orb-data data-3">
+                01011001
+            </div>
 
-                </article>
+        </div>
 
 
-                <article class="fact-card">
+        <div class="floating-code code-1">
+            LIGHT://001
+        </div>
 
-                    <div class="fact-front">
+        <div class="floating-code code-2">
+            SIGNAL://ONLINE
+        </div>
 
-                        <span class="fact-number">
-                            02
-                        </span>
+        <div class="floating-code code-3">
+            SPEED://200000
+        </div>
 
-                        <div class="fact-symbol">
-                            ⚡
-                        </div>
 
-                        <h3>
-                            A LUZ PODE
-                            TRANSPORTAR DADOS?
-                        </h3>
+    </div>
 
-                        <small>
-                            CLIQUE PARA DESCOBRIR
-                        </small>
 
-                    </div>
+    <div class="scroll-indicator">
 
-                    <div class="fact-back">
+        <span></span>
 
-                        <span>
-                            RESPOSTA
-                        </span>
+        SCROLL PARA EXPLORAR
 
-                        <h3>
-                            SIM
-                        </h3>
+    </div>
 
-                        <p>
-                            Pulsos luminosos podem representar
-                            informações digitais que viajam
-                            através da fibra.
-                        </p>
 
-                    </div>
+</section>
 
-                </article>
 
+<!-- =====================================================
+     INTRODUÇÃO
+===================================================== -->
 
-                <article class="fact-card">
+<section
+    class="section"
+    id="pesquisa"
+>
 
-                    <div class="fact-front">
 
-                        <span class="fact-number">
-                            03
-                        </span>
+    <div class="section-number">
+        01 / CONCEITO
+    </div>
 
-                        <div class="fact-symbol">
-                            🌊
-                        </div>
 
-                        <h3>
-                            EXISTEM FIBRAS
-                            NO FUNDO DO OCEANO?
-                        </h3>
+    <div class="section-heading">
 
-                        <small>
-                            CLIQUE PARA DESCOBRIR
-                        </small>
+        <span class="eyebrow">
+            O QUE É?
+        </span>
 
-                    </div>
+        <h2>
 
-                    <div class="fact-back">
+            A FIBRA QUE
+            <span>
+                TRANSPORTA LUZ
+            </span>
 
-                        <span>
-                            RESPOSTA
-                        </span>
+        </h2>
 
-                        <h3>
-                            SIM
-                        </h3>
+        <p>
 
-                        <p>
-                            Cabos submarinos de fibra óptica
-                            conectam diferentes regiões
-                            do planeta.
-                        </p>
+            A fibra óptica é uma tecnologia de transmissão
+            que utiliza pulsos de luz para transportar
+            informações em grandes distâncias com alta
+            velocidade e baixa perda de sinal.
 
-                    </div>
+        </p>
 
-                </article>
+    </div>
 
 
-                <article class="fact-card">
+    <div class="concept-grid">
 
-                    <div class="fact-front">
 
-                        <span class="fact-number">
-                            04
-                        </span>
+        <article class="concept-card">
 
-                        <div class="fact-symbol">
-                            🔥
-                        </div>
+            <div class="card-number">
+                01
+            </div>
 
-                        <h3>
-                            FIBRA ÓPTICA
-                            ESQUENTA MUITO?
-                        </h3>
+            <div class="card-icon">
+                ◈
+            </div>
 
-                        <small>
-                            CLIQUE PARA DESCOBRIR
-                        </small>
+            <h3>
+                NÚCLEO
+            </h3>
 
-                    </div>
+            <p>
 
-                    <div class="fact-back">
+                Região central extremamente fina por onde
+                a luz se propaga.
 
-                        <span>
-                            RESPOSTA
-                        </span>
+            </p>
 
-                        <h3>
-                            MITO
-                        </h3>
+            <div class="card-line"></div>
 
-                        <p>
-                            A transmissão óptica não utiliza
-                            corrente elétrica pelo núcleo
-                            da fibra.
-                        </p>
+        </article>
 
-                    </div>
 
-                </article>
+        <article class="concept-card">
 
+            <div class="card-number">
+                02
+            </div>
 
-                <article class="fact-card">
+            <div class="card-icon">
+                ◎
+            </div>
 
-                    <div class="fact-front">
+            <h3>
+                CASCA
+            </h3>
 
-                        <span class="fact-number">
-                            05
-                        </span>
+            <p>
 
-                        <div class="fact-symbol">
-                            🛰
-                        </div>
+                Camada que mantém a luz confinada dentro
+                do núcleo através da reflexão interna total.
 
-                        <h3>
-                            FIBRA ÓPTICA É USADA
-                            EM GRANDES REDES?
-                        </h3>
+            </p>
 
-                        <small>
-                            CLIQUE PARA DESCOBRIR
-                        </small>
+            <div class="card-line"></div>
 
-                    </div>
+        </article>
 
-                    <div class="fact-back">
 
-                        <span>
-                            RESPOSTA
-                        </span>
+        <article class="concept-card">
 
-                        <h3>
-                            SIM
-                        </h3>
+            <div class="card-number">
+                03
+            </div>
 
-                        <p>
-                            Ela é uma das principais tecnologias
-                            utilizadas na infraestrutura moderna
-                            de telecomunicações.
-                        </p>
+            <div class="card-icon">
+                ◉
+            </div>
 
-                    </div>
+            <h3>
+                PROTEÇÃO
+            </h3>
 
-                </article>
+            <p>
 
+                Revestimentos externos protegem a fibra
+                contra impactos e condições ambientais.
 
-                <article class="fact-card">
+            </p>
 
-                    <div class="fact-front">
+            <div class="card-line"></div>
 
-                        <span class="fact-number">
-                            06
-                        </span>
+        </article>
 
-                        <div class="fact-symbol">
-                            ∞
-                        </div>
 
-                        <h3>
-                            A FIBRA É
-                            RESISTENTE?
-                        </h3>
+        <article class="concept-card">
 
-                        <small>
-                            CLIQUE PARA DESCOBRIR
-                        </small>
+            <div class="card-number">
+                04
+            </div>
 
-                    </div>
+            <div class="card-icon">
+                ✦
+            </div>
 
-                    <div class="fact-back">
+            <h3>
+                TRANSMISSÃO
+            </h3>
 
-                        <span>
-                            RESPOSTA
-                        </span>
+            <p>
 
-                        <h3>
-                            DEPENDE
-                        </h3>
+                Pulsos de luz representam dados digitais
+                que podem viajar por longas distâncias.
 
-                        <p>
-                            O vidro é delicado, mas cabos ópticos
-                            possuem camadas de proteção que
-                            aumentam sua resistência.
-                        </p>
+            </p>
 
-                    </div>
+            <div class="card-line"></div>
 
-                </article>
+        </article>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     COMO FUNCIONA
+===================================================== -->
+
+<section
+    class="section dark-section"
+>
+
+
+    <div class="section-number">
+        02 / FUNCIONAMENTO
+    </div>
+
+
+    <div class="section-heading">
+
+        <span class="eyebrow">
+            TECNOLOGIA
+        </span>
+
+        <h2>
+
+            COMO A LUZ
+            <span>
+                CARREGA DADOS?
+            </span>
+
+        </h2>
+
+    </div>
+
+
+    <div class="process">
+
+
+        <div class="process-line"></div>
+
+
+        <div class="process-step">
+
+            <div class="process-number">
+                01
+            </div>
+
+            <h3>
+                INFORMAÇÃO
+            </h3>
+
+            <p>
+                Os dados são convertidos em sinais digitais.
+            </p>
+
+        </div>
+
+
+        <div class="process-step">
+
+            <div class="process-number">
+                02
+            </div>
+
+            <h3>
+                LASER
+            </h3>
+
+            <p>
+                Um transmissor transforma o sinal em luz.
+            </p>
+
+        </div>
+
+
+        <div class="process-step">
+
+            <div class="process-number">
+                03
+            </div>
+
+            <h3>
+                FIBRA
+            </h3>
+
+            <p>
+                O pulso luminoso percorre o cabo.
+            </p>
+
+        </div>
+
+
+        <div class="process-step">
+
+            <div class="process-number">
+                04
+            </div>
+
+            <h3>
+                RECEPTOR
+            </h3>
+
+            <p>
+                A luz volta a ser convertida em informação.
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     INTERAÇÃO REFLEXÃO
+===================================================== -->
+
+<section
+    class="section"
+>
+
+
+    <div class="section-number">
+        03 / FÍSICA
+    </div>
+
+
+    <div class="physics-layout">
+
+
+        <div class="physics-text">
+
+            <span class="eyebrow">
+                REFLEXÃO INTERNA TOTAL
+            </span>
+
+            <h2>
+
+                A LUZ NÃO
+                <span>
+                    ESCAPA.
+                </span>
+
+            </h2>
+
+            <p>
+
+                A diferença entre os índices de refração
+                do núcleo e da casca permite que a luz seja
+                continuamente refletida para dentro do núcleo.
+
+            </p>
+
+            <p>
+
+                É esse fenômeno que permite que a informação
+                atravesse grandes distâncias utilizando
+                pulsos luminosos.
+
+            </p>
+
+        </div>
+
+
+        <div class="fiber-physics">
+
+
+            <div class="fiber-core">
+
+                <div class="light-ray ray-1"></div>
+                <div class="light-ray ray-2"></div>
+                <div class="light-ray ray-3"></div>
+                <div class="light-ray ray-4"></div>
 
             </div>
 
-        </section>
 
+            <div class="fiber-label label-core">
+                NÚCLEO
+            </div>
 
-        <!-- =========================================================
-             EXPERIÊNCIA
-        ========================================================== -->
-
-        <section class="section experience" id="experiencia">
-
-            <div class="section-number">
-                05 / EXPERIÊNCIA
+            <div class="fiber-label label-cladding">
+                CASCA
             </div>
 
 
-            <div class="section-header">
-
-                <div>
-
-                    <span class="eyebrow">
-                        AULA PRÁTICA
-                    </span>
-
-                    <h2>
-                        CIÊNCIA NA
-                        <span>PRÁTICA</span>
-                    </h2>
-
-                </div>
+        </div>
 
 
-                <p>
+    </div>
 
-                    Nesta seção podem ser inseridas as fotos e
-                    vídeos produzidos durante a aula prática.
 
-                </p>
+</section>
 
+
+<!-- =====================================================
+     SUBTEMAS
+===================================================== -->
+
+<section
+    class="section dark-section"
+>
+
+
+    <div class="section-number">
+        04 / SUBTEMAS
+    </div>
+
+
+    <div class="section-heading">
+
+        <span class="eyebrow">
+            EXPLORANDO A TECNOLOGIA
+        </span>
+
+        <h2>
+
+            QUATRO CAMINHOS
+            <span>
+                PARA ENTENDER
+            </span>
+
+        </h2>
+
+    </div>
+
+
+    <div class="subtheme-grid">
+
+
+        <article class="subtheme">
+
+            <span>
+                01
+            </span>
+
+            <h3>
+                HISTÓRIA
+            </h3>
+
+            <p>
+
+                Da transmissão de sinais até as redes
+                modernas de fibra óptica.
+
+            </p>
+
+            <div class="subtheme-arrow">
+                →
             </div>
 
-
-            <div class="gallery">
-
-                <div class="gallery-item large">
-
-                    <div class="fake-media">
-
-                        <div class="play-button">
-                            ▶
-                        </div>
-
-                        <span>
-                            VÍDEO DA AULA PRÁTICA
-                        </span>
-
-                    </div>
-
-                </div>
+        </article>
 
 
-                <div class="gallery-item">
+        <article class="subtheme">
 
-                    <div class="fake-media">
+            <span>
+                02
+            </span>
 
-                        <span>
-                            FOTO 01
-                        </span>
+            <h3>
+                VELOCIDADE
+            </h3>
 
-                    </div>
+            <p>
 
-                </div>
+                Por que a luz consegue transportar
+                informação em velocidades tão altas?
 
+            </p>
 
-                <div class="gallery-item">
-
-                    <div class="fake-media">
-
-                        <span>
-                            FOTO 02
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="gallery-item">
-
-                    <div class="fake-media">
-
-                        <span>
-                            FOTO 03
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="gallery-item">
-
-                    <div class="fake-media">
-
-                        <span>
-                            FOTO 04
-                        </span>
-
-                    </div>
-
-                </div>
-
+            <div class="subtheme-arrow">
+                →
             </div>
 
+        </article>
 
-            <div class="practice-text glass-card">
 
-                <span class="eyebrow">
-                    REGISTRO
+        <article class="subtheme">
+
+            <span>
+                03
+            </span>
+
+            <h3>
+                INTERNET
+            </h3>
+
+            <p>
+
+                A infraestrutura invisível que conecta
+                cidades, países e continentes.
+
+            </p>
+
+            <div class="subtheme-arrow">
+                →
+            </div>
+
+        </article>
+
+
+        <article class="subtheme">
+
+            <span>
+                04
+            </span>
+
+            <h3>
+                FUTURO
+            </h3>
+
+            <p>
+
+                Redes mais rápidas, eficientes e capazes
+                de transportar quantidades enormes de dados.
+
+            </p>
+
+            <div class="subtheme-arrow">
+                →
+            </div>
+
+        </article>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     FLASHCARDS
+===================================================== -->
+
+<section
+    class="section"
+    id="curiosidades"
+>
+
+
+    <div class="section-number">
+        05 / CURIOSIDADES
+    </div>
+
+
+    <div class="section-heading">
+
+        <span class="eyebrow">
+            VOCÊ SABIA?
+        </span>
+
+        <h2>
+
+            FATOS QUE
+            <span>
+                PARECEM FICÇÃO
+            </span>
+
+        </h2>
+
+    </div>
+
+
+    <div class="flashcards">
+
+
+        <article
+            class="flashcard"
+            tabindex="0"
+        >
+
+            <div class="flash-front">
+
+                <span>
+                    01
                 </span>
 
                 <h3>
-                    O QUE ACONTECEU?
+                    FIBRA É MAIS RÁPIDA QUE CABO DE COBRE?
                 </h3>
+
+                <small>
+                    CLIQUE PARA REVELAR
+                </small>
+
+            </div>
+
+            <div class="flash-back">
+
+                <strong>
+                    VERDADE
+                </strong>
 
                 <p>
 
-                    Durante a aula prática, os alunos puderam
-                    observar conceitos relacionados à transmissão
-                    de dados e compreender de maneira mais visual
-                    como a tecnologia óptica participa das redes
-                    modernas de comunicação.
+                    A fibra óptica permite transmissões
+                    de alta capacidade e baixa interferência,
+                    sendo fundamental para redes modernas.
 
                 </p>
 
             </div>
 
-        </section>
+        </article>
 
 
-        <!-- =========================================================
-             QUIZ
-        ========================================================== -->
+        <article
+            class="flashcard"
+            tabindex="0"
+        >
 
-        <section class="section quiz-section" id="quiz">
+            <div class="flash-front">
 
-            <div class="section-number">
-                06 / QUIZ
-            </div>
-
-
-            <div class="section-header">
-
-                <div>
-
-                    <span class="eyebrow">
-                        TESTE SEUS CONHECIMENTOS
-                    </span>
-
-                    <h2>
-                        QUIZ
-                        <span>ÓPTICO</span>
-                    </h2>
-
-                </div>
-
-            </div>
-
-
-            <div class="quiz-box glass-card">
-
-                <div class="quiz-top">
-
-                    <span id="questionNumber">
-                        QUESTÃO 01 / 05
-                    </span>
-
-                    <span id="quizScore">
-                        PONTOS: 0
-                    </span>
-
-                </div>
-
-
-                <div class="quiz-progress">
-
-                    <div id="quizProgress"></div>
-
-                </div>
-
-
-                <h3 id="questionText">
-                    O que é utilizado para transportar
-                    informações dentro de uma fibra óptica?
-                </h3>
-
-
-                <div class="answers" id="answers">
-
-                    <button>
-                        Corrente elétrica
-                    </button>
-
-                    <button>
-                        Pulsos de luz
-                    </button>
-
-                    <button>
-                        Ondas sonoras
-                    </button>
-
-                    <button>
-                        Calor
-                    </button>
-
-                </div>
-
-
-                <div class="quiz-result" id="quizResult">
-
-                </div>
-
-
-                <button class="next-question"
-                        id="nextQuestion">
-
-                    PRÓXIMA QUESTÃO →
-
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================================================
-             MINI JOGO
-        ========================================================== -->
-
-        <section class="section game-section" id="jogo">
-
-            <div class="section-number">
-                07 / SIMULADOR
-            </div>
-
-
-            <div class="section-header">
-
-                <div>
-
-                    <span class="eyebrow">
-                        MINI GAME
-                    </span>
-
-                    <h2>
-                        CONECTE A
-                        <span>FIBRA</span>
-                    </h2>
-
-                </div>
-
-
-                <p>
-
-                    Clique nos pontos luminosos na ordem correta
-                    para enviar o sinal até o destino.
-
-                </p>
-
-            </div>
-
-
-            <div class="game-area" id="gameArea">
-
-                <div class="game-hud">
-
-                    <div>
-                        SINAL:
-                        <strong id="gameScore">
-                            0
-                        </strong>
-                    </div>
-
-                    <div>
-                        TEMPO:
-                        <strong id="gameTime">
-                            30
-                        </strong>
-                    </div>
-
-                </div>
-
-
-                <div class="game-node node-1"
-                     data-node="1">
-                    01
-                </div>
-
-                <div class="game-node node-2"
-                     data-node="2">
+                <span>
                     02
-                </div>
+                </span>
 
-                <div class="game-node node-3"
-                     data-node="3">
+                <h3>
+                    A INTERNET VIAJA POR CABOS SUBMARINOS?
+                </h3>
+
+                <small>
+                    CLIQUE PARA REVELAR
+                </small>
+
+            </div>
+
+            <div class="flash-back">
+
+                <strong>
+                    VERDADE
+                </strong>
+
+                <p>
+
+                    Grandes quantidades de dados atravessam
+                    oceanos através de cabos submarinos
+                    de fibra óptica.
+
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="flashcard"
+            tabindex="0"
+        >
+
+            <div class="flash-front">
+
+                <span>
                     03
-                </div>
+                </span>
 
-                <div class="game-node node-4"
-                     data-node="4">
+                <h3>
+                    A FIBRA É FEITA DE METAL?
+                </h3>
+
+                <small>
+                    CLIQUE PARA REVELAR
+                </small>
+
+            </div>
+
+            <div class="flash-back">
+
+                <strong>
+                    MITO
+                </strong>
+
+                <p>
+
+                    A fibra óptica utiliza principalmente
+                    vidro ou materiais semelhantes para
+                    conduzir a luz.
+
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="flashcard"
+            tabindex="0"
+        >
+
+            <div class="flash-front">
+
+                <span>
                     04
-                </div>
+                </span>
 
-                <div class="game-node node-5"
-                     data-node="5">
+                <h3>
+                    A LUZ PODE TRANSPORTAR INFORMAÇÃO?
+                </h3>
+
+                <small>
+                    CLIQUE PARA REVELAR
+                </small>
+
+            </div>
+
+            <div class="flash-back">
+
+                <strong>
+                    VERDADE
+                </strong>
+
+                <p>
+
+                    Pulsos luminosos podem representar
+                    dados digitais e transportar informações
+                    ao longo da fibra.
+
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="flashcard"
+            tabindex="0"
+        >
+
+            <div class="flash-front">
+
+                <span>
                     05
-                </div>
+                </span>
+
+                <h3>
+                    A FIBRA SOFRE INTERFERÊNCIA ELETROMAGNÉTICA?
+                </h3>
+
+                <small>
+                    CLIQUE PARA REVELAR
+                </small>
+
+            </div>
+
+            <div class="flash-back">
+
+                <strong>
+                    NÃO
+                </strong>
+
+                <p>
+
+                    Por transmitir luz em vez de sinais
+                    elétricos, a fibra é muito menos
+                    suscetível a interferências eletromagnéticas.
+
+                </p>
+
+            </div>
+
+        </article>
 
 
-                <div class="game-message"
-                     id="gameMessage">
+        <article
+            class="flashcard"
+            tabindex="0"
+        >
 
-                    CLIQUE NO NÓ 01 PARA COMEÇAR
+            <div class="flash-front">
 
-                </div>
+                <span>
+                    06
+                </span>
+
+                <h3>
+                    A LUZ VIAJA NA MESMA VELOCIDADE DENTRO DA FIBRA?
+                </h3>
+
+                <small>
+                    CLIQUE PARA REVELAR
+                </small>
+
+            </div>
+
+            <div class="flash-back">
+
+                <strong>
+                    NÃO
+                </strong>
+
+                <p>
+
+                    Dentro do material da fibra, a velocidade
+                    de propagação é menor que a velocidade
+                    da luz no vácuo.
+
+                </p>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     LABORATÓRIO DE REDE
+===================================================== -->
+
+<section
+    class="section dark-section"
+    id="rede"
+>
+
+
+    <div class="section-number">
+        06 / NETWORK LAB
+    </div>
+
+
+    <div class="section-heading">
+
+        <span class="eyebrow">
+            SIMULADOR DE TELECOMUNICAÇÕES
+        </span>
+
+        <h2>
+
+            CONSTRUA UMA
+            <span>
+                REDE ÓPTICA
+            </span>
+
+        </h2>
+
+        <p>
+
+            Conecte os pontos na sequência correta.
+            Cada conexão cria um novo trecho de fibra
+            e envia um pulso luminoso pelo caminho.
+
+        </p>
+
+    </div>
+
+
+    <div class="network-interface">
+
+
+        <div class="network-topbar">
+
+            <div class="network-status">
+
+                <span class="live-dot"></span>
+
+                NETWORK STATUS
+
+                <strong>
+                    ONLINE
+                </strong>
 
             </div>
 
 
-            <button class="restart-game"
-                    id="restartGame">
+            <div class="network-clock">
 
-                INICIAR / REINICIAR JOGO
+                LATÊNCIA TEÓRICA:
+
+                <strong id="networkLatency">
+                    0.00 ns
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="fiber-map"
+            id="fiberMap"
+        >
+
+
+            <div class="map-grid"></div>
+
+            <div class="map-glow"></div>
+
+
+            <div class="brazil-map">
+
+                <div class="state-line state-1"></div>
+                <div class="state-line state-2"></div>
+                <div class="state-line state-3"></div>
+                <div class="state-line state-4"></div>
+                <div class="state-line state-5"></div>
+
+                <div class="brazil-glow"></div>
+
+            </div>
+
+
+            <div class="map-data-line line-a"></div>
+            <div class="map-data-line line-b"></div>
+            <div class="map-data-line line-c"></div>
+
+
+            <svg
+                class="fiber-lines"
+                id="fiberLines"
+                viewBox="0 0 1000 650"
+                preserveAspectRatio="none"
+            >
+            </svg>
+
+
+            <div
+                class="traveling-light"
+                id="travelingLight"
+            ></div>
+
+
+            <button
+                class="network-node node-sp"
+                data-node="1"
+            >
+
+                <span class="node-pulse"></span>
+
+                <span class="node-number">
+                    01
+                </span>
+
+                <span class="node-name">
+                    SÃO PAULO
+                </span>
 
             </button>
 
-        </section>
 
+            <button
+                class="network-node node-rj"
+                data-node="2"
+            >
 
-        <!-- =========================================================
-             FUTURO
-        ========================================================== -->
+                <span class="node-pulse"></span>
 
-        <section class="future-section">
-
-            <div class="future-glow"></div>
-
-            <div class="future-content">
-
-                <span class="eyebrow">
-                    OLHANDO PARA FRENTE
+                <span class="node-number">
+                    02
                 </span>
 
-                <h2>
-                    A LUZ ESTÁ
-                    <span>CONECTANDO O FUTURO.</span>
-                </h2>
+                <span class="node-name">
+                    RIO DE JANEIRO
+                </span>
 
-                <p>
-
-                    A fibra óptica não é apenas uma tecnologia
-                    de transmissão. Ela é parte da infraestrutura
-                    que sustenta o mundo conectado.
-
-                </p>
+            </button>
 
 
-                <a href="#inicio"
-                   class="primary-button">
+            <button
+                class="network-node node-bh"
+                data-node="3"
+            >
 
-                    VOLTAR AO TOPO
+                <span class="node-pulse"></span>
 
-                    <b>↑</b>
+                <span class="node-number">
+                    03
+                </span>
 
-                </a>
+                <span class="node-name">
+                    BELO HORIZONTE
+                </span>
+
+            </button>
+
+
+            <button
+                class="network-node node-brasilia"
+                data-node="4"
+            >
+
+                <span class="node-pulse"></span>
+
+                <span class="node-number">
+                    04
+                </span>
+
+                <span class="node-name">
+                    BRASÍLIA
+                </span>
+
+            </button>
+
+
+            <button
+                class="network-node node-salvador"
+                data-node="5"
+            >
+
+                <span class="node-pulse"></span>
+
+                <span class="node-number">
+                    05
+                </span>
+
+                <span class="node-name">
+                    SALVADOR
+                </span>
+
+            </button>
+
+
+            <button
+                class="network-node node-recife"
+                data-node="6"
+            >
+
+                <span class="node-pulse"></span>
+
+                <span class="node-number">
+                    06
+                </span>
+
+                <span class="node-name">
+                    RECIFE
+                </span>
+
+            </button>
+
+
+            <div
+                class="network-message"
+                id="networkMessage"
+            >
+
+                CLIQUE NO PONTO 01 PARA INICIAR
 
             </div>
 
-        </section>
 
-    </main>
+        </div>
 
 
-    <!-- =========================================================
-         FOOTER
-    ========================================================== -->
+        <div class="network-data">
 
-    <footer class="footer">
 
-        <div class="footer-logo">
+            <div class="data-box">
+
+                <span>
+                    ORIGEM
+                </span>
+
+                <strong id="dataOrigin">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="data-box">
+
+                <span>
+                    DESTINO
+                </span>
+
+                <strong id="dataDestination">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="data-box">
+
+                <span>
+                    DISTÂNCIA
+                </span>
+
+                <strong id="dataDistance">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="data-box">
+
+                <span>
+                    LUZ NO VÁCUO
+                </span>
+
+                <strong>
+                    299.792 km/s
+                </strong>
+
+            </div>
+
+
+            <div class="data-box highlight">
+
+                <span>
+                    VELOCIDADE NA FIBRA
+                </span>
+
+                <strong>
+                    ~200.000 km/s
+                </strong>
+
+            </div>
+
+
+            <div class="data-box highlight">
+
+                <span>
+                    TEMPO DO PULSO
+                </span>
+
+                <strong id="dataTravelTime">
+                    —
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="network-controls">
+
+
+            <div>
+
+                <span class="network-step-label">
+                    PRÓXIMA CONEXÃO
+                </span>
+
+                <strong id="nextConnection">
+                    01 → 02
+                </strong>
+
+            </div>
+
+
+            <button
+                class="network-reset"
+                id="resetNetwork"
+            >
+
+                RESETAR REDE
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
+    <div class="technical-explanation">
+
+
+        <div>
+
+            <span class="eyebrow">
+                FÍSICA DA TRANSMISSÃO
+            </span>
+
+            <h3>
+                A LUZ ATRAVESSA
+                DISTÂNCIAS ENORMES.
+            </h3>
+
+        </div>
+
+
+        <p>
+
+            No vácuo, a luz viaja a aproximadamente
+            <strong>299.792 km/s</strong>. Dentro da fibra,
+            a velocidade de propagação é menor. Neste
+            simulador utilizamos aproximadamente
+            <strong>200.000 km/s</strong> para representar
+            uma velocidade típica de propagação em fibra.
+
+        </p>
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     QUIZ
+===================================================== -->
+
+<section
+    class="section"
+    id="quiz"
+>
+
+
+    <div class="section-number">
+        07 / QUIZ
+    </div>
+
+
+    <div class="section-heading">
+
+        <span class="eyebrow">
+            TESTE SEU CONHECIMENTO
+        </span>
+
+        <h2>
+
+            VOCÊ ENTENDE
+            <span>
+                DE FIBRA?
+            </span>
+
+        </h2>
+
+    </div>
+
+
+    <div class="quiz-box">
+
+
+        <div class="quiz-progress">
+
+            <span id="quizProgress">
+                01 / 05
+            </span>
+
+            <div>
+
+                <span
+                    id="quizBar"
+                ></span>
+
+            </div>
+
+        </div>
+
+
+        <h3 id="quizQuestion">
+            Carregando pergunta...
+        </h3>
+
+
+        <div
+            class="quiz-options"
+            id="quizOptions"
+        ></div>
+
+
+        <div
+            class="quiz-feedback"
+            id="quizFeedback"
+        ></div>
+
+
+        <button
+            class="button button-primary quiz-next"
+            id="quizNext"
+        >
+
+            PRÓXIMA
+
+            <span>
+                →
+            </span>
+
+        </button>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     AULA PRÁTICA
+===================================================== -->
+
+<section
+    class="section dark-section"
+    id="pratica"
+>
+
+
+    <div class="section-number">
+        08 / AULA PRÁTICA
+    </div>
+
+
+    <div class="section-heading">
+
+        <span class="eyebrow">
+            EVIDÊNCIAS
+        </span>
+
+        <h2>
+
+            O QUE
+            <span>
+                ACONTECEU?
+            </span>
+
+        </h2>
+
+        <p>
+
+            Registro visual da atividade prática realizada
+            durante a pesquisa sobre fibra óptica.
+
+        </p>
+
+    </div>
+
+
+    <div class="gallery">
+
+
+        <div class="gallery-item large">
+
+            <div class="gallery-placeholder">
+
+                <span>
+                    FOTO / VÍDEO
+                </span>
+
+                <strong>
+                    ATIVIDADE PRÁTICA
+                </strong>
+
+                <small>
+                    Substitua este espaço pela imagem da aula.
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="gallery-item">
+
+            <div class="gallery-placeholder">
+
+                <span>
+                    REGISTRO 02
+                </span>
+
+                <strong>
+                    EXPERIMENTO
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="gallery-item">
+
+            <div class="gallery-placeholder">
+
+                <span>
+                    REGISTRO 03
+                </span>
+
+                <strong>
+                    FIBRA ÓPTICA
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="gallery-item">
+
+            <div class="gallery-placeholder">
+
+                <span>
+                    REGISTRO 04
+                </span>
+
+                <strong>
+                    OBSERVAÇÃO
+                </strong>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     CONCLUSÃO
+===================================================== -->
+
+<section class="final-section">
+
+
+    <div class="final-grid">
+
+
+        <div>
+
+            <span class="eyebrow">
+                CONCLUSÃO
+            </span>
+
+            <h2>
+
+                O FUTURO
+                <span>
+                    JÁ ESTÁ CONECTADO.
+                </span>
+
+            </h2>
+
+        </div>
+
+
+        <p>
+
+            A fibra óptica representa uma das principais
+            tecnologias responsáveis pela comunicação
+            moderna. Ela permite transmitir enormes
+            quantidades de informação através de pulsos
+            de luz com alta velocidade e eficiência.
+
+        </p>
+
+
+    </div>
+
+
+    <div class="final-line"></div>
+
+
+</section>
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+
+    <div class="footer-brand">
+
+        <span class="logo-symbol">
+            FO
+        </span>
+
+        <div>
 
             <strong>
-                FIBRA<span>∞</span>
+                O FUTURO DA COMUNICAÇÃO
             </strong>
 
-            <p>
-                O Futuro da Comunicação
-            </p>
-
-        </div>
-
-
-        <div class="footer-info">
-
-            <p>
-                <strong>Instituição:</strong>
-                C.E. Padre Claudio Morelli
-            </p>
-
-            <p>
-                <strong>Integrantes:</strong>
-                Murilo e Victor Ferreira
-            </p>
-
-            <p>
-                <strong>Turma:</strong>
-                2G — Tarde
-            </p>
-
-        </div>
-
-
-        <div class="footer-bottom">
-
             <span>
-                PESQUISA ESCOLAR • FIBRA ÓPTICA
-            </span>
-
-            <span>
-                © 2026
+                Pesquisa sobre Fibra Óptica
             </span>
 
         </div>
 
-    </footer>
+    </div>
 
 
-    <!-- =========================================================
-         JAVASCRIPT
-    ========================================================== -->
+    <div class="footer-info">
 
-    <script src="script.js"></script>
+        <div>
+
+            <span>
+                INSTITUIÇÃO
+            </span>
+
+            <strong>
+                C.E. PADRE CLAUDIO MORELLI
+            </strong>
+
+        </div>
+
+
+        <div>
+
+            <span>
+                INTEGRANTES
+            </span>
+
+            <strong>
+                MURILO • VICTOR FERREIRA
+            </strong>
+
+        </div>
+
+
+        <div>
+
+            <span>
+                TURMA
+            </span>
+
+            <strong>
+                2G • TARDE
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <span>
+            CONCEITO TEÓRICO • DADOS • PESQUISA
+        </span>
+
+        <span>
+            © 2026
+        </span>
+
+    </div>
+
+
+</footer>
+
+
+<script src="script.js"></script>
 
 </body>
+
 </html>
