@@ -2,276 +2,185 @@
    CURSOR FUTURISTA
 ========================================================= */
 
-const cursor =
-    document.getElementById("cursor");
-
-const cursorRing =
-    document.getElementById("cursorRing");
+const cursor = document.getElementById("cursor");
+const cursorRing = document.getElementById("cursorRing");
 
 let mouseX = 0;
 let mouseY = 0;
-
 let ringX = 0;
 let ringY = 0;
 
+document.addEventListener("mousemove", event => {
 
-document.addEventListener(
-    "mousemove",
-    event => {
+    mouseX = event.clientX;
+    mouseY = event.clientY;
 
-        mouseX = event.clientX;
-        mouseY = event.clientY;
-
-        if (cursor) {
-
-            cursor.style.left =
-                `${mouseX}px`;
-
-            cursor.style.top =
-                `${mouseY}px`;
-
-        }
-
+    if (cursor) {
+        cursor.style.left = `${mouseX}px`;
+        cursor.style.top = `${mouseY}px`;
     }
-);
 
+});
 
 function animateCursor() {
 
-    ringX +=
-        (mouseX - ringX) * .15;
-
-    ringY +=
-        (mouseY - ringY) * .15;
+    ringX += (mouseX - ringX) * 0.15;
+    ringY += (mouseY - ringY) * 0.15;
 
     if (cursorRing) {
-
-        cursorRing.style.left =
-            `${ringX}px`;
-
-        cursorRing.style.top =
-            `${ringY}px`;
-
+        cursorRing.style.left = `${ringX}px`;
+        cursorRing.style.top = `${ringY}px`;
     }
 
-    requestAnimationFrame(
-        animateCursor
-    );
-
+    requestAnimationFrame(animateCursor);
 }
 
 animateCursor();
 
 
 /* =========================================================
-   HOVER
+   HOVER DO CURSOR
 ========================================================= */
 
-function setupHoverElements() {
+function activateCursorHover() {
 
-    const elements =
-        document.querySelectorAll(
-            "a, button, .concept-card, .subtheme, .flashcard, .gallery-item, .metric-card, .usage-grid article, .future-grid article"
-        );
-
-    elements.forEach(
-        element => {
-
-            element.addEventListener(
-                "mouseenter",
-                () => {
-
-                    document.body.classList.add(
-                        "cursor-hover"
-                    );
-
-                }
-            );
-
-            element.addEventListener(
-                "mouseleave",
-                () => {
-
-                    document.body.classList.remove(
-                        "cursor-hover"
-                    );
-
-                }
-            );
-
-        }
+    const hoverElements = document.querySelectorAll(
+        "a, button, .concept-card, .subtheme, .flashcard, .application-card, .reference-card"
     );
+
+    hoverElements.forEach(element => {
+
+        element.addEventListener("mouseenter", () => {
+            document.body.classList.add("cursor-hover");
+        });
+
+        element.addEventListener("mouseleave", () => {
+            document.body.classList.remove("cursor-hover");
+        });
+
+    });
 
 }
 
-setupHoverElements();
+activateCursorHover();
 
 
 /* =========================================================
    MENU MOBILE
 ========================================================= */
 
-const menuButton =
-    document.getElementById(
-        "menuButton"
-    );
+const menuButton = document.getElementById("menuButton");
+const mobileMenu = document.getElementById("mobileMenu");
 
-const mobileMenu =
-    document.getElementById(
-        "mobileMenu"
-    );
+if (menuButton && mobileMenu) {
 
+    menuButton.addEventListener("click", () => {
 
-if (
-    menuButton &&
-    mobileMenu
-) {
+        mobileMenu.classList.toggle("active");
 
-    menuButton.addEventListener(
-        "click",
-        () => {
+    });
 
-            mobileMenu.classList.toggle(
-                "active"
-            );
+    mobileMenu.querySelectorAll("a").forEach(link => {
 
-        }
-    );
+        link.addEventListener("click", () => {
 
+            mobileMenu.classList.remove("active");
 
-    mobileMenu
-        .querySelectorAll("a")
-        .forEach(
-            link => {
+        });
 
-                link.addEventListener(
-                    "click",
-                    () => {
-
-                        mobileMenu.classList.remove(
-                            "active"
-                        );
-
-                    }
-                );
-
-            }
-        );
+    });
 
 }
 
 
 /* =========================================================
-   PARTICULAS
+   EFEITO CASCATA
 ========================================================= */
 
-const canvas =
-    document.getElementById(
-        "particles"
-    );
+const revealElements = document.querySelectorAll(".reveal");
+
+const revealObserver = new IntersectionObserver(
+    entries => {
+
+        entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+
+                entry.target.classList.add("visible");
+
+            } else {
+
+                /*
+                    Remove a classe quando o elemento sai
+                    da tela para que a animação aconteça
+                    novamente ao retornar.
+                */
+
+                entry.target.classList.remove("visible");
+
+            }
+
+        });
+
+    },
+    {
+        threshold: 0.12,
+        rootMargin: "0px 0px -50px 0px"
+    }
+);
+
+revealElements.forEach(element => {
+    revealObserver.observe(element);
+});
+
+
+/* =========================================================
+   PARTÍCULAS
+========================================================= */
+
+const canvas = document.getElementById("particles");
 
 let ctx = null;
-
 let particles = [];
-
 
 if (canvas) {
 
-    ctx =
-        canvas.getContext("2d");
-
+    ctx = canvas.getContext("2d");
 
     function resizeCanvas() {
 
-        const ratio =
-            Math.min(
-                window.devicePixelRatio || 1,
-                2
-            );
-
-        canvas.width =
-            window.innerWidth * ratio;
-
-        canvas.height =
-            window.innerHeight * ratio;
-
-        canvas.style.width =
-            `${window.innerWidth}px`;
-
-        canvas.style.height =
-            `${window.innerHeight}px`;
-
-        if (ctx) {
-
-            ctx.setTransform(
-                ratio,
-                0,
-                0,
-                ratio,
-                0,
-                0
-            );
-
-        }
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
     }
 
-
     resizeCanvas();
 
-
-    window.addEventListener(
-        "resize",
-        resizeCanvas
-    );
+    window.addEventListener("resize", resizeCanvas);
 
 
     function createParticles() {
 
         particles = [];
 
-        const amount =
-            Math.min(
-                130,
-                Math.max(
-                    45,
-                    Math.floor(
-                        window.innerWidth / 10
-                    )
-                )
-            );
+        const amount = Math.min(
+            130,
+            Math.floor(window.innerWidth / 9)
+        );
 
-
-        for (
-            let i = 0;
-            i < amount;
-            i++
-        ) {
+        for (let i = 0; i < amount; i++) {
 
             particles.push({
 
-                x:
-                    Math.random() *
-                    window.innerWidth,
+                x: Math.random() * canvas.width,
 
-                y:
-                    Math.random() *
-                    window.innerHeight,
+                y: Math.random() * canvas.height,
 
-                size:
-                    Math.random() *
-                    1.5 +
-                    .3,
+                size: Math.random() * 1.5 + .3,
 
-                speed:
-                    Math.random() *
-                    .25 +
-                    .05,
+                speed: Math.random() * .25 + .05,
 
-                alpha:
-                    Math.random() *
-                    .55 +
-                    .1
+                alpha: Math.random() * .5 + .1
 
             });
 
@@ -279,14 +188,7 @@ if (canvas) {
 
     }
 
-
     createParticles();
-
-
-    window.addEventListener(
-        "resize",
-        createParticles
-    );
 
 
     function animateParticles() {
@@ -295,60 +197,41 @@ if (canvas) {
             return;
         }
 
-
         ctx.clearRect(
             0,
             0,
-            window.innerWidth,
-            window.innerHeight
+            canvas.width,
+            canvas.height
         );
 
+        particles.forEach(particle => {
 
-        particles.forEach(
-            particle => {
+            particle.y -= particle.speed;
 
-                particle.y -=
-                    particle.speed;
-
-
-                if (
-                    particle.y < 0
-                ) {
-
-                    particle.y =
-                        window.innerHeight;
-
-                }
-
-
-                ctx.beginPath();
-
-
-                ctx.arc(
-                    particle.x,
-                    particle.y,
-                    particle.size,
-                    0,
-                    Math.PI * 2
-                );
-
-
-                ctx.fillStyle =
-                    `rgba(0,234,255,${particle.alpha})`;
-
-
-                ctx.fill();
-
+            if (particle.y < 0) {
+                particle.y = canvas.height;
             }
-        );
 
+            ctx.beginPath();
 
-        requestAnimationFrame(
-            animateParticles
-        );
+            ctx.arc(
+                particle.x,
+                particle.y,
+                particle.size,
+                0,
+                Math.PI * 2
+            );
+
+            ctx.fillStyle =
+                `rgba(0,234,255,${particle.alpha})`;
+
+            ctx.fill();
+
+        });
+
+        requestAnimationFrame(animateParticles);
 
     }
-
 
     animateParticles();
 
@@ -360,118 +243,73 @@ if (canvas) {
 ========================================================= */
 
 const flashcards =
-    document.querySelectorAll(
-        ".flashcard"
-    );
+    document.querySelectorAll(".flashcard");
 
+flashcards.forEach(card => {
 
-flashcards.forEach(
-    card => {
+    card.addEventListener("click", () => {
 
-        card.addEventListener(
-            "click",
-            () => {
+        card.classList.toggle("flipped");
 
-                card.classList.toggle(
-                    "flipped"
-                );
+    });
 
-            }
-        );
+    card.addEventListener("keydown", event => {
 
+        if (
+            event.key === "Enter" ||
+            event.key === " "
+        ) {
 
-        card.addEventListener(
-            "keydown",
-            event => {
+            event.preventDefault();
 
-                if (
-                    event.key === "Enter" ||
-                    event.key === " "
-                ) {
+            card.classList.toggle("flipped");
 
-                    event.preventDefault();
+        }
 
-                    card.classList.toggle(
-                        "flipped"
-                    );
+    });
 
-                }
-
-            }
-        );
-
-    }
-);
+});
 
 
 /* =========================================================
-   MAPA MUNDIAL + REDE ÓPTICA
+   NETWORK LAB
 ========================================================= */
 
 const networkMap =
-    document.getElementById(
-        "fiberMap"
-    );
-
-const worldMapElement =
-    document.getElementById(
-        "worldMap"
-    );
+    document.getElementById("fiberMap");
 
 const fiberLines =
-    document.getElementById(
-        "fiberLines"
-    );
+    document.getElementById("fiberLines");
 
 const networkNodes =
-    document.querySelectorAll(
-        ".network-node"
-    );
+    document.querySelectorAll(".network-node");
 
 const networkMessage =
-    document.getElementById(
-        "networkMessage"
-    );
+    document.getElementById("networkMessage");
 
 const nextConnection =
-    document.getElementById(
-        "nextConnection"
-    );
+    document.getElementById("nextConnection");
 
 const resetNetwork =
-    document.getElementById(
-        "resetNetwork"
-    );
+    document.getElementById("resetNetwork");
 
 const dataOrigin =
-    document.getElementById(
-        "dataOrigin"
-    );
+    document.getElementById("dataOrigin");
 
 const dataDestination =
-    document.getElementById(
-        "dataDestination"
-    );
+    document.getElementById("dataDestination");
 
 const dataDistance =
-    document.getElementById(
-        "dataDistance"
-    );
+    document.getElementById("dataDistance");
 
 const dataTravelTime =
-    document.getElementById(
-        "dataTravelTime"
-    );
+    document.getElementById("dataTravelTime");
 
 const networkLatency =
-    document.getElementById(
-        "networkLatency"
-    );
+    document.getElementById("networkLatency");
 
 const travelingLight =
-    document.getElementById(
-        "travelingLight"
-    );
+    document.getElementById("travelingLight");
 
 
 /* =========================================================
@@ -481,310 +319,110 @@ const travelingLight =
 const networkData = {
 
     1: {
-
         name: "Curitiba",
-
         country: "Brasil",
-
         flag: "🇧🇷",
-
+        x: 25,
+        y: 68,
         lat: -25.4284,
-
         lon: -49.2733
-
     },
 
     2: {
-
         name: "Nova York",
-
         country: "Estados Unidos",
-
         flag: "🇺🇸",
-
+        x: 44,
+        y: 32,
         lat: 40.7128,
-
         lon: -74.0060
-
     },
 
     3: {
-
         name: "Paris",
-
         country: "França",
-
         flag: "🇫🇷",
-
+        x: 55,
+        y: 31,
         lat: 48.8566,
-
         lon: 2.3522
-
     },
 
     4: {
-
         name: "Tóquio",
-
         country: "Japão",
-
         flag: "🇯🇵",
-
+        x: 85,
+        y: 40,
         lat: 35.6762,
-
         lon: 139.6503
-
     },
 
     5: {
-
         name: "Moscou",
-
         country: "Rússia",
-
         flag: "🇷🇺",
-
+        x: 69,
+        y: 22,
         lat: 55.7558,
-
         lon: 37.6173
-
     },
 
     6: {
-
         name: "Londres",
-
         country: "Reino Unido",
-
         flag: "🇬🇧",
-
+        x: 53,
+        y: 26,
         lat: 51.5074,
-
         lon: -0.1278
-
     }
 
 };
 
 
 /* =========================================================
-   MAPA LEAFLET
-========================================================= */
-
-let leafletMap = null;
-
-
-function initializeWorldMap() {
-
-    if (
-        !worldMapElement ||
-        typeof L === "undefined"
-    ) {
-
-        return;
-
-    }
-
-
-    leafletMap =
-        L.map(
-            worldMapElement,
-            {
-                center: [25, 0],
-                zoom: 2,
-                minZoom: 1.5,
-                maxZoom: 5,
-                zoomControl: false,
-                attributionControl: true,
-                dragging: true,
-                scrollWheelZoom: false,
-                doubleClickZoom: false,
-                boxZoom: false,
-                keyboard: false,
-                touchZoom: true
-            }
-        );
-
-
-    L.tileLayer(
-        "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
-        {
-            maxZoom: 19,
-            attribution:
-                '&copy; OpenStreetMap &copy; CARTO'
-        }
-    ).addTo(
-        leafletMap
-    );
-
-
-    Object.keys(
-        networkData
-    ).forEach(
-        id => {
-
-            const city =
-                networkData[id];
-
-
-            L.circleMarker(
-                [
-                    city.lat,
-                    city.lon
-                ],
-                {
-                    radius: 2,
-                    color: "#00eaff",
-                    fillColor: "#00eaff",
-                    fillOpacity: .45,
-                    opacity: .5,
-                    weight: 1,
-                    interactive: false
-                }
-            ).addTo(
-                leafletMap
-            );
-
-        }
-    );
-
-
-    setTimeout(
-        () => {
-
-            leafletMap.invalidateSize();
-
-        },
-        300
-    );
-
-}
-
-
-initializeWorldMap();
-
-
-/* =========================================================
-   ESTADO
+   ESTADO DA REDE
 ========================================================= */
 
 let selectedNode = null;
-
 let connections = [];
 
 
 /* =========================================================
-   CONVERTER LAT/LON PARA SVG
+   DISTÂNCIA — HAVERSINE
 ========================================================= */
 
-function coordinatesToSvg(
-    city
-) {
-
-    const width = 1000;
-
-    const height = 650;
-
-
-    /*
-       Projeção equiretangular simples.
-       A posição é compatível com o mapa mundial
-       em escala global.
-    */
-
-    const x =
-        (
-            (city.lon + 180) /
-            360
-        ) *
-        width;
-
-
-    const y =
-        (
-            (90 - city.lat) /
-            180
-        ) *
-        height;
-
-
-    return {
-        x,
-        y
-    };
-
-}
-
-
-/* =========================================================
-   DISTÂNCIA HAVERSINE
-========================================================= */
-
-function calculateDistance(
-    pointA,
-    pointB
-) {
+function calculateDistance(pointA, pointB) {
 
     const earthRadius = 6371;
 
-    const cityA =
-        networkData[pointA];
+    const cityA = networkData[pointA];
+    const cityB = networkData[pointB];
 
-    const cityB =
-        networkData[pointB];
-
-
-    if (
-        !cityA ||
-        !cityB
-    ) {
-
+    if (!cityA || !cityB) {
         return 0;
-
     }
 
-
     const lat1 =
-        cityA.lat *
-        Math.PI /
-        180;
+        cityA.lat * Math.PI / 180;
 
     const lat2 =
-        cityB.lat *
-        Math.PI /
-        180;
-
+        cityB.lat * Math.PI / 180;
 
     const deltaLat =
-        (
-            cityB.lat -
-            cityA.lat
-        ) *
-        Math.PI /
-        180;
-
+        (cityB.lat - cityA.lat) *
+        Math.PI / 180;
 
     const deltaLon =
-        (
-            cityB.lon -
-            cityA.lon
-        ) *
-        Math.PI /
-        180;
-
+        (cityB.lon - cityA.lon) *
+        Math.PI / 180;
 
     const a =
-        Math.sin(
-            deltaLat / 2
-        ) ** 2 +
-
+        Math.sin(deltaLat / 2) ** 2 +
         Math.cos(lat1) *
         Math.cos(lat2) *
-
-        Math.sin(
-            deltaLon / 2
-        ) ** 2;
-
+        Math.sin(deltaLon / 2) ** 2;
 
     const c =
         2 *
@@ -793,26 +431,21 @@ function calculateDistance(
             Math.sqrt(1 - a)
         );
 
-
     return earthRadius * c;
 
 }
 
 
 /* =========================================================
-   TEMPO
+   TEMPO DE PROPAGAÇÃO
 ========================================================= */
 
-function calculateTravelTime(
-    distanceKm
-) {
+function calculateTravelTime(distanceKm) {
 
     const fiberSpeed = 200000;
 
     const seconds =
-        distanceKm /
-        fiberSpeed;
-
+        distanceKm / fiberSpeed;
 
     return {
 
@@ -833,55 +466,40 @@ function calculateTravelTime(
 
 
 /* =========================================================
-   FORMATA TEMPO
+   FORMATAR TEMPO
 ========================================================= */
 
-function formatTravelTime(
-    time
-) {
+function formatTravelTime(time) {
 
-    if (
-        time.nanoseconds < 1000
-    ) {
+    if (time.nanoseconds < 1000) {
 
         return (
-            time.nanoseconds
-                .toFixed(2) +
+            time.nanoseconds.toFixed(2) +
             " ns"
         );
 
     }
 
-
-    if (
-        time.microseconds < 1000
-    ) {
+    if (time.microseconds < 1000) {
 
         return (
-            time.microseconds
-                .toFixed(2) +
+            time.microseconds.toFixed(2) +
             " μs"
         );
 
     }
 
-
-    if (
-        time.milliseconds < 1000
-    ) {
+    if (time.milliseconds < 1000) {
 
         return (
-            time.milliseconds
-                .toFixed(4) +
+            time.milliseconds.toFixed(4) +
             " ms"
         );
 
     }
 
-
     return (
-        time.seconds
-            .toFixed(3) +
+        time.seconds.toFixed(3) +
         " s"
     );
 
@@ -892,80 +510,44 @@ function formatTravelTime(
    CRIAR CONEXÃO
 ========================================================= */
 
-function createFiberConnection(
-    from,
-    to
-) {
+function createFiberConnection(from, to) {
 
-    if (
-        !fiberLines
-    ) {
-
+    if (!networkMap || !fiberLines) {
         return null;
-
     }
 
+    const fromData = networkData[from];
+    const toData = networkData[to];
 
-    const fromData =
-        networkData[from];
-
-    const toData =
-        networkData[to];
-
-
-    if (
-        !fromData ||
-        !toData
-    ) {
-
+    if (!fromData || !toData) {
         return null;
-
     }
 
+    const x1 = fromData.x * 10;
+    const y1 = fromData.y * 6.5;
 
-    const start =
-        coordinatesToSvg(
-            fromData
-        );
+    const x2 = toData.x * 10;
+    const y2 = toData.y * 6.5;
 
-    const end =
-        coordinatesToSvg(
-            toData
-        );
-
-
-    const middleX =
-        (
-            start.x +
-            end.x
-        ) / 2;
-
+    const middleX = (x1 + x2) / 2;
 
     const distanceVisual =
-        Math.abs(
-            end.y -
-            start.y
-        );
-
+        Math.abs(y2 - y1);
 
     const middleY =
-        Math.min(
-            start.y,
-            end.y
-        ) -
+        Math.min(y1, y2) -
         Math.max(
-            35,
+            45,
             Math.min(
-                90,
-                distanceVisual * .2
+                100,
+                distanceVisual * .25
             )
         );
 
-
     const pathData = `
-        M ${start.x} ${start.y}
+        M ${x1} ${y1}
         Q ${middleX} ${middleY}
-        ${end.x} ${end.y}
+        ${x2} ${y2}
     `;
 
 
@@ -975,7 +557,6 @@ function createFiberConnection(
             "path"
         );
 
-
     backgroundPath.setAttribute(
         "d",
         pathData
@@ -984,7 +565,6 @@ function createFiberConnection(
     backgroundPath.classList.add(
         "fiber-path-bg"
     );
-
 
     fiberLines.appendChild(
         backgroundPath
@@ -997,7 +577,6 @@ function createFiberConnection(
             "path"
         );
 
-
     fiber.setAttribute(
         "d",
         pathData
@@ -1007,14 +586,12 @@ function createFiberConnection(
         "fiber-path"
     );
 
-
     fiberLines.appendChild(
         fiber
     );
 
 
     let length = 1000;
-
 
     try {
 
@@ -1035,39 +612,31 @@ function createFiberConnection(
         length;
 
 
-    requestAnimationFrame(
-        () => {
+    requestAnimationFrame(() => {
 
-            fiber.style.transition =
-                "stroke-dashoffset 1.2s ease";
+        fiber.style.transition =
+            "stroke-dashoffset 1.2s ease";
 
-            fiber.style.strokeDashoffset =
-                "0";
+        fiber.style.strokeDashoffset =
+            "0";
 
-        }
-    );
+    });
 
 
     return {
-
         path: fiber,
-
         from,
-
         to
-
     };
 
 }
 
 
 /* =========================================================
-   PULSO
+   PULSO DE LUZ
 ========================================================= */
 
-function animateLight(
-    connection
-) {
+function animateLight(connection) {
 
     if (
         !connection ||
@@ -1075,18 +644,12 @@ function animateLight(
         !travelingLight ||
         !networkMap
     ) {
-
         return;
-
     }
 
-
-    const path =
-        connection.path;
-
+    const path = connection.path;
 
     let totalLength;
-
 
     try {
 
@@ -1099,64 +662,44 @@ function animateLight(
 
     }
 
-
     const startTime =
         performance.now();
 
+    const duration = 1800;
 
-    const duration =
-        1800;
-
-
-    travelingLight.style.opacity =
-        "1";
+    travelingLight.style.opacity = "1";
 
 
-    function animate(
-        currentTime
-    ) {
+    function animate(currentTime) {
 
         const elapsed =
-            currentTime -
-            startTime;
-
+            currentTime - startTime;
 
         const progress =
             Math.min(
-                elapsed /
-                duration,
+                elapsed / duration,
                 1
             );
-
 
         const eased =
             progress *
             progress *
-            (
-                3 -
-                2 *
-                progress
-            );
-
+            (3 - 2 * progress);
 
         const point =
             path.getPointAtLength(
-                totalLength *
-                eased
+                totalLength * eased
             );
-
 
         const x =
             point.x *
             networkMap.clientWidth /
             1000;
 
-
         const y =
             point.y *
             networkMap.clientHeight /
             650;
-
 
         travelingLight.style.left =
             `${x}px`;
@@ -1165,9 +708,7 @@ function animateLight(
             `${y}px`;
 
 
-        if (
-            progress < 1
-        ) {
+        if (progress < 1) {
 
             requestAnimationFrame(
                 animate
@@ -1182,7 +723,6 @@ function animateLight(
 
     }
 
-
     requestAnimationFrame(
         animate
     );
@@ -1191,25 +731,16 @@ function animateLight(
 
 
 /* =========================================================
-   PAINEL
+   PAINEL TÉCNICO
 ========================================================= */
 
-function updateTechnicalPanel(
-    from,
-    to
-) {
+function updateTechnicalPanel(from, to) {
 
     const distance =
-        calculateDistance(
-            from,
-            to
-        );
-
+        calculateDistance(from, to);
 
     const time =
-        calculateTravelTime(
-            distance
-        );
+        calculateTravelTime(distance);
 
 
     if (dataOrigin) {
@@ -1239,9 +770,7 @@ function updateTechnicalPanel(
     if (dataTravelTime) {
 
         dataTravelTime.textContent =
-            formatTravelTime(
-                time
-            );
+            formatTravelTime(time);
 
     }
 
@@ -1257,42 +786,33 @@ function updateTechnicalPanel(
 
 
 /* =========================================================
-   CONECTAR
+   CONECTAR CIDADES
 ========================================================= */
 
-function connectNodes(
-    from,
-    to
-) {
+function connectNodes(from, to) {
 
-    if (
-        from === to
-    ) {
-
+    if (from === to) {
         return;
-
     }
 
 
     const alreadyConnected =
-        connections.some(
-            connection =>
+        connections.some(connection =>
 
-                (
-                    connection.from === from &&
-                    connection.to === to
-                ) ||
+            (
+                connection.from === from &&
+                connection.to === to
+            ) ||
 
-                (
-                    connection.from === to &&
-                    connection.to === from
-                )
+            (
+                connection.from === to &&
+                connection.to === from
+            )
+
         );
 
 
-    if (
-        alreadyConnected
-    ) {
+    if (alreadyConnected) {
 
         if (networkMessage) {
 
@@ -1314,22 +834,17 @@ function connectNodes(
 
 
     if (!connection) {
-
         return;
-
     }
 
 
-    connections.push(
-        connection
-    );
+    connections.push(connection);
 
 
     const fromNode =
         document.querySelector(
             `[data-node="${from}"]`
         );
-
 
     const toNode =
         document.querySelector(
@@ -1338,20 +853,11 @@ function connectNodes(
 
 
     if (fromNode) {
-
-        fromNode.classList.add(
-            "connected"
-        );
-
+        fromNode.classList.add("connected");
     }
 
-
     if (toNode) {
-
-        toNode.classList.add(
-            "connected"
-        );
-
+        toNode.classList.add("connected");
     }
 
 
@@ -1388,185 +894,151 @@ function connectNodes(
    CLIQUE NOS NÓS
 ========================================================= */
 
-networkNodes.forEach(
-    node => {
+networkNodes.forEach(node => {
 
-        node.addEventListener(
-            "click",
-            () => {
+    node.addEventListener("click", () => {
 
-                const number =
-                    Number(
-                        node.dataset.node
-                    );
+        const number =
+            Number(node.dataset.node);
 
 
-                if (
-                    !networkData[number]
-                ) {
-
-                    return;
-
-                }
+        if (!networkData[number]) {
+            return;
+        }
 
 
-                if (
-                    selectedNode === null
-                ) {
+        if (selectedNode === null) {
 
-                    selectedNode =
-                        number;
+            selectedNode = number;
 
 
-                    networkNodes.forEach(
-                        item => {
+            networkNodes.forEach(item => {
 
-                            item.classList.remove(
-                                "selected"
-                            );
-
-                        }
-                    );
-
-
-                    node.classList.add(
-                        "selected"
-                    );
-
-
-                    if (networkMessage) {
-
-                        networkMessage.textContent =
-                            `${networkData[number].flag} ${networkData[number].name.toUpperCase()} SELECIONADA — ESCOLHA O DESTINO`;
-
-                    }
-
-
-                    if (nextConnection) {
-
-                        nextConnection.textContent =
-                            `${networkData[number].name} → ?`;
-
-                    }
-
-
-                    return;
-
-                }
-
-
-                if (
-                    number ===
-                    selectedNode
-                ) {
-
-                    node.classList.remove(
-                        "selected"
-                    );
-
-
-                    selectedNode =
-                        null;
-
-
-                    if (networkMessage) {
-
-                        networkMessage.textContent =
-                            "SELECIONE UMA CIDADE DE ORIGEM";
-
-                    }
-
-
-                    if (nextConnection) {
-
-                        nextConnection.textContent =
-                            "ESCOLHA QUALQUER PONTO";
-
-                    }
-
-
-                    return;
-
-                }
-
-
-                const origin =
-                    selectedNode;
-
-                const destination =
-                    number;
-
-
-                connectNodes(
-                    origin,
-                    destination
-                );
-
-
-                networkNodes.forEach(
-                    item => {
-
-                        item.classList.remove(
-                            "selected"
-                        );
-
-                    }
-                );
-
-
-                node.classList.add(
+                item.classList.remove(
                     "selected"
                 );
 
+            });
 
-                selectedNode =
-                    destination;
+
+            node.classList.add(
+                "selected"
+            );
+
+
+            if (networkMessage) {
+
+                networkMessage.textContent =
+                    `${networkData[number].flag} ${networkData[number].name.toUpperCase()} SELECIONADA — ESCOLHA O DESTINO`;
 
             }
+
+
+            if (nextConnection) {
+
+                nextConnection.textContent =
+                    `${networkData[number].name} → ?`;
+
+            }
+
+
+            return;
+
+        }
+
+
+        if (number === selectedNode) {
+
+            node.classList.remove(
+                "selected"
+            );
+
+            selectedNode = null;
+
+
+            if (networkMessage) {
+
+                networkMessage.textContent =
+                    "SELECIONE UMA CIDADE DE ORIGEM";
+
+            }
+
+
+            if (nextConnection) {
+
+                nextConnection.textContent =
+                    "ESCOLHA QUALQUER PONTO";
+
+            }
+
+
+            return;
+
+        }
+
+
+        const origin =
+            selectedNode;
+
+        const destination =
+            number;
+
+
+        connectNodes(
+            origin,
+            destination
         );
 
-    }
-);
+
+        networkNodes.forEach(item => {
+
+            item.classList.remove(
+                "selected"
+            );
+
+        });
+
+
+        node.classList.add(
+            "selected"
+        );
+
+
+        selectedNode =
+            destination;
+
+    });
+
+});
 
 
 /* =========================================================
-   RESET
+   RESET DA REDE
 ========================================================= */
 
-if (
-    resetNetwork
-) {
+if (resetNetwork) {
 
     resetNetwork.addEventListener(
         "click",
         () => {
 
-            selectedNode =
-                null;
-
-
-            connections =
-                [];
+            selectedNode = null;
+            connections = [];
 
 
             if (fiberLines) {
-
-                fiberLines.innerHTML =
-                    "";
-
+                fiberLines.innerHTML = "";
             }
 
 
-            networkNodes.forEach(
-                node => {
+            networkNodes.forEach(node => {
 
-                    node.classList.remove(
-                        "selected",
-                        "connected"
-                    );
+                node.classList.remove(
+                    "selected",
+                    "connected"
+                );
 
-                }
-            );
+            });
 
 
             if (dataOrigin) {
@@ -1590,24 +1062,17 @@ if (
             }
 
             if (nextConnection) {
-
                 nextConnection.textContent =
                     "ESCOLHA QUALQUER PONTO";
-
             }
 
             if (networkMessage) {
-
                 networkMessage.textContent =
                     "CLIQUE EM QUALQUER PONTO PARA INICIAR";
-
             }
 
             if (travelingLight) {
-
-                travelingLight.style.opacity =
-                    "0";
-
+                travelingLight.style.opacity = "0";
             }
 
         }
@@ -1617,7 +1082,7 @@ if (
 
 
 /* =========================================================
-   RESIZE DAS FIBRAS
+   RECONSTRUIR ROTAS NO RESIZE
 ========================================================= */
 
 window.addEventListener(
@@ -1628,69 +1093,40 @@ window.addEventListener(
             connections.length === 0 ||
             !fiberLines
         ) {
-
-            if (leafletMap) {
-
-                leafletMap.invalidateSize();
-
-            }
-
             return;
-
         }
 
 
         const savedConnections =
-            connections.map(
-                connection => ({
-
-                    from:
-                        connection.from,
-
-                    to:
-                        connection.to
-
-                })
-            );
+            connections.map(connection => ({
+                from: connection.from,
+                to: connection.to
+            }));
 
 
-        fiberLines.innerHTML =
-            "";
+        fiberLines.innerHTML = "";
+
+        connections = [];
 
 
-        connections =
-            [];
+        savedConnections.forEach(connection => {
+
+            const newConnection =
+                createFiberConnection(
+                    connection.from,
+                    connection.to
+                );
 
 
-        savedConnections.forEach(
-            connection => {
+            if (newConnection) {
 
-                const newConnection =
-                    createFiberConnection(
-                        connection.from,
-                        connection.to
-                    );
-
-
-                if (
+                connections.push(
                     newConnection
-                ) {
-
-                    connections.push(
-                        newConnection
-                    );
-
-                }
+                );
 
             }
-        );
 
-
-        if (leafletMap) {
-
-            leafletMap.invalidateSize();
-
-        }
+        });
 
     }
 );
@@ -1703,136 +1139,95 @@ window.addEventListener(
 const quizQuestions = [
 
     {
-
         question:
             "Qual é o principal meio utilizado pela fibra óptica para transportar informações?",
 
         options: [
-
             "Corrente elétrica",
-
             "Pulsos de luz",
-
             "Ondas sonoras",
-
             "Campo magnético"
-
         ],
 
         answer: 1,
 
         explanation:
-            "A fibra óptica transmite informações através de sinais luminosos."
-
+            "A fibra óptica transmite informações utilizando sinais luminosos."
     },
 
-
     {
-
         question:
             "Qual é aproximadamente a velocidade da luz no vácuo?",
 
         options: [
-
             "3.000 km/s",
-
             "30.000 km/s",
-
             "299.792 km/s",
-
             "999.999 km/s"
-
         ],
 
         answer: 2,
 
         explanation:
             "A velocidade da luz no vácuo é aproximadamente 299.792 km/s."
-
     },
 
-
     {
-
         question:
-            "O que mantém a luz confinada dentro do núcleo da fibra?",
+            "O que ajuda a manter a luz confinada no núcleo da fibra?",
 
         options: [
-
             "Reflexão interna total",
-
             "Eletricidade",
-
             "Magnetismo",
-
             "Calor"
-
         ],
 
         answer: 0,
 
         explanation:
-            "A reflexão interna total mantém a luz confinada ao núcleo."
-
+            "A reflexão interna total permite que a luz permaneça guiada no núcleo."
     },
 
-
     {
-
         question:
-            "Qual material é normalmente utilizado no núcleo de fibras ópticas convencionais?",
+            "Qual material é normalmente utilizado no núcleo das fibras ópticas convencionais?",
 
         options: [
-
             "Ferro",
-
             "Cobre",
-
             "Vidro",
-
             "Alumínio"
-
         ],
 
         answer: 2,
 
         explanation:
             "Fibras ópticas convencionais utilizam principalmente vidro de alta pureza."
-
     },
 
-
     {
-
         question:
-            "Por que a fibra é importante para a internet moderna?",
+            "Por que a fibra óptica é importante para a internet moderna?",
 
         options: [
-
-            "Porque transmite grandes quantidades de dados rapidamente",
-
+            "Porque oferece grande capacidade de transmissão",
             "Porque utiliza ondas sonoras",
-
             "Porque funciona apenas em curtas distâncias",
-
             "Porque não precisa de equipamentos"
-
         ],
 
         answer: 0,
 
         explanation:
-            "A fibra oferece alta capacidade e baixa perda, sendo fundamental para redes modernas."
-
+            "A fibra possui grande capacidade e baixa perda de sinal, sendo essencial para redes modernas."
     }
 
 ];
 
 
 let currentQuestion = 0;
-
 let quizScore = 0;
-
 let quizAnswered = false;
 
 
@@ -1877,27 +1272,15 @@ function loadQuizQuestion() {
         !quizProgress ||
         !quizBar
     ) {
-
         return;
-
     }
 
 
     const question =
-        quizQuestions[
-            currentQuestion
-        ];
+        quizQuestions[currentQuestion];
 
 
-    if (!question) {
-
-        return;
-
-    }
-
-
-    quizAnswered =
-        false;
+    quizAnswered = false;
 
 
     quizQuestion.textContent =
@@ -1916,7 +1299,7 @@ function loadQuizQuestion() {
         "none";
 
 
-    quizNext.textContent =
+    quizNext.innerHTML =
         "PRÓXIMA →";
 
 
@@ -1935,16 +1318,12 @@ function loadQuizQuestion() {
                     currentQuestion + 1
                 ) /
                 quizQuestions.length
-            ) *
-            100
+            ) * 100
         }%`;
 
 
     question.options.forEach(
-        (
-            option,
-            index
-        ) => {
+        (option, index) => {
 
             const button =
                 document.createElement(
@@ -1992,23 +1371,16 @@ function answerQuestion(
     selectedButton
 ) {
 
-    if (
-        quizAnswered
-    ) {
-
+    if (quizAnswered) {
         return;
-
     }
 
 
-    quizAnswered =
-        true;
+    quizAnswered = true;
 
 
     const question =
-        quizQuestions[
-            currentQuestion
-        ];
+        quizQuestions[currentQuestion];
 
 
     const options =
@@ -2017,14 +1389,11 @@ function answerQuestion(
         );
 
 
-    options.forEach(
-        button => {
+    options.forEach(button => {
 
-            button.disabled =
-                true;
+        button.disabled = true;
 
-        }
-    );
+    });
 
 
     if (
@@ -2079,9 +1448,7 @@ function answerQuestion(
 }
 
 
-if (
-    quizNext
-) {
+if (quizNext) {
 
     quizNext.addEventListener(
         "click",
@@ -2111,20 +1478,6 @@ if (
 
 function showQuizResult() {
 
-    if (
-        !quizQuestion ||
-        !quizOptions ||
-        !quizFeedback ||
-        !quizNext ||
-        !quizProgress ||
-        !quizBar
-    ) {
-
-        return;
-
-    }
-
-
     quizProgress.textContent =
         "RESULTADO";
 
@@ -2153,7 +1506,7 @@ function showQuizResult() {
         "inline-flex";
 
 
-    quizNext.textContent =
+    quizNext.innerHTML =
         "REFAZER QUIZ →";
 
 
@@ -2165,25 +1518,12 @@ function showQuizResult() {
 
 function restartQuiz() {
 
-    currentQuestion =
-        0;
-
-    quizScore =
-        0;
-
-    quizAnswered =
-        false;
+    currentQuestion = 0;
+    quizScore = 0;
+    quizAnswered = false;
 
 
-    if (quizNext) {
-
-        quizNext.onclick =
-            null;
-
-        quizNext.textContent =
-            "PRÓXIMA →";
-
-    }
+    quizNext.onclick = null;
 
 
     loadQuizQuestion();
@@ -2195,7 +1535,7 @@ loadQuizQuestion();
 
 
 /* =========================================================
-   PARALLAXE HERO
+   PARALLAXE DO HERO
 ========================================================= */
 
 const heroVisual =
@@ -2210,11 +1550,9 @@ document.addEventListener(
 
         if (
             !heroVisual ||
-            window.innerWidth < 850
+            window.innerWidth < 800
         ) {
-
             return;
-
         }
 
 
@@ -2223,7 +1561,7 @@ document.addEventListener(
                 event.clientX /
                 window.innerWidth -
                 .5
-            ) * 15;
+            ) * 12;
 
 
         const y =
@@ -2231,74 +1569,13 @@ document.addEventListener(
                 event.clientY /
                 window.innerHeight -
                 .5
-            ) * 15;
+            ) * 12;
 
 
         heroVisual.style.transform =
             `translate(${x}px, ${y}px)`;
 
     }
-);
-
-
-/* =========================================================
-   LINKS INTERNOS
-========================================================= */
-
-document
-    .querySelectorAll(
-        'a[href^="#"]'
-    )
-    .forEach(
-        link => {
-
-            link.addEventListener(
-                "click",
-                event => {
-
-                    const targetId =
-                        link.getAttribute(
-                            "href"
-                        );
-
-
-                    if (
-                        !targetId ||
-                        targetId === "#"
-                    ) {
-
-                        return;
-
-                    }
-
-
-                    const target =
-                        document.querySelector(
-                            targetId
-                        );
-
-
-                    if (!target) {
-
-                        return;
-
-                    }
-
-
-                    event.preventDefault();
-
-
-                    target.scrollIntoView(
-                        {
-                            behavior: "smooth",
-                            block: "start"
-                        }
-                    );
-
-                }
-            );
-
-        }
 );
 
 
@@ -2312,17 +1589,17 @@ console.log(
 );
 
 console.log(
-    "Pesquisa interativa carregada."
+    "Pesquisa sobre fibra óptica carregada."
 );
 
 console.log(
-    "Mapa mundial real carregado."
+    "Mapa mundial carregado."
 );
 
 console.log(
-    "Rede óptica pronta."
+    "Sistema de animação em cascata ativado."
 );
 
 console.log(
-    "Rotas livres ativadas."
+    "Rede internacional pronta."
 );
